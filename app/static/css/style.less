@@ -1,0 +1,253 @@
+/* variables */
+@lightGreen: #68A869;
+@lightPink: #ffb6c1;
+@darkPink: #C69AA3;
+@lightGrey: #ebebeb;
+@darkGrey: #353535;
+@darkestGrey: #252525;
+
+/* color scheme dark */
+@backgroundColorBody: @darkestGrey;
+@backgroundColor: @darkGrey;
+@fontColor: @lightGrey;
+@linkColor: @lightPink;
+@linkHoverFontColor: @darkGrey;
+@linkHoverBackColor: @lightGrey;
+@linkVistiedColor: @darkPink;
+@navbarFontColor: @darkGrey;
+@navbarBackColor: @lightGrey;
+@accentColor1: @lightGreen;
+@accentColor2: @lightPink;
+
+/* color scheme light
+@backgroundColorBody: white;
+@backgroundColor: white;
+@fontColor: @darkGrey;
+@linkColor: @lightPink;
+@linkHoverFontColor: @darkGrey;
+@linkHoverBackColor: @lightGrey;
+@linkVistiedColor: @darkPink;
+@navbarFontColor: @darkGrey;
+@navbarBackColor: @lightGrey;
+@accentColor1: @lightGreen;
+@accentColor2: @lightPink;
+*/
+
+html, body {
+	height: 100%;
+	margin-top: 0px;
+	font-family: Helvetica, Sans-Serif;
+	background-color: @backgroundColorBody;
+	color: @fontColor;
+    width: 100%;
+	}
+
+#allcontent {
+	margin-left: 9em;
+	min-height: 100%;
+	border-left: 3px solid @accentColor1;
+	padding: 0em 0em 0em .5em;
+	background-color: @backgroundColor;
+}
+
+#header {
+	
+	#headerphoto {
+		display: none;
+	}
+	
+	h1 {
+		margin: 0px;
+	}
+	
+	#hgtitle {
+		xwidth: 100%;
+		
+		a:link {
+			color: @fontColor;
+			text-decoration: none;
+		}
+		a:visited {
+			color: @fontColor;
+			text-decoration: none;
+			padding: 0px 6px 0px 6px;
+		}
+		a:hover {
+			//color: @backgroundColor;
+            //background-color: @fontColor;
+		}
+		
+		#page {
+			color: @accentColor2;
+			//z-index: ;
+		}
+	}
+
+	#navbar {
+		margin: 0px 0px 0px 0px;
+		padding: 0px 0px 0px 0px;
+		list-style-type: none;
+		border-left: 2px solid @backgroundColor;
+		border-right: 2px solid @backgroundColor;
+		line-height: 100%;
+		
+		li {
+			background-color: @accentColor1;
+			display: inline;
+			border-right: 2px solid @backgroundColor;
+			
+			&:first-child {
+			}	
+			&:last-child {
+			}
+			a:link {
+				color:@navbarFontColor;
+				text-decoration: none;
+				padding: 0px 6px 0px 6px;
+			}
+			a:visited {
+				color:@navbarFontColor;
+			}
+			a:hover {
+				background-color: @navbarBackColor;
+				color: @navbarFontColor;
+			}
+			&.currentpage {
+				background-color: @accentColor2;
+			}
+		}
+		
+		#navbarlogin {
+			}
+	}
+}
+
+#main {
+	max-width: 45em;
+    a {
+		&:link {
+			background: @backgroundColor;
+			color: @linkColor;
+		}
+		&:visited {
+			color: @linkVistiedColor;
+		}
+		&:hover {
+			background: @linkHoverBackColor;
+			color: @linkHoverFontColor;
+		}
+    }
+	#main h1, h2, h3{
+		font-weight: bold;
+		color: @accentColor2;
+        }
+}
+
+/*
+h1 {font-size: ;}
+h2 {}
+h3 {}
+*/
+
+/*
+#header {
+	width: 100%;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	position: relative;
+	}
+#header h1 {
+	font-size: 190%;
+	padding: 19px 0px 19px 5px;
+	margin: 0px 0px 0px 0px;
+	width: 99.7%;
+	position: relative;
+	}
+#header h2 {
+	width: 50%;
+	margin: 2px 0px 3px 0px;
+	}
+#navbar {
+	font-size: 130%;
+	margin: 0px 0px 0px 0px;	
+	padding: 0px 0px 0px 0px;
+	list-style-type: none;
+	background-color: @lightGreen;
+	border-right: 2px solid @darkGrey;
+	border-left: 2px solid @darkGrey;
+	position: relative;
+	}
+#navbarlogin {
+	color:@darkGrey;
+	font-size: 75%;
+	display: inline-block;
+	position: absolute;
+	right: .25em;
+	top: .15em;
+	}
+#navbarlogin input {
+	height: .9em;
+	}
+#navbarloginsubmit {
+	xbackground-color: blue;
+	xcolor: white;
+	xfont-size: 100%;
+	height: 100em;
+    width: 1em;
+	}
+#comments {
+	border-top: 2px solid @lightGreen;
+	}
+#sidebar ul {
+	line-height: 1;
+	margin: 0px 0px 10px 0px;
+	padding: 0px 5px 0px 0px;
+	float: right;
+	list-style-type: none;
+	text-align: right;
+	}
+#sidebar ul #extlinks { 
+	padding: 0px 0px 0px 0px;
+	}
+#leftcontent {
+	width: 48em;
+	float: left;
+	padding-left: .8em;
+	margin: 0px 10px 100px 0px;
+	}
+#indexleftcontent {
+	width: 40em;
+	float: left;
+	padding-left: .8em;
+	margin: 0px 0px 100px 0px;		
+	}
+#recentposts {
+	float: right;
+	width: 32%;
+	text-align: right;
+	font-size: 80%;
+	margin: 0px 0px 100px 0px;
+	padding-right: 5px;
+	}
+#recentposts h1 {
+	font-weight: bold;
+	}
+#recentposts a { 
+	text-decoration: none;
+	}
+#footer {
+	text-align: center;
+	margin-top: 0px;
+	padding: 0px 0px 1px 0px;
+	font-size: 75%;
+	clear: both;
+	}
+#contactinfo {
+	border-spacing: 10px 15px;
+	text-align: left;
+	}
+#contactinfo th {
+	font-weight: normal;
+	text-align: right;
+	}
+*/

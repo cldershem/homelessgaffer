@@ -1,0 +1,39 @@
+<!-- extends base.html -->
+{% extends "base.html" %}
+{% block title %}login{% endblock %}
+{% set page = 'login' %}
+{% set headerImg = url_for('static', filename='img/babytenor-400x67.jpg') %}
+
+{% block content %}
+<form id="login" action="" method="post">
+    {{form.hidden_tag()}}
+    <table>
+        <tr>
+            <td>user:</td>
+            <td>{{form.username(size=10)}}</td>
+            {% for error in form.errors.username %}
+                <td>
+                    [{{error}}]
+                </td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>pwd:</td>
+            <td>{{form.password(size=10)}}</td>
+            {% for error in form.errors.password %}
+                <td>
+                    [{{error}}]
+                </td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" id="loginsubmit" value="login"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>or <a href="{{ url_for('register') }}">register</a></td>
+        </tr>
+    </table>
+</form>
+{% endblock %}

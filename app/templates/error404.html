@@ -1,0 +1,11 @@
+<!-- extends base.html -->
+{% extends "base.html" %}
+{% block title %}404{% endblock %}
+{% set page = '404' %}
+{% set headerImg = url_for('static', filename='img/babytenor-400x67.jpg') %}
+
+{% block content %}
+<h2>404</h2>
+<h3>Page not found.</h3>
+<p>One of us screwed up....probably me, but I'm gonna keep my eye on you.</p>
+{% endblock %}
