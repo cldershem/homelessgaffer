@@ -1,9 +1,10 @@
 from flask.ext.wtf import ( Form, TextField, TextAreaField, validators,
                             Required, PasswordField, SubmitField, 
                             BooleanField, ValidationError, EqualTo )
-from models import db, User, Post, Comment, Page, makeSlug
+from models import db, User, Post, Comment, Page
 from mongoengine.queryset import DoesNotExist
 from wtforms.widgets import TextArea
+from utils import makeSlug
 
 class CKTextAreaWidget(TextArea):
     def __call__(self, field, **kwargs):
@@ -118,4 +119,3 @@ class PageForm(Form):
         except DoesNotExist:
             return True
    
-

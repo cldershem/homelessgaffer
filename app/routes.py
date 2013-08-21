@@ -4,11 +4,11 @@ from app import app, db, lm
 from forms import LoginForm, RegisterUser, CommentForm, PostForm, PageForm
 from flask.views import MethodView
 from jinja2 import Markup
-from models import (User, ROLE_USER, ROLE_ADMIN, Post, Comment, Page, 
-                    makeSlug)
+from models import (User, Post, Comment, Page)
 from flask.ext.mongoengine.wtf import model_form
 from flask.ext.login import ( LoginManager, login_user, logout_user, 
                               current_user, login_required )
+from utils import makeSlug
 
 @lm.user_loader
 def load_user(id):
@@ -155,10 +155,8 @@ def register():
 
             newUser.set_password(form.password.data)
             newUser.save()
-            
-            session['email'] = newUser.email
             login_user(newUser)     
-            return redirect(url_for('profile'))
+            return redirect(url_for('profile', user=newUser.email))
    
     elif request.method == 'GET':
         return render_template('register.html', form=form)
@@ -205,6 +203,7 @@ def listPosts(tag, user):
     if tag:
         posts = Post.objects(tags=tag)
     if user:
+        user = User.objects.get(email=user)
         posts = Post.objects(author=user)
     else:
         posts = Post.objects.all()
@@ -223,6 +222,7 @@ def singlePost(slug):
             newComment.author = User.objects.get(email=current_user.email)
             post.comments.append(newComment)
             post.save()
+            form.comment.data = None #resets field to empty on refresh
             flash('Comment Posted')
         return render_template('singlePost.html', post=post, form=form)
     elif request.method == 'GET':
