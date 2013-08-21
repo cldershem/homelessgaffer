@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}{{post.title}}{% endblock %}
+{% set page=post.title %}
+{% block content %}
+    <p>{{ post.body|safe }}</p>
+    {% if post.tags %}
+    <p>
+        <strong>tags:</strong>
+		{% for tag in post.tags %}
+			<a class="posttags" href="{{ url_for('listPosts', tag=tag) }}">[{{tag}}]</a>
+		{% endfor %}
+    </p>
+	{% endif %}
+    <p>by <strong><a href="{{ url_for('profile', user=post.author.email) }}">{{ post.author.email }}</a></strong></p>
+    <p>{{ post.created_at.strftime('%H:%M %Y-%m-%d') }}</p>
+    <hr>
+    <h2>Comments</h2>
+    {% if post.comments %}
+        {% for comment in post.comments %}
+            <p>{{ comment.body }}</p>
+            <p>by <strong>{{ comment.author.email }}</strong> <small>on {{ comment.created_at.strftime('%H:%M %Y-%m-%d') }}</small></p>
+            {{ comment.text }}
+        {% endfor %}
+    {% endif %}
+    <hr>
+	{% if current_user.is_authenticated() == True -%}
+		<h2>Add a comment</h2>
+		<form id="addComment" action="" method="post">
+			{{form.hidden_tag()}}
+			<table>
+				<tr>
+					<td>{{form.comment.label}}:</td>
+					<td>{{form.comment}}</td>
+					{% for error in form.errors.comment %}
+						<td>
+							[{{error}}]
+						</td>
+					{% endfor %}
+				</tr>
+				<tr>
+					<td></td>
+					<td>{{form.submit}}</td>
+				</tr>
+			</table>
+		</form>
+	{% else %}
+		<p><a href="{{url_for('login')}}">login</a> to comment.</p>
+	{% endif %}
+{% endblock %}

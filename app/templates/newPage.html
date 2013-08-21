@@ -1,0 +1,38 @@
+<!-- extends base.html -->
+{% extends "base.html" %}
+{% block head %}
+<script src="{{url_for('static', filename='js/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+{% endblock %}
+{% block title %}newpage{% endblock %}
+{% set page = 'newpage' %}
+{% set headerImg = url_for('static', filename='img/babytenor-400x67.jpg') %}
+
+{% block content %}
+<form id="newpage" action="" method="post">
+    {{form.hidden_tag()}}
+    <table>
+        <tr>
+            <td>{{form.title.label}}:</td>
+            <td>{{form.title(size=10)}}</td>
+            {% for error in form.errors.title%}
+                <td>
+                    [{{error}}]
+                </td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>{{form.content.label}}:</td>
+            <td>{{form.content(size=10)}}</td>
+            {% for error in form.errors.content %}
+                <td>
+                    [{{error}}]
+                </td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td></td>
+            <td>{{form.submit}}</td>
+        </tr>
+    </table>
+</form>
+{% endblock %}

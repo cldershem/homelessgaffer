@@ -1,6 +1,23 @@
-from flask import render_template, url_for, request, redirect, flash, session
-from app import app
-from forms import LoginForm, RegisterUser
+from flask import ( render_template, url_for, request, redirect, flash, 
+                    session, Blueprint, g)
+from app import app, db, lm
+from forms import LoginForm, RegisterUser, CommentForm, PostForm, PageForm
+from flask.views import MethodView
+from jinja2 import Markup
+from models import (User, ROLE_USER, ROLE_ADMIN, Post, Comment, Page, 
+                    makeSlug)
+from flask.ext.mongoengine.wtf import model_form
+from flask.ext.login import ( LoginManager, login_user, logout_user, 
+                              current_user, login_required )
+
+@lm.user_loader
+def load_user(id):
+    user = User.objects.get(email=id)
+    return user 
+
+@app.before_request
+def before_request():
+    g.user = current_user
 
 @app.route('/')
 @app.route('/root')
@@ -10,7 +27,7 @@ def index():
 
 @app.route('/food')
 def food():
-    return render_template("food.html")
+    return redirect(url_for('listPosts', tag="food"))
 
 @app.route('/bike')
 def bike():
@@ -40,30 +57,112 @@ def dev():
 def battleship():
     return render_template("battleship.html")
 
+@app.route('/page/<slug>')
+def staticPage(slug):
+    page = Page.objects.get_or_404(slug=slug)
+    content = Markup(page.content)
+    return render_template('staticpage.html', title=page.title,
+                            slug=page.slug, content=content) 
+
+@app.route('/page/newpage', methods = ['GET', 'POST'])
+@login_required
+def newPage():
+    form = PageForm()
+
+    if request.method == 'POST':
+        slug=makeSlug(form.title.data)
+        if form.validate() == False:
+            return render_template("newPage.html", form=form)
+        else:
+            newPage = Page( title=form.title.data,
+                            slug=slug, content=form.content.data)
+            newPage.author = User.objects.get(email=current_user.email)
+            newPage.save()
+            flash('Your page has been posted')
+            return redirect(url_for('staticPage', slug=slug))
+    elif request.method == 'GET':
+        return render_template("newPage.html", form=form)
+
+@app.route('/page/<slug>/edit', methods = ['GET', 'POST'])
+@login_required
+def editPage(slug):
+    page = Page.objects.get(slug=slug)
+    slug = page.slug
+    form = PageForm(obj=page)
+
+    if request.method == 'POST':
+        if form.validate() == False:
+            return render_template('editPage.html', title=page.title,
+                                    slug=slug, form=form)
+        else:
+            form.populate_obj(page)
+            page.save()
+            flash("Your page has been updated.")
+            return redirect(url_for('staticPage', slug=slug))
+    elif request.method == 'GET':
+        form.populate_obj(page)
+        return render_template('editPage.html', title=page.title, 
+                                slug=slug, form=form)
+
+@app.route('/page/listpages')
+def listPages():
+    pages = Page.objects.all()
+    return render_template('listPages.html', pages=pages)
+
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     form = LoginForm()
-    if form.validate_on_submit():
-        flash('Login requested for ' + form.username.data)
-        #session['user_id'] = form.user.id
-        return redirect('/index')
-    return render_template("login.html",
-                            form = form)
 
-@app.route('/register', methods = ['GET', 'POST'])
-def register():
-    form = RegisterUser()
-    if form.validate_on_submit():
-        flash('Registration requested for ' + form.email.data)
-        #session['user_id'] = form.user.id
-        return redirect('/index')
-    return render_template("register.html",
-                            form = form)
+    if current_user.is_authenticated() == True:
+        return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        if form.validate() == False:
+            return render_template('login.html', form=form)
+        else:
+            user = User.objects.get(email=form.email.data.lower())
+            if user:
+                #add remember_me
+                login_user(user)
+                return redirect(request.args.get('next') or 
+                                url_for('profile', user=current_user.email))
+    elif request.method == 'GET':
+        return render_template('login.html', form=form)
+
+def after_login(resp):
+    pass
 
 @app.route('/logout')
 def logout():
-    return redirect('/index')
+    logout_user()
+    return redirect(url_for('index'))
+
+@app.route('/register', methods = ['GET', 'POST'])
+def register():
     
+    form = RegisterUser()
+    if current_user.is_authenticated() == True:
+        flash("You are already a user.")
+        return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        if form.validate() == False:
+            return render_template('register.html', form=form)
+        else:
+            newUser = User(firstname = form.firstname.data.title(),
+                           lastname = form.lastname.data.title(),
+                           email = form.email.data.lower())
+
+            newUser.set_password(form.password.data)
+            newUser.save()
+            
+            session['email'] = newUser.email
+            login_user(newUser)     
+            return redirect(url_for('profile'))
+   
+    elif request.method == 'GET':
+        return render_template('register.html', form=form)
+
 @app.errorhandler(404)
 def internal_error(error):
     return render_template("error404.html"), 404
@@ -71,3 +170,60 @@ def internal_error(error):
 @app.errorhandler(500)
 def internal_error(error):
     return render_template("error500.html"), 500
+
+@app.route('/profile/<user>')
+def profile(user):
+    return render_template('/profile.html', user=user)
+
+@app.route('/blog/newpost', methods=['GET', 'POST'])
+@login_required
+def newPost():
+    form = PostForm()
+
+    if request.method=='POST':
+        if form.validate() == False:
+            return render_template("newPost.html", form=form)
+        else:
+            slug=makeSlug(form.title.data)
+            newPost = Post( title=form.title.data, 
+                            slug=slug,
+                            body=form.body.data) 
+            if form.tags.data:
+                newPost.tags=form.tags.data.split(', ')
+            newPost.author = User.objects.get(email=current_user.email)
+            newPost.save()
+            flash('Your post has been posted.')
+            return redirect(url_for('singlePost', slug=slug))
+
+    elif request.method == 'GET':
+        return render_template("newPost.html", form=form)
+
+@app.route('/blog/listposts', defaults={'tag': None, 'user': None})
+@app.route('/blog/listposts/tag/<tag>', defaults={'user': None})
+@app.route('/blog/listposts/user/<user>', defaults={'tag': None})
+def listPosts(tag, user):
+    if tag:
+        posts = Post.objects(tags=tag)
+    if user:
+        posts = Post.objects(author=user)
+    else:
+        posts = Post.objects.all()
+    return render_template('listPosts.html', posts=posts)
+
+@app.route('/blog/<slug>', methods=['GET', 'POST'])
+def singlePost(slug):
+    form = CommentForm()
+    post = Post.objects.get_or_404(slug=slug)
+    
+    if request.method == 'POST':
+        if form.validate() == False:
+            return render_template('singlePost.html', post=post, form=form)
+        else:
+            newComment = Comment( body=form.comment.data )
+            newComment.author = User.objects.get(email=current_user.email)
+            post.comments.append(newComment)
+            post.save()
+            flash('Comment Posted')
+        return render_template('singlePost.html', post=post, form=form)
+    elif request.method == 'GET':
+        return render_template('singlePost.html', post=post, form=form)

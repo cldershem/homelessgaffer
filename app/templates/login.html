@@ -9,8 +9,8 @@
     {{form.hidden_tag()}}
     <table>
         <tr>
-            <td>user:</td>
-            <td>{{form.username(size=10)}}</td>
+            <td>{{form.email.label}}:</td>
+            <td>{{form.email(size=10)}}</td>
             {% for error in form.errors.username %}
                 <td>
                     [{{error}}]
@@ -18,7 +18,7 @@
             {% endfor %}
         </tr>
         <tr>
-            <td>pwd:</td>
+            <td>{{form.password.label}}:</td>
             <td>{{form.password(size=10)}}</td>
             {% for error in form.errors.password %}
                 <td>
@@ -27,8 +27,17 @@
             {% endfor %}
         </tr>
         <tr>
+            <td>{{form.remember_me.label}}:</td>
+            <td>{{form.remember_me(size=10)}}</td>
+            {% for error in form.errors.remember_me %}
+                <td>
+                    [{{error}}]
+                </td>
+            {% endfor %}
+        </tr>
+        <tr>
             <td></td>
-            <td><input type="submit" id="loginsubmit" value="login"></td>
+            <td>{{form.submit}}</td>
         </tr>
         <tr>
             <td></td>
