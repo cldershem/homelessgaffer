@@ -10,4 +10,6 @@ db = MongoEngine(app)
 lm = LoginManager(app)
 lm.login_view = "login"
 
-from app import routes, models
+#if not app.debug:
+
+from app import routes, models, admin

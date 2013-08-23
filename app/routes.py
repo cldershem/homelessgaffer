@@ -1,13 +1,13 @@
-from flask import ( render_template, url_for, request, redirect, flash, 
-                    session, Blueprint, g)
+from flask import (render_template, url_for, request, redirect, flash, 
+                   session, Blueprint, g, current_app)
 from app import app, db, lm
 from forms import LoginForm, RegisterUser, CommentForm, PostForm, PageForm
 from flask.views import MethodView
 from jinja2 import Markup
 from models import (User, Post, Comment, Page)
 from flask.ext.mongoengine.wtf import model_form
-from flask.ext.login import ( LoginManager, login_user, logout_user, 
-                              current_user, login_required )
+from flask.ext.login import (LoginManager, login_user, logout_user, 
+                             current_user, login_required )
 from utils import makeSlug
 
 @lm.user_loader
@@ -202,12 +202,15 @@ def newPost():
 def listPosts(tag, user):
     if tag:
         posts = Post.objects(tags=tag)
+        title = tag
     if user:
         user = User.objects.get(email=user)
         posts = Post.objects(author=user)
-    else:
+        title = user.email
+    elif tag == None and user == None:
         posts = Post.objects.all()
-    return render_template('listPosts.html', posts=posts)
+        title = "listposts"
+    return render_template('listPosts.html', posts=posts, title=title)
 
 @app.route('/blog/<slug>', methods=['GET', 'POST'])
 def singlePost(slug):

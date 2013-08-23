@@ -1,19 +1,10 @@
-from flask.ext.wtf import ( Form, TextField, TextAreaField, validators,
-                            Required, PasswordField, SubmitField, 
-                            BooleanField, ValidationError, EqualTo )
+from flask.ext.wtf import Form
+from wtforms import ( TextField, TextAreaField, validators, PasswordField,
+                      SubmitField, BooleanField, ValidationError )
+from wtforms.validators import Required, EqualTo
 from models import db, User, Post, Comment, Page
 from mongoengine.queryset import DoesNotExist
-from wtforms.widgets import TextArea
-from utils import makeSlug
-
-class CKTextAreaWidget(TextArea):
-    def __call__(self, field, **kwargs):
-        kwargs.setdefault('class_', 'ckeditor')
-        return super(CKTextAreaWidget, self).__call__(field, **kwargs)
-
-class CKTextAreaField(TextAreaField):
-    widget = CKTextAreaWidget()
-
+from utils import makeSlug, CKTextAreaField
 
 class LoginForm(Form):
     email = TextField('email', [validators.Required(

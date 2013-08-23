@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
+{% block title %}{{title}}{% endblock %}
+{% set page = title %}
+
 {% block content %}
     {% for post in posts %}
         <h2><a href="{{ url_for('singlePost', slug=post.slug) }}">{{ post.title }}</a></h2>

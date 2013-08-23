@@ -1,5 +1,7 @@
 from unicodedata import normalize
 import re
+from wtforms import TextAreaField
+from wtforms.widgets import TextArea
 
 def makeSlug(text, delim=u'-'):
     """Generates an slightly worse ASCII-only slug."""
@@ -10,3 +12,12 @@ def makeSlug(text, delim=u'-'):
         if word: 
             result.append(word)     
     return unicode(delim.join(result))
+
+class CKTextAreaWidget(TextArea):
+    def __call__(self, field, **kwargs):
+        kwargs.setdefault('class_', 'ckeditor')
+        return super(CKTextAreaWidget, self).__call__(field, **kwargs)
+
+class CKTextAreaField(TextAreaField):
+    widget = CKTextAreaWidget()
+
