@@ -17,6 +17,7 @@ class UserView(ModelView):
 
 class PostView(ModelView):
     column_filters = ['title']
+    form_subdocuments = {'comments': {}}
 
 
 class PageView(ModelView):
@@ -25,6 +26,10 @@ class PageView(ModelView):
     #form_overrides = dict(content=CKTextAreaField)
     #create_template = 'admin/edit.html'
     #edit_template = 'admin/edit.html'
+
+
+class CommentView(ModelView):
+    pass
 
 admin = Admin(app)
 

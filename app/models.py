@@ -44,6 +44,17 @@ class User(db.Document):
         return '<User %r, %r>' % (self.firstname, self.email)
 
 
+class Comment(db.EmbeddedDocument):
+
+    created_at = db.DateTimeField(default=datetime.datetime.now,
+                                  required=True)
+    body = db.StringField(required=True)
+    author = db.ReferenceField(User)
+
+    def __repr__(self):
+        return '<Post %r>' % (self.author)
+
+
 class Post(db.Document):
 
     created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
@@ -52,7 +63,7 @@ class Post(db.Document):
     author = db.ReferenceField(User)
     body = db.StringField(required=True)
     tags = db.ListField(db.StringField(max_length=50))
-  #  comments = db.ListField(db.EmbeddedDocumentField('Comment'))
+    comments = db.ListField(db.EmbeddedDocumentField(Comment))
 
     def get_absolute_url(self):
         return url_for('post', kwargs={"slug": self.slug})
@@ -66,17 +77,6 @@ class Post(db.Document):
 
     def __repr__(self):
         return '<Post %r, -%r>' % (self.slug, self.author)
-
-
-class Comment(db.EmbeddedDocument):
-
-    created_at = db.DateTimeField(default=datetime.datetime.now,
-                                  required=True)
-    body = db.StringField(required=True)
-    author = db.ReferenceField(User)
-
-    def __repr__(self):
-        return '<Post %r>' % (self.author)
 
 
 class Page(db.Document):
