@@ -9,12 +9,12 @@
 - email to approve new accounts
 - capatcha?
 - user
-    -- last logged in
-    -- can edit own posts or if admin
-    -- post edited on 
-    -- profile with all posts
-    -- forgot password
-    -- confirm password
+-- last logged in
+-- can edit own posts or if admin
+-- post edited on 
+-- profile with all posts
+-- forgot password
+-- confirm password
 - add delete to edit page/post
 - fix datetime display
 - pagination
