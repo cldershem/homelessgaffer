@@ -43,6 +43,9 @@ class User(db.Document):
     def __repr__(self):
         return '<User %r, %r>' % (self.firstname, self.email)
 
+    def __unicode__(self):
+        return self.email
+
 
 class Comment(db.EmbeddedDocument):
 
