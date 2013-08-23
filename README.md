@@ -3,13 +3,13 @@
 -secret key
 
 ###TODO
-search
--ckeditor css
-*flask-admin/principal
+- Search
+- ckeditor css
+* flask-admin/principal
 -email to approve new accounts
 -capatcha?
 -user
-    --last logged in
+    -- last logged in
     --can edit own posts or if admin
     --post edited on 
     --profile with all posts
