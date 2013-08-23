@@ -1,6 +1,9 @@
 ###DONT FORGET TO
 - pip -r requirements.py
 - secret key
+- ckeditor
+- kinetic.js
+- less
 
 ###TODO
 - Search
