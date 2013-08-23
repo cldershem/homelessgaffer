@@ -9,8 +9,8 @@
 - email to approve new accounts
 - capatcha?
 - user
--- last logged in
--- can edit own posts or if admin
+    - last logged in
+    -- can edit own posts or if admin
 -- post edited on 
 -- profile with all posts
 -- forgot password
