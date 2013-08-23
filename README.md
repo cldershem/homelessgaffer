@@ -3,9 +3,9 @@
 -secret key
 
 ###TODO
--search
+search
 -ckeditor css
--flask-admin/principal
+*flask-admin/principal
 -email to approve new accounts
 -capatcha?
 -user
