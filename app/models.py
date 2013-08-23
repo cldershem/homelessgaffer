@@ -1,8 +1,9 @@
 import datetime
 from flask import url_for
-from app import app, db
+from app import db  # app
 from werkzeug import generate_password_hash, check_password_hash
-from utils import makeSlug 
+#from utils import makeSlug
+
 
 class User(db.Document):
 
@@ -12,8 +13,9 @@ class User(db.Document):
         can_post = db.BooleanField(required=True, default=True)
         is_admin = db.BooleanField(required=True, default=False)
 
-    created_at = db.DateTimeField(default=datetime.datetime.now, 
-                                    required=True)
+    created_at = db.DateTimeField(default=datetime.datetime.now,
+                                  required=True)
+    last_seen = db.DateTimeField(default=datetime.datetime.now)
     firstname = db.StringField(max_length=64)
     lastname = db.StringField(max_length=100)
     email = db.StringField(max_length=120, unique=True)
@@ -22,10 +24,10 @@ class User(db.Document):
 
     def set_password(self, password):
         self.pwdhash = generate_password_hash(password)
-        
+
     def check_password(self, password):
         return check_password_hash(self.pwdhash, password)
-        
+
     def is_authenticated(self):
         return True
 
@@ -33,13 +35,14 @@ class User(db.Document):
         return True
 
     def is_anonymous(self):
-        return False 
+        return False
 
     def get_id(self):
         return self.email
 
     def __repr__(self):
         return '<User %r, %r>' % (self.firstname, self.email)
+
 
 class Post(db.Document):
 
@@ -49,7 +52,7 @@ class Post(db.Document):
     author = db.ReferenceField(User)
     body = db.StringField(required=True)
     tags = db.ListField(db.StringField(max_length=50))
-    comments = db.ListField(db.EmbeddedDocumentField('Comment'))
+  #  comments = db.ListField(db.EmbeddedDocumentField('Comment'))
 
     def get_absolute_url(self):
         return url_for('post', kwargs={"slug": self.slug})
@@ -57,18 +60,17 @@ class Post(db.Document):
     def __unicode__(self):
         return self.title
 
-    meta = {
-            'allow_inheritance': True,
+    meta = {'allow_inheritance': True,
             'indexes': ['-created_at', 'slug'],
-            'ordering': ['-created_at']
-            }
-    
+            'ordering': ['-created_at']}
+
     def __repr__(self):
         return '<Post %r, -%r>' % (self.slug, self.author)
 
+
 class Comment(db.EmbeddedDocument):
 
-    created_at = db.DateTimeField(default=datetime.datetime.now, 
+    created_at = db.DateTimeField(default=datetime.datetime.now,
                                   required=True)
     body = db.StringField(required=True)
     author = db.ReferenceField(User)
@@ -76,20 +78,19 @@ class Comment(db.EmbeddedDocument):
     def __repr__(self):
         return '<Post %r>' % (self.author)
 
+
 class Page(db.Document):
 
-    created_at = db.DateTimeField(default=datetime.datetime.now, 
+    created_at = db.DateTimeField(default=datetime.datetime.now,
                                   required=True)
     title = db.StringField(required=True)
     slug = db.StringField(required=True)
     content = db.StringField(required=True)
     author = db.ReferenceField(User)
 
-    meta = {
-            'allow_inheritance': True,
+    meta = {'allow_inheritance': True,
             'indexes': ['-created_at', 'title'],
-            'ordering': ['-created_at']
-            }
-    
+            'ordering': ['-created_at']}
+
     def __repr__(self):
         return '<Page %r>' % (self.title)

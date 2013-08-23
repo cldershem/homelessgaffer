@@ -18,9 +18,11 @@
     - profile with all posts
     - forgot password
     - confirm password
+    - https
 - add delete to edit page/post
 - fix datetime display
 - pagination
 - edit page doesn't work
 - redirect after login/register
 
+###CHANGELOG
