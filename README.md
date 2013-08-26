@@ -6,6 +6,10 @@
 - less
 
 ###TODO
+- git hook
+    - pip freeze > requirements.txt
+    - push github, web
+    - pip install -r requirements.txt
 - Search
 - ckeditor css
 - flask-principal
