@@ -11,4 +11,4 @@ lm = LoginManager(app)
 lm.login_view = "login"
 
 #if not app.debug:
-from app import routes  , models, admin
+from app import routes, models, admin  # nopep8

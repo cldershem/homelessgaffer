@@ -13,6 +13,10 @@ class AdminView(BaseView):
 
 class UserView(ModelView):
     column_filters = ['email']
+    form_excluded_columns = ('pwdhash')
+    form_columns = ('firstname', 'lastname', 'email', 'roles')
+    column_exclude_list = ('pwdhash')
+    column_list = ('firstname', 'lastname', 'email', 'created_at', 'last_seen')
 
 
 class PostView(ModelView):

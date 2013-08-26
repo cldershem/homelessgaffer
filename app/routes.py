@@ -8,9 +8,11 @@ from models import (User, Post, Comment, Page)
 # from flask.ext.mongoengine.wtf import model_form
 from flask.ext.login import (login_user, logout_user,
                              current_user, login_required)  # LoginManager
-import datetime
+from datetime import datetime
 from utils import makeSlug
 from flask.ext.mongoengine import Pagination
+
+dateTimeNow = datetime.utcnow()
 
 
 @lm.user_loader
@@ -141,7 +143,7 @@ def login():
             user = User.objects.get(email=form.email.data.lower())
             if user:
                 #add remember_me
-                user.last_seen = datetime.datetime.now
+                user.last_seen = dateTimeNow
                 user.save()
                 login_user(user)
                 return redirect(request.args.get('next') or
@@ -162,7 +164,6 @@ def logout():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-
     form = RegisterUser()
     if current_user.is_authenticated() is True:
         flash("You are already a user.")
@@ -223,15 +224,24 @@ def newPost():
     elif request.method == 'GET':
         return render_template("newPost.html", form=form)
 
-#@app.route('/blog/listposts', defaults={'tag': None, 'user': None})
-#@app.route('/blog/listposts/tag/<tag>', defaults={'user': None})
-#@app.route('/blog/listposts/user/<user>', defaults={'tag': None})
-@app.route('/blog/listposts', defaults={'tag': None, 'user': None, 'page': 1})
-@app.route('/blog/listposts/page/<int:page>', defaults={'tag': None, 'user': None})
-@app.route('/blog/listposts/tag/<tag>', defaults={'user': None, 'page': 1})
-@app.route('/blog/listposts/tag/<tag>/page/<int:page>', defaults={'user': None})
-@app.route('/blog/listposts/user/<user>', defaults={'tag': None, 'page': 1})
-@app.route('/blog/listposts/user/<user>/page/<int:page>', defaults={'tag': None})
+
+@app.route('/blog/listposts',
+           defaults={'tag': None,
+                     'user': None,
+                     'page': 1})
+@app.route('/blog/listposts/page/<int:page>',
+           defaults={'tag': None,
+                     'user': None})
+@app.route('/blog/listposts/tag/<tag>',
+           defaults={'user': None,
+                     'page': 1})
+@app.route('/blog/listposts/tag/<tag>/page/<int:page>',
+           defaults={'user': None})
+@app.route('/blog/listposts/user/<user>',
+           defaults={'tag': None,
+                     'page': 1})
+@app.route('/blog/listposts/user/<user>/page/<int:page>',
+           defaults={'tag': None})
 def listPosts(tag, user, page):
     if tag:
         paginator = Pagination(Post.objects(tags=tag), 1, 10)
@@ -246,7 +256,8 @@ def listPosts(tag, user, page):
         paginator = Pagination(Post.objects.all(), page, 10)
         posts = paginator
         title = "listposts"
-    return render_template('listPosts.html', posts=posts, title=title, page=page)
+    return render_template('listPosts.html',
+                           posts=posts, title=title, page=page)
 
 
 @app.route('/blog/<slug>', methods=['GET', 'POST'])

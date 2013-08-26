@@ -1,8 +1,10 @@
-import datetime
 from flask import url_for
 from app import db  # app
 from werkzeug import generate_password_hash, check_password_hash
+from datetime import datetime
 #from utils import makeSlug
+
+dateTimeNow = datetime.utcnow()
 
 
 class User(db.Document):
@@ -13,9 +15,8 @@ class User(db.Document):
         can_post = db.BooleanField(required=True, default=True)
         is_admin = db.BooleanField(required=True, default=False)
 
-    created_at = db.DateTimeField(default=datetime.datetime.now,
-                                  required=True)
-    last_seen = db.DateTimeField(default=datetime.datetime.now)
+    created_at = db.DateTimeField(default=dateTimeNow, required=True)
+    last_seen = db.DateTimeField(default=dateTimeNow)
     firstname = db.StringField(max_length=64)
     lastname = db.StringField(max_length=100)
     email = db.StringField(max_length=120, unique=True)
@@ -49,8 +50,7 @@ class User(db.Document):
 
 class Comment(db.EmbeddedDocument):
 
-    created_at = db.DateTimeField(default=datetime.datetime.now,
-                                  required=True)
+    created_at = db.DateTimeField(default=dateTimeNow, required=True)
     body = db.StringField(required=True)
     author = db.ReferenceField(User)
 
@@ -60,7 +60,7 @@ class Comment(db.EmbeddedDocument):
 
 class Post(db.Document):
 
-    created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
+    created_at = db.DateTimeField(default=dateTimeNow, required=True)
     title = db.StringField(max_length=255, required=True)
     slug = db.StringField(max_length=255, required=True)
     author = db.ReferenceField(User)
@@ -84,8 +84,7 @@ class Post(db.Document):
 
 class Page(db.Document):
 
-    created_at = db.DateTimeField(default=datetime.datetime.now,
-                                  required=True)
+    created_at = db.DateTimeField(default=dateTimeNow, required=True)
     title = db.StringField(required=True)
     slug = db.StringField(required=True)
     content = db.StringField(required=True)

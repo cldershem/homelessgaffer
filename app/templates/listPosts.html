@@ -21,7 +21,8 @@
     {% endif %}
     {% for page in posts.iter_pages() %}
         {% if page %}
-            {% if page != posts.page %}
+            {% if page == 1 and posts.has_next == False %} <!-- if only page, don't show pages
+            {% elif page != posts.page %}
                 <a href="{{url_for('listPosts', page=page)}}">{{page}}</strong></a>
             {% else %}
                 <strong>{{page}}</strong>

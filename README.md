@@ -8,7 +8,7 @@
 ###TODO
 - Search
 - ckeditor css
-- flask-admin/principal
+- flask-principal
 - email to approve new accounts
 - capatcha?
 - user
@@ -16,14 +16,17 @@
     - post edited on 
     - profile with all posts
     - forgot password
-    - confirm password
+    - confirm email 
 - add delete to edit page/post
 - fix datetime display
-- pagination
-    -don't show page number if only one page
+    - moment.js?
 - edit page doesn't work
 - redirect after login/register
 - add tests
 
 ###CHANGELOG
-add https
+- changed all times to utc
+- no page number if only one page
+- added pagination on posts
+- add https
+- flask admin working
