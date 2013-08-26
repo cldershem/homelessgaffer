@@ -244,12 +244,12 @@ def newPost():
            defaults={'tag': None})
 def listPosts(tag, user, page):
     if tag:
-        paginator = Pagination(Post.objects(tags=tag), 1, 10)
+        paginator = Pagination(Post.objects(tags=tag), page, 10)
         posts = paginator
         title = tag
     if user:
         user = User.objects.get(email=user)
-        paginator = Pagination(Post.objects(author=user), 1, 10)
+        paginator = Pagination(Post.objects(author=user), page, 10)
         posts = paginator
         title = user.email
     elif tag is None and user is None:

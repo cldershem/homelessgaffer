@@ -6,6 +6,7 @@
 - less
 
 ###TODO
+- fix vim on hg.com
 - git hook
     - pip freeze > requirements.txt
     - push github, web
