@@ -19,7 +19,7 @@ class User(db.Document):
     firstname = db.StringField(max_length=64)
     lastname = db.StringField(max_length=100)
     email = db.StringField(max_length=120, unique=True)
-    pwdhash = db.StringField(max_length=54)
+    pwdhash = db.StringField()
     roles = db.EmbeddedDocumentField(Roles, default=Roles)
 
     def set_password(self, password):

@@ -10,6 +10,7 @@ from flask.ext.login import (login_user, logout_user,
                              current_user, login_required)  # LoginManager
 import datetime
 from utils import makeSlug
+from flask.ext.mongoengine import Pagination
 
 
 @lm.user_loader
@@ -222,22 +223,30 @@ def newPost():
     elif request.method == 'GET':
         return render_template("newPost.html", form=form)
 
-
-@app.route('/blog/listposts', defaults={'tag': None, 'user': None})
-@app.route('/blog/listposts/tag/<tag>', defaults={'user': None})
-@app.route('/blog/listposts/user/<user>', defaults={'tag': None})
-def listPosts(tag, user):
+#@app.route('/blog/listposts', defaults={'tag': None, 'user': None})
+#@app.route('/blog/listposts/tag/<tag>', defaults={'user': None})
+#@app.route('/blog/listposts/user/<user>', defaults={'tag': None})
+@app.route('/blog/listposts', defaults={'tag': None, 'user': None, 'page': 1})
+@app.route('/blog/listposts/page/<int:page>', defaults={'tag': None, 'user': None})
+@app.route('/blog/listposts/tag/<tag>', defaults={'user': None, 'page': 1})
+@app.route('/blog/listposts/tag/<tag>/page/<int:page>', defaults={'user': None})
+@app.route('/blog/listposts/user/<user>', defaults={'tag': None, 'page': 1})
+@app.route('/blog/listposts/user/<user>/page/<int:page>', defaults={'tag': None})
+def listPosts(tag, user, page):
     if tag:
-        posts = Post.objects(tags=tag)
+        paginator = Pagination(Post.objects(tags=tag), 1, 10)
+        posts = paginator
         title = tag
     if user:
         user = User.objects.get(email=user)
-        posts = Post.objects(author=user)
+        paginator = Pagination(Post.objects(author=user), 1, 10)
+        posts = paginator
         title = user.email
     elif tag is None and user is None:
-        posts = Post.objects.all()
+        paginator = Pagination(Post.objects.all(), page, 10)
+        posts = paginator
         title = "listposts"
-    return render_template('listPosts.html', posts=posts, title=title)
+    return render_template('listPosts.html', posts=posts, title=title, page=page)
 
 
 @app.route('/blog/<slug>', methods=['GET', 'POST'])

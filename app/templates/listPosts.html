@@ -4,7 +4,7 @@
 {% set page = title %}
 
 {% block content %}
-    {% for post in posts %}
+    {% for post in posts.items %}
         <h2><a href="{{ url_for('singlePost', slug=post.slug) }}">{{ post.title }}</a></h2>
         <p>{{ post.body|striptags|truncate(100) }}</p>
         <p>
@@ -15,4 +15,23 @@
         {% endwith %}
         </p>
     {% endfor %}
+    <div id="pagination">
+    {% if posts.has_prev %}
+        <a href="{{url_for('listPosts', page=posts.prev_num)}}">newer</a>
+    {% endif %}
+    {% for page in posts.iter_pages() %}
+        {% if page %}
+            {% if page != posts.page %}
+                <a href="{{url_for('listPosts', page=page)}}">{{page}}</strong></a>
+            {% else %}
+                <strong>{{page}}</strong>
+            {% endif %}
+        {% else %}
+            <p>else again </p>
+        {% endif %}
+    {% endfor %}
+    {% if posts.has_next %}
+        <a href="{{url_for('listPosts', page=posts.next_num)}}">older</a>
+    {% endif %} 
+    </div> <!--pagination-->
 {% endblock %}

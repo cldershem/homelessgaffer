@@ -28,9 +28,6 @@ class PageView(ModelView):
     #edit_template = 'admin/edit.html'
 
 
-class CommentView(ModelView):
-    pass
-
 admin = Admin(app)
 
 admin.add_view(UserView(User))

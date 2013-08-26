@@ -1,5 +1,5 @@
 from flask import Flask
-from config import basedir
+#from config import basedir
 from flask.ext.mongoengine import MongoEngine
 from flask.ext.login import LoginManager
 
@@ -11,5 +11,4 @@ lm = LoginManager(app)
 lm.login_view = "login"
 
 #if not app.debug:
-
-from app import routes, models, admin
+from app import routes  , models, admin

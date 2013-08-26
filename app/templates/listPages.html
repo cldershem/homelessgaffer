@@ -2,9 +2,6 @@
 
 {% block content %}
     {% for page in pages %}
-        <h2><a href="{{ url_for('staticPage', slug=page.slug) }}">{{ page.title }}</a></h2>
-        <p>
-        {{ page.created_at.strftime('%H:%M %Y-%m-%d') }}
-        </p>
+        <h3><a href="{{ url_for('staticPage', slug=page.slug) }}">{{ page.title }}</a></h3>
     {% endfor %}
 {% endblock %}
