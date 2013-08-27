@@ -8,7 +8,6 @@
 
 ###TODO
 - git hook
-    - pip freeze > requirements.txt
     - push github, web
     - pip install -r requirements.txt
     - sudo service nginx restart
