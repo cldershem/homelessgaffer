@@ -30,7 +30,7 @@
     - fix redirect after password change fail
 
 ###CHANGELOG
-- added githooks to repo
+- added githooks to repo and created symlinks
 - githook restarts nginx and uwsgi
 - githook only runs pip when changes
 - added post-receive githook for pip install -r requirements.txt
