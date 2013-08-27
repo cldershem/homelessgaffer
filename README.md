@@ -6,7 +6,6 @@
 - less
 
 ###TODO
-- fix vim on hg.com
 - git hook
     - pip freeze > requirements.txt
     - push github, web
@@ -30,6 +29,7 @@
 - add tests
 
 ###CHANGELOG
+- fixed vim on hg.com
 - changed all times to utc
 - no page number if only one page
 - added pagination on posts
