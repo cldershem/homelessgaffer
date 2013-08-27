@@ -1,5 +1,5 @@
 #!/bin/bash -e
-#GIT_WORK_TREE=/var/www/homelessgaffer.com git checkout -f
+GIT_WORK_TREE=/var/www/homelessgaffer.com git checkout -f
 
 BASEDIR=/var/www/homelessgaffer.com
 
