@@ -1,6 +1,6 @@
 from flask import url_for
-from app import db  # app
-from werkzeug import generate_password_hash, check_password_hash
+from app import db, bcrypt  # app
+#from werkzeug import generate_password_hash, check_password_hash
 from datetime import datetime
 #from utils import makeSlug
 
@@ -24,10 +24,10 @@ class User(db.Document):
     roles = db.EmbeddedDocumentField(Roles, default=Roles)
 
     def set_password(self, password):
-        self.pwdhash = generate_password_hash(password)
+        self.pwdhash = bcrypt.generate_password_hash(password)
 
     def check_password(self, password):
-        return check_password_hash(self.pwdhash, password)
+        return bcrypt.check_password_hash(self.pwdhash, password)
 
     def is_authenticated(self):
         return True

@@ -4,6 +4,7 @@
 - ckeditor
 - kinetic.js
 - less
+- redo users with bcrypt
 
 ###TODO
 - git hook
@@ -29,6 +30,7 @@
 - add tests
 
 ###CHANGELOG
+- set up bcrypt
 - fixed vim on hg.com
 - changed all times to utc
 - no page number if only one page
