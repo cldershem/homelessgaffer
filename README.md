@@ -9,7 +9,6 @@
 ###TODO
 - git hook
     - push github, web
-    - pip install -r requirements.txt
     - sudo service nginx restart
     - sudo service uwsgi restart
 - Search
@@ -32,6 +31,7 @@
     - fix redirect after password change fail
 
 ###CHANGELOG
+- added post-receive githook for pip install -r
 - added pre-commit githook for pip freeze
 - added secrets.py 
 - added recaptcha
