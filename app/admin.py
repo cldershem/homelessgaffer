@@ -4,6 +4,7 @@ from flask.ext.admin.contrib.mongoengine import ModelView
 from models import User, Page, Post
 #from utils import CKTextAreaField
 from wtforms import PasswordField
+from flask import flash
 
 
 class AdminView(BaseView):
@@ -29,6 +30,13 @@ class UserView(ModelView):
         form_class.password = PasswordField('New password')
         form_class.confirmPassword = PasswordField('Confirm password')
         return form_class
+
+    def on_model_change(self, form, model):
+        if model.password or model.confirmPassword:
+            if model.password == model.confirmPassword:
+                User.set_password(model, model.password)
+            else:
+                flash("Password and confirm password do not match.")
 
 
 class PostView(ModelView):

@@ -1,13 +1,11 @@
 from flask import (render_template, url_for, request, redirect, flash,
-                   g)  # Blueprint, current_app, session
-from app import app, lm  # db
+                   g)
+from app import app, lm
 from forms import LoginForm, RegisterUser, CommentForm, PostForm, PageForm
-# from flask.views import MethodView
 from jinja2 import Markup
 from models import (User, Post, Comment, Page)
-# from flask.ext.mongoengine.wtf import model_form
 from flask.ext.login import (login_user, logout_user,
-                             current_user, login_required)  # LoginManager
+                             current_user, login_required)
 from datetime import datetime
 from utils import makeSlug
 from flask.ext.mongoengine import Pagination

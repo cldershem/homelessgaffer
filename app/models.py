@@ -1,8 +1,6 @@
 from flask import url_for
-from app import db, bcrypt  # app
-#from werkzeug import generate_password_hash, check_password_hash
+from app import db, bcrypt
 from datetime import datetime
-#from utils import makeSlug
 
 dateTimeNow = datetime.utcnow()
 
@@ -10,17 +8,17 @@ dateTimeNow = datetime.utcnow()
 class User(db.Document):
 
     class Roles(db.EmbeddedDocument):
-        can_login = db.BooleanField(required=True, default=True)
-        can_comment = db.BooleanField(required=True, default=True)
-        can_post = db.BooleanField(required=True, default=True)
-        is_admin = db.BooleanField(required=True, default=False)
+        can_login = db.BooleanField(default=True)
+        can_comment = db.BooleanField(default=True)
+        can_post = db.BooleanField(default=True)
+        is_admin = db.BooleanField(default=False)
 
     created_at = db.DateTimeField(default=dateTimeNow, required=True)
-    last_seen = db.DateTimeField(default=dateTimeNow)
-    firstname = db.StringField(max_length=64)
-    lastname = db.StringField(max_length=100)
+    last_seen = db.DateTimeField(required=True, default=dateTimeNow)
+    firstname = db.StringField(required=True, max_length=64)
+    lastname = db.StringField(required=True, max_length=100)
     email = db.StringField(max_length=120, unique=True)
-    pwdhash = db.StringField()
+    pwdhash = db.StringField(required=True)
     roles = db.EmbeddedDocumentField(Roles, default=Roles)
 
     def set_password(self, password):

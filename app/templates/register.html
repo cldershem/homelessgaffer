@@ -53,6 +53,15 @@
             {% endfor %}
         </tr>
         <tr>
+            <td>{{form.recaptcha.label}}:</td>
+            <td>{{form.recaptcha}}</td>
+            {% for error in form.errors.recaptcha %}
+                <td>
+                    [{{error}}]
+                </td>
+            {% endfor %}
+        </tr>
+        <tr>
             <td></td>
             <td>{{form.submit}}</td>
         </tr>

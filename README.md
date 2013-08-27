@@ -11,11 +11,11 @@
     - pip freeze > requirements.txt
     - push github, web
     - pip install -r requirements.txt
+    - sudo service nginx restart
+    - sudo service uwsgi restart
 - Search
 - ckeditor css
 - flask-principal
-- email to approve new accounts
-- capatcha?
 - user
     - can edit own posts or if admin
     - post edited on 
@@ -28,8 +28,13 @@
 - edit page doesn't work
 - redirect after login/register
 - add tests
+- fix default nginx error pages
+- Admin
+    - fix redirect after password change fail
 
 ###CHANGELOG
+- added secrets.py 
+- added recaptcha
 - set up bcrypt
 - fixed vim on hg.com
 - changed all times to utc

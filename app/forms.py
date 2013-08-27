@@ -1,17 +1,17 @@
-from flask.ext.wtf import Form
-from wtforms import (TextField, TextAreaField, validators, PasswordField,
-                     SubmitField, BooleanField)  # ValidationError
-from wtforms.validators import EqualTo  # Required
-from models import User, Post, Page  # db, Comment
+from flask.ext.wtf import Form, RecaptchaField
+from wtforms import (TextField, TextAreaField, PasswordField,
+                     SubmitField, BooleanField)
+from wtforms.validators import Email, EqualTo, Required
+from models import User, Post, Page
 from mongoengine.queryset import DoesNotExist
 from utils import makeSlug, CKTextAreaField
 
 
 class LoginForm(Form):
 
-    email = TextField('email', [validators.Required(
+    email = TextField('email', [Required(
                       "Please enter a username.")])
-    password = PasswordField('password', [validators.Required(
+    password = PasswordField('password', [Required(
                              "Please enter a password")])
     remember_me = BooleanField('remember me')
     submit = SubmitField("login")
@@ -37,19 +37,20 @@ class LoginForm(Form):
 
 class RegisterUser(Form):
 
-    firstname = TextField("First name",  [validators.Required(
+    firstname = TextField("First name",  [Required(
                           "Please enter your first name.")])
-    lastname = TextField("Last name",  [validators.Required(
+    lastname = TextField("Last name",  [Required(
                          "Please enter your last name.")])
     email = TextField(
         "Email", [
-            validators.Required("Please enter your email address."),
-            validators.Email("Please engter a valid email address.")])
-    password = PasswordField('New Password', [validators.Required(),
+            Required("Please enter your email address."),
+            Email("Please engter a valid email address.")])
+    password = PasswordField('New Password', [Required(),
                              EqualTo('confirm',
                                      message='Passwords must match')])
-    confirm = PasswordField('Confirm', [validators.Required(
+    confirm = PasswordField('Confirm', [Required(
                             "Password again, please.")])
+    recaptcha = RecaptchaField("reCaptcha")
     submit = SubmitField("Create account")
 
     def __init__(self, *args, **kwargs):
@@ -70,9 +71,9 @@ class RegisterUser(Form):
 
 class PostForm(Form):
 
-    title = TextField("Title", [validators.Required(
+    title = TextField("Title", [Required(
                       "Please enter a title for your post.")])
-    body = CKTextAreaField("Body", [validators.Required(
+    body = CKTextAreaField("Body", [Required(
                            "Please enter a body to your post.")])
     tags = TextField("Tags")
     submit = SubmitField("Create Post")
@@ -95,15 +96,15 @@ class PostForm(Form):
 
 class CommentForm(Form):
 
-    comment = TextAreaField('comment', [validators.Required()])
+    comment = TextAreaField('comment', [Required()])
     submit = SubmitField("submit")
 
 
 class PageForm(Form):
 
-    title = TextField("Title", [validators.Required(
+    title = TextField("Title", [Required(
                       "Please enter a title for your page.")])
-    content = CKTextAreaField("Content", [validators.Required(
+    content = CKTextAreaField("Content", [Required(
                               "Please enter content for your page.")])
     submit = SubmitField("Submit Page")
 
