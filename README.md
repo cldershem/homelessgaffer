@@ -33,6 +33,7 @@
     - fix redirect after password change fail
 
 ###CHANGELOG
+- added precommit githook for pip freeze
 - added secrets.py 
 - added recaptcha
 - set up bcrypt
