@@ -9,8 +9,7 @@
 ###TODO
 - git hook
     - push github, web
-    - sudo service nginx restart
-    - sudo service uwsgi restart
+    - check flake8
 - Search
 - ckeditor css
 - flask-principal
@@ -31,6 +30,9 @@
     - fix redirect after password change fail
 
 ###CHANGELOG
+- added githooks to repo
+- githook restarts nginx and uwsgi
+- githook only runs pip when changes
 - added post-receive githook for pip install -r requirements.txt
 - added pre-commit githook for pip freeze
 - added secrets.py 

@@ -1,0 +1,28 @@
+#!/bin/bash -e
+#GIT_WORK_TREE=/var/www/homelessgaffer.com git checkout -f
+
+BASEDIR=/var/www/homelessgaffer.com
+
+cd $BASEDIR
+source $BASEDIR/venv/bin/activate
+cd $BASEDIR
+echo "activated virtualenv"
+
+pip freeze > $BASEDIR/tmp/requirements.txt.old
+echo "writing pip freeze > requirements.txt.old"
+#if diff -q $BASEDIR/requirements.txt $BASEDIR/tmp/requirements.txt.old >/dev/null; then
+if cmp $BASEDIR/requirements.txt $BASEDIR/tmp/requirements.txt.old; then
+    echo "No changes to requirements.txt, skipping update"
+else
+    pip install -r $BASEDIR/requirements.txt
+    echo "updated virtualenv from requiremens.txt"
+fi
+
+rm $BASEDIR/tmp/requirements.txt.old
+echo "removing /tmp/requirements.txt.old"
+
+sudo service nginx restart
+echo "restarting nginx"
+
+sudo service uwsgi restart
+echo "restarting uwsgi"
