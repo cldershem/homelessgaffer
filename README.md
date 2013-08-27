@@ -31,7 +31,7 @@
     - fix redirect after password change fail
 
 ###CHANGELOG
-- added post-receive githook for pip install -r
+- added post-receive githook for pip install -r requirements.txt
 - added pre-commit githook for pip freeze
 - added secrets.py 
 - added recaptcha
