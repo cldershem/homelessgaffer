@@ -13,7 +13,6 @@
 ###TODO
 - git hook
     - push github, web
-    - check flake8
     - restart nginx, uwsgi
 - Search
 - ckeditor css

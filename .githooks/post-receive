@@ -3,12 +3,15 @@ import os
 import subprocess
 import filecmp
 
-#baseDir = "/var/www/homelessgaffer.com/"
+baseDir = "/var/www/homelessgaffer.com/"
 
 
 def gitCheckout():
-    GIT_WORK_TREE = baseDir
-    subprocess.call(["git", "--work-tree=" + baseDir, "checkout", "-f"])
+    #GIT_WORK_TREE = baseDir
+    #########HEREEEEEEEEEEEEEEEEEEEREREERE
+    #call isn't in git dir
+    subprocess.call(["git", "--work-tree=" + baseDir, "checkout", "-f"],
+                    cwd="/home/cldershem/homelessgaffer.git")
 
 
 def updateRequirements():
