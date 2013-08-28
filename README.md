@@ -47,5 +47,5 @@
 
 ##GITHOOKS
 mv .git/hooks .git/hooks.bak
-ln -s ~/Documents/Development/homelessgaffer.com/hg-Python/.githooks/ ~/Documents/Development/homelessgaffer.com/hg-Python/.git/hooks
+ln -s /path/to/repo/.githooks/ /path/to/repo/.git/hooks
 
