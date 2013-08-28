@@ -12,13 +12,13 @@ def gitFlake8():
 
     sys.exit(git_hook(complexity=10, strict=False,
                       ignore=['E501']))
-    print 'finished flake8 tests'
+    print('finished flake8 tests')
 
 
 def updateRequirements():
     """updates requirements.txt"""
 
-    f = open(baseDir + "requirements.txt.tester", "w")
+    f = open(baseDir + "requirements.txt", "w")
     subprocess.call([os.path.join(baseDir, 'venv/bin', "pip"), "freeze"],
                     stdout=f)
     print('updated requirements.txt')

@@ -1,3 +1,4 @@
+# flake8: noqa
 ###INSTALLATION
 - download and install in /path/to/repo/static/js
     - ckeditor
