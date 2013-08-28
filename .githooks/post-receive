@@ -21,8 +21,8 @@ fi
 rm $BASEDIR/tmp/requirements.txt.old
 echo "removing /tmp/requirements.txt.old"
 
-sudo service nginx restart
+sudo -k service nginx restart
 echo "restarting nginx"
 
-sudo service uwsgi restart
+sudo -k service uwsgi restart
 echo "restarting uwsgi"
