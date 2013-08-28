@@ -1,10 +1,13 @@
-###DONT FORGET TO
-- pip -r requirements.py
-- secret key
-- ckeditor
-- kinetic.js
-- less
-- redo users with bcrypt
+###INSTALLATION
+- download and install in /path/to/repo/static/js
+    - ckeditor
+    - kinetic.js
+    - less
+- scp secrets.py
+- Git-hooks
+    - mv .git/hooks .git/hooks.bak
+    - ln -s /path/to/repo/.githooks/ /path/to/repo/.git/hooks
+- restart nginx, uwsgi
 
 ###TODO
 - git hook
@@ -44,7 +47,3 @@
 - added pagination on posts
 - add https
 - flask admin working
-
-##GITHOOKS
-mv .git/hooks .git/hooks.bak
-ln -s /path/to/repo/.githooks/ /path/to/repo/.git/hooks
