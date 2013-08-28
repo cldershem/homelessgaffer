@@ -30,7 +30,7 @@
     - fix redirect after password change fail
 
 ###CHANGELOG
-- fixed sudo in githook
+- fixed sudo in githook maybe
 - added githooks to repo and created working symlinks
 - githook restarts nginx and uwsgi
 - githook only runs pip when changes
