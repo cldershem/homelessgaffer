@@ -6,7 +6,7 @@ COMPLEXITY = 10
 STRICT = False
 
 if __name__ == '__main__':
-    sys.exit(git.hook(complexity=COMPLEXITY, strict=STRICT, ignore='E501'))
+    sys.exit(git_hook(complexity=COMPLEXITY, strict=STRICT, ignore='E501'))
     # Alternatively
     # sys.exit(git_hook(complexity=COMPLEXITY, strict=STRICT,
     #                   ignore=['E501']))
