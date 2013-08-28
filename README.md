@@ -35,7 +35,7 @@
 - fix users and permissions
 
 ###CHANGELOG
-- rewote git hooks in python, added flake8
+- rewrote git hooks in python, added flake8
 - added githooks to repo and created working symlinks
 - githook only runs pip when changes
 - added post-receive githook for pip install -r requirements.txt
