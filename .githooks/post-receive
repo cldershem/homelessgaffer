@@ -1,28 +1,43 @@
-#!/bin/bash -e
-GIT_WORK_TREE=/var/www/homelessgaffer.com git checkout -f
+#!/usr/bin/env python
+import os
+import subprocess
+import filecmp
 
-BASEDIR=/var/www/homelessgaffer.com
+#baseDir = "/var/www/homelessgaffer.com/"
 
-cd $BASEDIR
-source $BASEDIR/venv/bin/activate
-cd $BASEDIR
-echo "activated virtualenv"
 
-pip freeze > $BASEDIR/tmp/requirements.txt.old
-echo "writing pip freeze > requirements.txt.old"
-#if diff -q $BASEDIR/requirements.txt $BASEDIR/tmp/requirements.txt.old >/dev/null; then
-if cmp $BASEDIR/requirements.txt $BASEDIR/tmp/requirements.txt.old; then
-    echo "No changes to requirements.txt, skipping update"
-else
-    pip install -r $BASEDIR/requirements.txt
-    echo "updated virtualenv from requiremens.txt"
-fi
+def gitCheckout():
+    GIT_WORK_TREE = baseDir
+    subprocess.call(["git", "--work-tree=" + baseDir, "checkout", "-f"])
 
-rm $BASEDIR/tmp/requirements.txt.old
-echo "removing /tmp/requirements.txt.old"
 
-#sudo service nginx restart
-#echo "restarting nginx"
+def updateRequirements():
+    oldRequirements = baseDir + "tmp/requirements.txt.old"
+    newRequirements = baseDir + "requirements.txt"
 
-#sudo service uwsgi restart
-#echo "restarting uwsgi"
+    f = open(oldRequirements, "w")
+    subprocess.call([os.path.join(baseDir, 'venv/bin', "pip"), "freeze"],
+                    stdout=f)
+    f.close()
+    if filecmp.cmp(oldRequirements, newRequirements) is True:
+        print("No changes to requirements.txt, skipping update.")
+    else:
+        subprocess.call([os.path.join(baseDir, 'venv/bin', "pip"),
+                        "install", "-r", newRequirements])
+        print('updated requirements.txt')
+    subprocess.call(["rm", oldRequirements])
+    print("removed tmp/requirements.txt.old")
+
+
+def restartServices():
+    #sudo service nginx restart
+    #print "restarted nginx"
+
+    #sudo service uwsgi restart
+    #print "restarted uwsgi"
+    pass
+
+if __name__ == '__main__':
+    gitCheckout()
+    updateRequirements()
+    #restartServices()
