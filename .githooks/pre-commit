@@ -1,12 +1,12 @@
-#!/venv/bin/python
-import sys
-from flake8.hooks import git_hook
+#!/bin/bash -e
 
-COMPLEXITY = 10
-STRICT = False
+BASEDIR=/home/cldershem/Documents/Development/homelessgaffer.com/hg-Python
 
-if __name__ == '__main__':
-    sys.exit(git_hook(complexity=COMPLEXITY, strict=STRICT, ignore='E501'))
-    # Alternatively
-    # sys.exit(git_hook(complexity=COMPLEXITY, strict=STRICT,
-    #                   ignore=['E501']))
+cd $BASEDIR
+source $BASEDIR/venv/bin/activate
+cd $BASEDIR
+echo "activated virtualenv"
+
+pip freeze > $BASEDIR/requirements.txt
+echo "updated requirements.txt"
+

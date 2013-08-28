@@ -16,10 +16,10 @@
 - flask-principal
 - user
     - can edit own posts or if admin
-    - post edited on 
+    - post edited on
     - profile with all posts
     - forgot password
-    - confirm email 
+    - confirm email
 - add delete to edit page/post
 - fix datetime display
     - moment.js?
@@ -35,7 +35,7 @@
 - githook only runs pip when changes
 - added post-receive githook for pip install -r requirements.txt
 - added pre-commit githook for pip freeze
-- added secrets.py 
+- added secrets.py
 - added recaptcha
 - set up bcrypt
 - fixed vim on hg.com
@@ -48,4 +48,3 @@
 ##GITHOOKS
 mv .git/hooks .git/hooks.bak
 ln -s /path/to/repo/.githooks/ /path/to/repo/.git/hooks
-
