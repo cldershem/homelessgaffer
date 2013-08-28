@@ -30,14 +30,13 @@ def updateRequirements():
 
 
 def restartServices():
-    subprocess.call(["sudo", "-u", "cldershem", "/etc/init.d/nginx",
-                    "restart"])
+    subprocess.call(["sudo", "-u", "root", "service", "nginx", "restart"])
     print "restarted nginx"
 
-    #subprocess.call(["sudo", "service", "uwsgi", "restart"])
-    #print "restarted uwsgi"
+    subprocess.call(["sudo", "-u", "root", "service", "uwsgi", "restart"])
+    print "restarted uwsgi"
 
 if __name__ == '__main__':
-    #gitCheckout()
-    #updateRequirements()
+    gitCheckout()
+    updateRequirements()
     restartServices()
