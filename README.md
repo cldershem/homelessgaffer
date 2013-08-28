@@ -31,7 +31,7 @@
     - fix redirect after password change fail
 
 ###CHANGELOG
-- added githooks to repo and created working symlinks
+- added githooks to repo and created working some symlinks
 - githook only runs pip when changes
 - added post-receive githook for pip install -r requirements.txt
 - added pre-commit githook for pip freeze
