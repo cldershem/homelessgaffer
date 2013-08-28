@@ -32,7 +32,6 @@
 
 ###CHANGELOG
 - added githooks to repo and created working some symlinks
-    - aaaahhhhhhhhhhhhh
 - githook only runs pip when changes
 - added post-receive githook for pip install -r requirements.txt
 - added pre-commit githook for pip freeze
