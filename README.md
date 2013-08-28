@@ -32,9 +32,10 @@
 - fix default nginx error pages
 - Admin
     - fix redirect after password change fail
+- fix users and permissions
 
 ###CHANGELOG
-- rewote pre-commit hook in python, added flake8
+- rewote git hooks in python, added flake8
 - added githooks to repo and created working symlinks
 - githook only runs pip when changes
 - added post-receive githook for pip install -r requirements.txt

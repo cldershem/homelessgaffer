@@ -7,9 +7,6 @@ baseDir = "/var/www/homelessgaffer.com/"
 
 
 def gitCheckout():
-    #GIT_WORK_TREE = baseDir
-    #########HEREEEEEEEEEEEEEEEEEEEREREERE
-    #call isn't in git dir
     subprocess.call(["git", "--work-tree=" + baseDir, "checkout", "-f"],
                     cwd="/home/cldershem/homelessgaffer.git")
 
@@ -33,14 +30,13 @@ def updateRequirements():
 
 
 def restartServices():
-    #sudo service nginx restart
-    #print "restarted nginx"
+    subprocess.call(["sudo", "service", "nginx", "restart"])
+    print "restarted nginx"
 
-    #sudo service uwsgi restart
-    #print "restarted uwsgi"
-    pass
+    subprocess.call(["sudo", "service", "uwsgi", "restart"])
+    print "restarted uwsgi"
 
 if __name__ == '__main__':
-    gitCheckout()
-    updateRequirements()
-    #restartServices()
+    #gitCheckout()
+    #updateRequirements()
+    restartServices()
