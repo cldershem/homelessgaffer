@@ -34,6 +34,7 @@
     - fix redirect after password change fail
 
 ###CHANGELOG
+- rewote pre-commit hook in python, added flake8
 - added githooks to repo and created working symlinks
 - githook only runs pip when changes
 - added post-receive githook for pip install -r requirements.txt
