@@ -30,7 +30,8 @@ def updateRequirements():
 
 
 def restartServices():
-    subprocess.call(["sudo", "-u", "nginx", "service", "nginx", "restart"])
+    subprocess.call(["sudo", "-u", "cldershem", "/etc/init.d/nginx",
+                    "restart"])
     print "restarted nginx"
 
     #subprocess.call(["sudo", "service", "uwsgi", "restart"])
