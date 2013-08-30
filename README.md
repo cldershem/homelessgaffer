@@ -32,6 +32,7 @@
     - fix redirect after password change fail
 - fix users and permissions
     - including /etc/sudoers
+- flake8 should only check .py files
 
 ###CHANGELOG
 - git hook restarts nginx, uwsgi
