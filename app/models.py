@@ -1,8 +1,6 @@
 from flask import url_for
 from app import db, bcrypt
-from datetime import datetime
-
-dateTimeNow = datetime.utcnow()
+from config import dateTimeNow
 
 
 class User(db.Document):
@@ -59,6 +57,7 @@ class Comment(db.EmbeddedDocument):
 class Post(db.Document):
 
     created_at = db.DateTimeField(default=dateTimeNow, required=True)
+    edited_on = db.ListField(db.DateTimeField(default=dateTimeNow))
     title = db.StringField(max_length=255, required=True)
     slug = db.StringField(max_length=255, required=True)
     author = db.ReferenceField(User)
@@ -83,6 +82,7 @@ class Post(db.Document):
 class Page(db.Document):
 
     created_at = db.DateTimeField(default=dateTimeNow, required=True)
+    edited_on = db.ListField(db.DateTimeField(default=dateTimeNow))
     title = db.StringField(required=True)
     slug = db.StringField(required=True)
     content = db.StringField(required=True)

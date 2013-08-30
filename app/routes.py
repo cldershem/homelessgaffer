@@ -112,6 +112,7 @@ def editPage(slug):
                                    slug=slug, form=form)
         else:
             form.populate_obj(page)
+            page.edited_on.append(dateTimeNow)
             page.save()
             flash("Your page has been updated.")
             return redirect(url_for('staticPage', slug=slug))

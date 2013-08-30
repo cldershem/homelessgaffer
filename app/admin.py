@@ -5,6 +5,7 @@ from models import User, Page, Post
 #from utils import CKTextAreaField
 from wtforms import PasswordField
 from flask import flash
+from config import dateTimeNow
 
 
 class AdminView(BaseView):
@@ -16,8 +17,6 @@ class AdminView(BaseView):
 class UserView(ModelView):
     column_filters = ('firstname', 'lastname', 'email', 'created_at',
                       'last_seen')
-    column_sortable_list = ('firstname', 'lastname', 'email', 'created_at',
-                            'last_seen')
     #form_excluded_columns = ('pwdhash')
     #form_columns = ('firstname', 'lastname', 'email', 'roles')
     column_exclude_list = ('pwdhash')
@@ -41,15 +40,22 @@ class UserView(ModelView):
 
 class PostView(ModelView):
     column_filters = ['title']
+    column_exclude_list = ['body']
     form_subdocuments = {'comments': {}}
+
+    def on_model_change(self, form, model):
+        model.edited_on.append(dateTimeNow)
 
 
 class PageView(ModelView):
-    column_filters = ['title']
+    column_filters = ['title', 'slug', 'created_at']
 
     #form_overrides = dict(content=CKTextAreaField)
     #create_template = 'admin/edit.html'
     #edit_template = 'admin/edit.html'
+
+    def on_model_change(self, form, model):
+        model.edited_on.append(dateTimeNow)
 
 
 admin = Admin(app)

@@ -13,9 +13,8 @@
 ###TODO
 - git hook
     - push github, web
-    - restart nginx, uwsgi
 - Search
-- ckeditor css
+- ckeditor css a:hover
 - flask-principal
 - user
     - can edit own posts or if admin
@@ -27,14 +26,15 @@
 - fix datetime display
     - moment.js?
 - edit page doesn't work
-- redirect after login/register
 - add tests
 - fix default nginx error pages
 - Admin
     - fix redirect after password change fail
 - fix users and permissions
+    - including /etc/sudoers
 
 ###CHANGELOG
+- git hook restarts nginx, uwsgi
 - rewrote git hooks in python, added flake8
 - added githooks to repo and created working symlinks
 - githook only runs pip when changes
