@@ -35,7 +35,7 @@
 - flake8 should only check .py files
 
 ###CHANGELOG
-- git hook restarts nginx, uwsgi
+- git hook restarts nginx, uwsgi PROPERLY!?!?!?
 - rewrote git hooks in python, added flake8
 - added githooks to repo and created working symlinks
 - githook only runs pip when changes
