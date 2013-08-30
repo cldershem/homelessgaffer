@@ -30,8 +30,13 @@ def updateRequirements():
 
 
 def restartServices():
+
+    subprocess.call(["whoami"])
+
     subprocess.call(["sudo", "service", "nginx", "restart"])
     print "restarted nginx"
+
+    subprocess.call(["whoami"])
 
     subprocess.call(["sudo", "service", "uwsgi", "restart"])
     print "restarted uwsgi"
