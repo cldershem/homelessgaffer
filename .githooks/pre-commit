@@ -18,9 +18,9 @@ def gitFlake8():
 def updateRequirements():
     """updates requirements.txt"""
 
-    f = open(baseDir + "requirements.txt", "w")
-    subprocess.call([os.path.join(baseDir, 'venv/bin', "pip"), "freeze"],
-                    stdout=f)
+    with open(baseDir + "requirements.txt", "w") as f:
+        subprocess.call([os.path.join(baseDir, 'venv/bin', "pip"),
+                        "freeze"], stdout=f)
     print('updated requirements.txt')
 
 

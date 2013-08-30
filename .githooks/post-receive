@@ -2,6 +2,8 @@
 import os
 import subprocess
 import filecmp
+import urllib
+import zipfile
 
 baseDir = "/var/www/homelessgaffer.com/"
 
@@ -15,10 +17,9 @@ def updateRequirements():
     oldRequirements = baseDir + "tmp/requirements.txt.old"
     newRequirements = baseDir + "requirements.txt"
 
-    f = open(oldRequirements, "w")
-    subprocess.call([os.path.join(baseDir, 'venv/bin', "pip"), "freeze"],
-                    stdout=f)
-    f.close()
+    with open(oldRequirements, "w") as f:
+        subprocess.call([os.path.join(baseDir, 'venv/bin', "pip"),
+                        "freeze"], stdout=f)
     if filecmp.cmp(oldRequirements, newRequirements) is True:
         print("No changes to requirements.txt, skipping update.")
     else:
@@ -30,18 +31,64 @@ def updateRequirements():
 
 
 def restartServices():
-
-    subprocess.call(["whoami"])
-
     subprocess.call(["sudo", "service", "nginx", "restart"])
     print "restarted nginx"
-
-    subprocess.call(["whoami"])
 
     subprocess.call(["sudo", "service", "uwsgi", "restart"])
     print "restarted uwsgi"
 
+
+def getNonTrackedFiles():
+    jsDir = "app/static/js/"
+    ckeditorJS = {
+        "name": "ckeditor/ckeditor.js",
+        "url": "http://download.cksource.com/CKEditor/CKEditor/" +
+               "CKEditor%204.2/ckeditor_4.2_full.zip",
+        "zip": baseDir + jsDir + "ckeditor_4.2_full.zip"
+        }
+    lessJS = {
+        "name": "less-1.4.1.min.js",
+        "url": "https://raw.github.com/less/less.js/master/dist/" +
+                "less-1.4.1.min.js",
+        "zip": False
+        }
+    kineticJS = {
+        "name": "kinetic-v4.6.0.min.js",
+        "url": "http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/" +
+               "kinetic-v4.6.0.min.js",
+        "zip": False
+        }
+    neededLibs = [ckeditorJS, lessJS, kineticJS]
+
+    for item in neededLibs:
+        try:
+            with open(baseDir+jsDir+item['name']):
+                print "skipping %s" % (item['name'])
+        except IOError:
+            if item['zip'] is False:
+                urllib.urlretrieve(item['url'],
+                                   filename=baseDir+jsDir+item['name'])
+                print "downloading %s" % (item['name'])
+            elif item['zip'] is not False:
+                filename = item['zip']
+                urllib.urlretrieve(item['url'],
+                                   filename=filename)
+                with zipfile.ZipFile(filename, "r") as z:
+                    z.extractall(path=baseDir+jsDir+"ckeditor/")
+                    print "extrated %s" % (item['name'])
+                subprocess.call(["rm", item['zip']])
+            print "%s -- ready." % (item['name'])
+
+    #secrets.py
+    #print copied "secrets.py shhh......"
+
 if __name__ == '__main__':
     gitCheckout()
     updateRequirements()
+    getNonTrackedFiles()
     restartServices()
+    print """
+          ###############################
+          Do you need to copy secrets.py?
+          ###############################
+          """

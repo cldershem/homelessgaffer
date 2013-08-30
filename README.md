@@ -1,14 +1,14 @@
 # flake8: noqa
 ###INSTALLATION
-- download and install in /path/to/repo/static/js
-    - ckeditor
-    - kinetic.js
-    - less
-- scp secrets.py
+- clone repo
 - Git-hooks
     - mv .git/hooks .git/hooks.bak
     - ln -s /path/to/repo/.githooks/ /path/to/repo/.git/hooks
-- restart nginx, uwsgi
+    - set baseDir in .githooks/post-receive
+    - add to /etc/sudoers
+        - "cldershem ALL= NOPASSWD: /usr/sbin/service nginx *"
+        - "cldershem ALL= NOPASSWD: /usr/sbin/service uwsgi *"
+
 
 ###TODO
 - git hook
@@ -30,12 +30,11 @@
 - fix default nginx error pages
 - Admin
     - fix redirect after password change fail
-- fix users and permissions
-    - including /etc/sudoers
 - flake8 should only check .py files
 
 ###CHANGELOG
-- git hook restarts nginx, uwsgi PROPERLY!?!?!?
+- git hook downloads js libraries
+- git hook restarts nginx, uwsgi PROPERLY!!!!!!
 - rewrote git hooks in python, added flake8
 - added githooks to repo and created working symlinks
 - githook only runs pip when changes
