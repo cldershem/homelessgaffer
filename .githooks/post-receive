@@ -27,15 +27,15 @@ def updateRequirements():
                         "install", "-r", newRequirements])
         print('updated requirements.txt')
     subprocess.call(["rm", oldRequirements])
-    print("removed tmp/requirements.txt.old")
+    #print("removed tmp/requirements.txt.old")
 
 
 def restartServices():
     subprocess.call(["sudo", "service", "nginx", "restart"])
-    print "restarted nginx"
+    #print "restarted nginx"
 
     subprocess.call(["sudo", "service", "uwsgi", "restart"])
-    print "restarted uwsgi"
+    #print "restarted uwsgi"
 
 
 def getNonTrackedFiles():
@@ -43,8 +43,8 @@ def getNonTrackedFiles():
     ckeditorJS = {
         "name": "ckeditor/ckeditor.js",
         "url": "http://download.cksource.com/CKEditor/CKEditor/" +
-               "CKEditor%204.2/ckeditor_4.2_full.zip",
-        "zip": baseDir + jsDir + "ckeditor_4.2_full.zip"
+               "CKEditor%204.2/ckeditor_4.2_standard.zip",
+        "zip": baseDir + jsDir + "ckeditor_4.2_standard.zip"
         }
     lessJS = {
         "name": "less-1.4.1.min.js",
@@ -74,7 +74,7 @@ def getNonTrackedFiles():
                 urllib.urlretrieve(item['url'],
                                    filename=filename)
                 with zipfile.ZipFile(filename, "r") as z:
-                    z.extractall(path=baseDir + jsDir + "ckeditor/")
+                    z.extractall(path=baseDir + jsDir)
                     print "extrated %s" % (item['name'])
                 subprocess.call(["rm", item['zip']])
             print "%s -- ready." % (item['name'])
