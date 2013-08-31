@@ -62,19 +62,19 @@ def getNonTrackedFiles():
 
     for item in neededLibs:
         try:
-            with open(baseDir+jsDir+item['name']):
+            with open(baseDir + jsDir + item['name']):
                 print "skipping %s" % (item['name'])
         except IOError:
             if item['zip'] is False:
                 urllib.urlretrieve(item['url'],
-                                   filename=baseDir+jsDir+item['name'])
+                                   filename=baseDir + jsDir + item['name'])
                 print "downloading %s" % (item['name'])
             elif item['zip'] is not False:
                 filename = item['zip']
                 urllib.urlretrieve(item['url'],
                                    filename=filename)
                 with zipfile.ZipFile(filename, "r") as z:
-                    z.extractall(path=baseDir+jsDir+"ckeditor/")
+                    z.extractall(path=baseDir + jsDir + "ckeditor/")
                     print "extrated %s" % (item['name'])
                 subprocess.call(["rm", item['zip']])
             print "%s -- ready." % (item['name'])

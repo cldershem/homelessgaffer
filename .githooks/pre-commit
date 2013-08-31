@@ -11,7 +11,7 @@ def gitFlake8():
     """checks everything against Pep8"""
 
     sys.exit(git_hook(complexity=10, strict=False,
-                      ignore=['E501']))
+                      ignore=['E501', 'E123']))
     print('finished flake8 tests')
 
 

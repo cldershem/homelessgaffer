@@ -9,7 +9,6 @@
         - "cldershem ALL= NOPASSWD: /usr/sbin/service nginx *"
         - "cldershem ALL= NOPASSWD: /usr/sbin/service uwsgi *"
 
-
 ###TODO
 - git hook
     - push github, web
