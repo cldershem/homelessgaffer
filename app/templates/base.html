@@ -2,57 +2,55 @@
 <html>
     <head>
         <title>hg-{% block title %}{% endblock %}</title>
-<!--
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
--->
-	<link rel="stylesheet/less" type="text/css" href="{{ url_for('static', filename='css/style.less') }}" />
-	<script src="{{ url_for('static', filename='js/less-1.4.1.min.js') }}" type="text/javascript"></script>
+        <link rel="stylesheet/less" type="text/css" href="{{ url_for('static', filename='css/style.less') }}" />
+        <script src="{{ url_for('static', filename='js/less-1.4.1.min.js') }}" type="text/javascript"></script>
         <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}">
-	{% block head %}{% endblock %}
+        {% block head %}{% endblock %}
     </head>
     <body>
         <div id="allcontent">
-        <div id="header">
-            <img id="headerphoto" src="{{headerImg}}"/>
-            <h1 id="hgtitle"><a href="{{ url_for('index') }}">homelessgaffer.com/</a><span id="page">{{page}}</span></h1>
-            <ul id="navbar">
-                {% set navBar = ["food", "bike", "work", "resume", "dev", "about", "contact"] %}
-                {% for navButton in navBar -%}
-                    <li {% if request.endpoint == navButton %} class="currentpage" {% endif %}><a href="{{url_for(navButton)}}">{{navButton}}</a></li>
-                {%- endfor -%}
-                {% if current_user.is_anonymous() == True -%}
-                    <li id="navbarlogin"><a href="{{ url_for('login') }}">login</a></li>			    
-                {% else -%}
-                    <li id="navbarlogin">
-                        <a href="{{ url_for('profile', user=current_user.email) }}">profile</a>
-                    </li><li id="navbarlogin">
-                        <a href="{{ url_for('logout') }}">logout</a>
-                    </li>
-                {% endif -%}           
-            </ul>
-        </div><!--end #header-->
-	    <div id="main">
-	    <div id="indexleftcontent">
-		<div id="flashMessage">
-		    {% with messages = get_flashed_messages() %}
-		    {% if messages %}
-		    <ul>
-		    {% for message in messages %}
-			<li>{{ message }}</li>
-		    {% endfor %}
-		    </ul>
-		    {% endif %}
-		    {% endwith %}
-		</div>
-        {% block content %}
-        {% endblock %}
-	    </div><!--end leftcontent-->
-	    </div><!--end main-->
-        <div id="footer">
-            <p>
-                this is the footer to this page.  it is copycentered.
-            </p>
-        </div><!--end #footer-->
+            <div id="header">
+                <img id="headerphoto" src="{{headerImg}}"/>
+                <h1 id="hgtitle"><a href="{{ url_for('index') }}">homelessgaffer.com/</a><span id="page">{{page}}</span></h1>
+                <ul id="navbar">
+                    {% set navBar = ["food", "bike", "work", "resume", "dev", "about", "contact"] %}
+                    {% for navButton in navBar -%}
+                        <li {% if request.endpoint == navButton %} class="currentpage" {% endif %}><a href="{{url_for(navButton)}}">{{navButton}}</a></li>
+                    {%- endfor -%}
+                    {% if current_user.is_anonymous() == True -%}
+                        <li id="navbarlogin"><a href="{{ url_for('login') }}">login</a></li>			    
+                    {% else -%}
+                        <li id="navbarlogin">
+                            <a href="{{ url_for('profile', user=current_user.email) }}">profile</a>
+                        </li>
+                        <li id="navbarlogin">
+                            <a href="{{ url_for('logout') }}">logout</a>
+                        </li>
+                    {% endif -%}           
+                </ul>
+            </div><!--end #header-->
+            <div id="main">
+                <div id="indexleftcontent">
+                    <div id="flashMessage">
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <ul>
+                                    {% for message in messages %}
+                                        <li>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                {% block content %}
+                {% endblock %}
+                </div><!--end leftcontent-->
+            </div><!--end main-->
+            <div id="footer">
+                <p>
+                    this is the footer to this page.  it is copycentered.
+                </p>
+            </div><!--end #footer-->
         </div><!--end #allcontent-->
     </body>
 </html>

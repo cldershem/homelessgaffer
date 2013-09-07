@@ -8,19 +8,19 @@
     - add to /etc/sudoers
         - "cldershem ALL= NOPASSWD: /usr/sbin/service nginx *"
         - "cldershem ALL= NOPASSWD: /usr/sbin/service uwsgi *"
+    -cp secrets.py
 
 ###TODO
-- git hook
-    - push github, web
+- push github, web at same time?
 - Search
-- ckeditor css a:hover
 - flask-principal
 - user
     - can edit own posts or if admin
     - post edited on
     - profile with all posts
     - forgot password
-    - confirm email
+    - registration shouldn't save unless all goes well
+        - currently will save if error
 - add delete to edit page/post
 - fix datetime display
     - moment.js?
@@ -30,8 +30,17 @@
 - Admin
     - fix redirect after password change fail
 - flake8 should only check .py files
+- update "basedir" in post and pre hooks to BASE-DIR and use it correctly
+- find better way to do async
 
 ###CHANGELOG
+- user confirm email uses token
+- user can only login after confirmation
+- added confirmation email
+- flask-mail is async
+- flask-mail setup
+- added constants.py
+- dateTimeNow depricated, DATE-TIME-NOW replaces (underscores not hyphens)
 - git hook downloads js libraries
 - git hook restarts nginx, uwsgi PROPERLY!!!!!!
 - rewrote git hooks in python, added flake8

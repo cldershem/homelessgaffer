@@ -5,7 +5,7 @@ from models import User, Page, Post
 #from utils import CKTextAreaField
 from wtforms import PasswordField
 from flask import flash
-from config import dateTimeNow
+from app.constants import DATE_TIME_NOW
 
 
 class AdminView(BaseView):
@@ -44,7 +44,7 @@ class PostView(ModelView):
     form_subdocuments = {'comments': {}}
 
     def on_model_change(self, form, model):
-        model.edited_on.append(dateTimeNow)
+        model.edited_on.append(DATE_TIME_NOW)
 
 
 class PageView(ModelView):
@@ -55,7 +55,7 @@ class PageView(ModelView):
     #edit_template = 'admin/edit.html'
 
     def on_model_change(self, form, model):
-        model.edited_on.append(dateTimeNow)
+        model.edited_on.append(DATE_TIME_NOW)
 
 
 admin = Admin(app)

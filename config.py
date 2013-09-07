@@ -1,20 +1,28 @@
 import os
-import datetime
 import secrets
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+
 DEBUG = True
+
+# misc
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+ADMINS = secrets.ADMINS
+
+# wtforms
 CSRF_ENABLED = True
 SECRET_KEY = secrets.SECRET_KEY
+
+# db
 MONGODB_SETTINGS = {'DB': "homelessgaffer"}
 
-dateTimeNow = datetime.datetime.utcnow()
-
+# recaptcha
 #RECAPTCHA_USE_SSL
 RECAPTCHA_PUBLIC_KEY = secrets.RECAPTCHA_PUBLIC_KEY
 RECAPTCHA_PRIVATE_KEY = secrets.RECAPTCHA_PRIVATE_KEY
 RECAPTCHA_OPTIONS = {'theme': 'white'}
 
+# flask debug toolbar
 DEBUG_TB_PANELS = [
     'flask_debugtoolbar.panels.versions.VersionDebugPanel',
     'flask_debugtoolbar.panels.timer.TimerDebugPanel',
@@ -27,3 +35,11 @@ DEBUG_TB_PANELS = [
     'flask_debugtoolbar_mongo.panel.MongoDebugPanel',
     ]
 DEBUG_TB_INTERCEPT_REDIRECTS = False
+
+# mail server settings
+MAIL_SERVER = 'smtp.googlemail.com'
+MAIL_PORT = 465
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
+MAIL_USERNAME = secrets.MAIL_USERNAME
+MAIL_PASSWORD = secrets.MAIL_PASSWORD

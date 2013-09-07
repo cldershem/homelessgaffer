@@ -1,0 +1,15 @@
+<p>
+    {{user.firstname}},
+</p>
+<p>
+    You have registered for an account at homelessgaffer.com using the email, {{user.email}}.  If this is not you, please disregard this email.
+</p>
+<p>
+    To activate your account please click or copy the following link:
+</p>
+<p>
+    <a href="{{ url_for('activateUser', _external=True, payload=payload) }}">Activate account</a>
+</p>
+<p>
+    -hg admin
+</p>

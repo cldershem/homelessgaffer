@@ -1,16 +1,15 @@
 from flask import (render_template, url_for, request, redirect, flash,
-                   g)
+                   g, abort)
 from app import app, lm
 from forms import LoginForm, RegisterUser, CommentForm, PostForm, PageForm
 from jinja2 import Markup
 from models import (User, Post, Comment, Page)
 from flask.ext.login import (login_user, logout_user,
                              current_user, login_required)
-from datetime import datetime
-from utils import makeSlug
+from utils import makeSlug, get_activation_link, check_activation_link
 from flask.ext.mongoengine import Pagination
-
-dateTimeNow = datetime.utcnow()
+from app.constants import DATE_TIME_NOW
+from emails import email_confirmation
 
 
 @lm.user_loader
@@ -112,7 +111,7 @@ def editPage(slug):
                                    slug=slug, form=form)
         else:
             form.populate_obj(page)
-            page.edited_on.append(dateTimeNow)
+            page.edited_on.append(DATE_TIME_NOW)
             page.save()
             flash("Your page has been updated.")
             return redirect(url_for('staticPage', slug=slug))
@@ -140,13 +139,16 @@ def login():
             return render_template('login.html', form=form)
         else:
             user = User.objects.get(email=form.email.data.lower())
-            if user:
+            if user and user.roles.can_login is True:
                 #add remember_me
-                user.last_seen = dateTimeNow
+                user.last_seen = DATE_TIME_NOW
                 user.save()
                 login_user(user)
                 return redirect(request.args.get('next') or
                                 url_for('profile', user=current_user.email))
+            else:
+                flash("Please confirm your email address.")
+                return render_template('login.html', form=form)
     elif request.method == 'GET':
         return render_template('login.html', form=form)
 
@@ -175,14 +177,33 @@ def register():
             newUser = User(firstname=form.firstname.data.title(),
                            lastname=form.lastname.data.title(),
                            email=form.email.data.lower())
-
             newUser.set_password(form.password.data)
             newUser.save()
-            login_user(newUser)
-            return redirect(url_for('profile', user=newUser.email))
+            payload = get_activation_link(newUser)
+            email_confirmation(newUser, payload)
+            flash("Please confirm your email address.")
+            return redirect(url_for('index'))
 
     elif request.method == 'GET':
         return render_template('register.html', form=form)
+
+
+@app.route('/user/activate/<payload>')
+def activateUser(payload):
+    user_email = check_activation_link(payload)
+    if not user_email:
+        return abort(404)
+    user = User.objects.get(email=user_email)
+    if user:
+        if user.confirmed is None:
+            user.activate_user()
+            user.save()
+            flash('Your account has been activated.')
+        else:
+            flash('Your account was already active.')
+        return redirect(url_for('login'))
+    else:
+        return abort(404)
 
 
 @app.errorhandler(404)
