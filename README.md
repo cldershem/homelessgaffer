@@ -8,7 +8,7 @@
     - add to /etc/sudoers
         - "cldershem ALL= NOPASSWD: /usr/sbin/service nginx *"
         - "cldershem ALL= NOPASSWD: /usr/sbin/service uwsgi *"
-    -cp secrets.py
+    - cp secrets.py
 
 ###TODO
 - push github, web at same time?

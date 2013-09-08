@@ -214,23 +214,23 @@ def forgotPassword():
 
     if current_user.is_authenticated():
         return redirect(url_for('index'))
-    else:
-        if request.method == 'POST':
-            if not form.validate():
-                return render_template('forgotPassword.html', form=form)
-            else:
-                try:
-                    user = User.objects.get(email=form.email.data)
-                except:
-                    flash("That email does not exist, please try another.")
-                    return render_template('forgotPassword.html', form=form)
-                payload = get_password_reset_link(user)
-                email_password_reset(user, payload)
-                flash("Password reset email has been sent. \
-                       Link is good for 24 hours.")
-                return redirect(url_for('index'))
-        elif request.method == 'GET':
+
+    if request.method == 'POST':
+        if not form.validate():
             return render_template('forgotPassword.html', form=form)
+        else:
+            try:
+                user = User.objects.get(email=form.email.data)
+            except:
+                flash("That email does not exist, please try another.")
+                return render_template('forgotPassword.html', form=form)
+            payload = get_password_reset_link(user)
+            email_password_reset(user, payload)
+            flash("Password reset email has been sent. \
+                   Link is good for 24 hours.")
+            return redirect(url_for('index'))
+    elif request.method == 'GET':
+        return render_template('forgotPassword.html', form=form)
 
 
 @app.route('/user/resetpassword/<payload>', methods=['GET', 'POST'])
@@ -253,9 +253,6 @@ def reset_password(payload):
             flash("Password has been reset, please login")
             return redirect(url_for('login'))
     elif request.method == 'GET':
-        #if not user_email:
-        #    flash("Token incorrect or has expired.  Please try again.")
-        #    return redirect(url_for('forgotPassword'))
         return render_template('resetPassword.html', form=form)
 
 
