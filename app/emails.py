@@ -29,3 +29,17 @@ def email_confirmation(user, payload):
                         user=user,
                         payload=payload)
         )
+
+
+def email_password_reset(user, payload):
+    send_email(
+        "[homelessgaffer.com] - confirm email",
+        ADMINS[0],
+        [ADMINS[0]],  # change this to user.email?
+        render_template("emails/password_reset.txt",
+                        user=user,
+                        payload=payload),
+        render_template("emails/password_reset.html",
+                        user=user,
+                        payload=payload)
+        )

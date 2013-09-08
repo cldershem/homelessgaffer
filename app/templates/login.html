@@ -10,7 +10,7 @@
         <tr>
             <td>{{form.email.label}}:</td>
             <td>{{form.email(size=10)}}</td>
-            {% for error in form.errors.username %}
+            {% for error in form.errors.email %}
                 <td>
                     [{{error}}]
                 </td>
@@ -41,6 +41,10 @@
         <tr>
             <td></td>
             <td>or <a href="{{ url_for('register') }}">register</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>or <a href="{{ url_for('forgotPassword') }}">Forgot Password</a></td>
         </tr>
     </table>
 </form>

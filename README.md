@@ -18,7 +18,7 @@
     - can edit own posts or if admin
     - post edited on
     - profile with all posts
-    - forgot password
+    - does forgot it need to be in the admin panel?
     - registration shouldn't save unless all goes well
         - currently will save if error
 - add delete to edit page/post
@@ -34,6 +34,7 @@
 - find better way to do async
 
 ###CHANGELOG
+- added forgot password
 - user confirm email uses token
 - user can only login after confirmation
 - added confirmation email

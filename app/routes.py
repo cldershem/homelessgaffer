@@ -1,15 +1,17 @@
 from flask import (render_template, url_for, request, redirect, flash,
                    g, abort)
 from app import app, lm
-from forms import LoginForm, RegisterUser, CommentForm, PostForm, PageForm
+from forms import (LoginForm, RegisterUser, CommentForm, PostForm, PageForm,
+                   ForgotPasswordForm, ResetPasswordForm)
 from jinja2 import Markup
 from models import (User, Post, Comment, Page)
 from flask.ext.login import (login_user, logout_user,
                              current_user, login_required)
-from utils import makeSlug, get_activation_link, check_activation_link
+from utils import (makeSlug, get_activation_link, check_activation_link,
+                   get_password_reset_link, check_password_reset_link)
 from flask.ext.mongoengine import Pagination
 from app.constants import DATE_TIME_NOW
-from emails import email_confirmation
+from emails import email_confirmation, email_password_reset
 
 
 @lm.user_loader
@@ -204,6 +206,57 @@ def activateUser(payload):
         return redirect(url_for('login'))
     else:
         return abort(404)
+
+
+@app.route('/user/forgotpassword', methods=['GET', 'POST'])
+def forgotPassword():
+    form = ForgotPasswordForm()
+
+    if current_user.is_authenticated():
+        return redirect(url_for('index'))
+    else:
+        if request.method == 'POST':
+            if not form.validate():
+                return render_template('forgotPassword.html', form=form)
+            else:
+                try:
+                    user = User.objects.get(email=form.email.data)
+                except:
+                    flash("That email does not exist, please try another.")
+                    return render_template('forgotPassword.html', form=form)
+                payload = get_password_reset_link(user)
+                email_password_reset(user, payload)
+                flash("Password reset email has been sent. \
+                       Link is good for 24 hours.")
+                return redirect(url_for('index'))
+        elif request.method == 'GET':
+            return render_template('forgotPassword.html', form=form)
+
+
+@app.route('/user/resetpassword/<payload>', methods=['GET', 'POST'])
+def reset_password(payload):
+    form = ResetPasswordForm()
+    user_email = check_password_reset_link(payload)
+
+    if not user_email:
+        flash("Token incorrect or has expired.  Please try again.")
+        return redirect(url_for('forgotPassword'))
+
+    if request.method == 'POST':
+        if not form.validate():
+            return render_template('resetPassword.html', form=form)
+        else:
+            user = User.objects.get(email=user_email)
+            user.set_password(form.password.data)
+            user.save()
+            #email password reset
+            flash("Password has been reset, please login")
+            return redirect(url_for('login'))
+    elif request.method == 'GET':
+        #if not user_email:
+        #    flash("Token incorrect or has expired.  Please try again.")
+        #    return redirect(url_for('forgotPassword'))
+        return render_template('resetPassword.html', form=form)
 
 
 @app.errorhandler(404)

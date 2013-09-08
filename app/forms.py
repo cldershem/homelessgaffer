@@ -119,3 +119,19 @@ class PageForm(Form):
                 return False
         except DoesNotExist:
             return True
+
+
+class ForgotPasswordForm(Form):
+
+    email = TextField("email", [Required("Please enter your email.")])
+    submit = SubmitField("submit")
+
+
+class ResetPasswordForm(Form):
+
+    password = PasswordField('New Password', [Required(),
+                             EqualTo('confirm',
+                                     message='Passwords must match')])
+    confirm = PasswordField('Confirm', [Required(
+                            "Password again, please.")])
+    submit = SubmitField("submit")
