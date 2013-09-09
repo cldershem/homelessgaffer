@@ -27,5 +27,6 @@ def updateRequirements():
 if __name__ == '__main__':
     print "yup"
     gitFlake8()
+    print "done flake8"
     updateRequirements()
     print "DFLKJSDFIOIWEJF"
