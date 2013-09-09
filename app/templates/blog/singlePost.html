@@ -7,7 +7,7 @@
     <p>
         <strong>tags:</strong>
 		{% for tag in post.tags %}
-			<a class="posttags" href="{{ url_for('listPosts', tag=tag) }}">[{{tag}}]</a>
+			<a class="posttags" href="{{ url_for('blog.listPosts', tag=tag) }}">[{{tag}}]</a>
 		{% endfor %}
     </p>
 	{% endif %}

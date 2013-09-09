@@ -26,21 +26,6 @@ def before_request():
     g.user = current_user
 
 
-@app.route('/')
-@app.route('/root')
-@app.route('/index')
-def index():
-    return render_template("index.html")
-
-
-app.register_blueprint(staticPage)
-
-#@app.route('/page/food')  # is food part of posts/blog now?
-#def food():
-#    return redirect(url_for('blog.listPosts', tag="food"))
-
-app.register_blueprint(blogPost)
-
 # user
 
 
@@ -175,13 +160,3 @@ def profile(user):
     last_seen = User.objects.get(email=user).last_seen
     return render_template('/profile.html', user=user, last_seen=last_seen)
 #end user
-
-
-@app.errorhandler(404)
-def page_not_found(error):
-    return render_template("error404.html"), 404
-
-
-@app.errorhandler(500)
-def internal_server_error(error):
-    return render_template("error500.html"), 500

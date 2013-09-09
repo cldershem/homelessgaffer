@@ -34,9 +34,9 @@
 - find better way to do async
 - add blueprints
     - user
-    - blog
 
 ###CHANGELOG
+- finished blog blueprint
 - finished Page Blueprint
 - fixed listpages
 - Page Blueprint add

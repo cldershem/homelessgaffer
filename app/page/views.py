@@ -7,13 +7,11 @@ from app.constants import DATE_TIME_NOW
 from app.utils import makeSlug
 from flask.ext.login import login_required, current_user
 
-static_page = Blueprint('static_page', __name__,
-                        template_folder='templates',
-                        url_prefix='/page')
+mod = Blueprint('static_page', __name__, url_prefix='/page')
 
 
-@static_page.route('/')
-@static_page.route('/listpages')
+@mod.route('/')
+@mod.route('/listpages')
 def listPages():
     pages = Page.objects.all()
     return render_template('page/listPages.html',
@@ -21,7 +19,7 @@ def listPages():
                            pages=pages)
 
 
-@static_page.route('/<slug>')
+@mod.route('/<slug>')
 def showStaticPage(slug):
     try:
         return render_template('page/%s.html' % slug, page=slug)
@@ -32,7 +30,7 @@ def showStaticPage(slug):
                                slug=page.slug, content=content)
 
 
-@static_page.route('/newpage', methods=['GET', 'POST'])
+@mod.route('/newpage', methods=['GET', 'POST'])
 @login_required
 def newPage():
     form = PageForm()
@@ -52,7 +50,7 @@ def newPage():
         return render_template("page/newPage.html", form=form, page="newpage")
 
 
-@static_page.route('/<slug>/edit', methods=['GET', 'POST'])
+@mod.route('/<slug>/edit', methods=['GET', 'POST'])
 @login_required
 def editPage(slug):
     page = Page.objects.get(slug=slug)
