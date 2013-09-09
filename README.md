@@ -32,13 +32,12 @@
 - flake8 should only check .py files
 - update "basedir" in post and pre hooks to BASE-DIR and use it correctly
 - find better way to do async
-- login manager unauthorized-handler()
 - add blueprints
     - user
     - blog
-    - page
 
 ###CHANGELOG
+- finished Page Blueprint
 - fixed listpages
 - Page Blueprint add
 - currentPage navButton works again

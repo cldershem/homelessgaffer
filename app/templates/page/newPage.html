@@ -3,9 +3,7 @@
 {% block head %}
 <script src="{{url_for('static', filename='js/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
 {% endblock %}
-{% block title %}newpage{% endblock %}
-{% set page = 'newpage' %}
-{% set headerImg = url_for('static', filename='img/babytenor-400x67.jpg') %}
+{% block title %}{{page}}{% endblock %}
 
 {% block content %}
 <form id="newpage" action="" method="post">

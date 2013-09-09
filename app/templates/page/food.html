@@ -1,7 +1,6 @@
 <!-- extends base.html -->
 {% extends "base.html" %}
-{% block title %}food{% endblock %}
-{% set page = 'food' %}
+{% block title %}{{page}}{% endblock %}
 
 {% block content %}
     {% for post in posts %}

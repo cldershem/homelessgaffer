@@ -1,9 +1,9 @@
 from flask import (render_template, url_for, request, redirect, flash,
                    g, abort)
 from app import app, lm
-from forms import (LoginForm, RegisterUser, CommentForm, PostForm, PageForm,
+from forms import (LoginForm, RegisterUser, CommentForm, PostForm,
                    ForgotPasswordForm, ResetPasswordForm)
-from models import (User, Post, Comment, Page)
+from models import (User, Post, Comment)
 from flask.ext.login import (login_user, logout_user,
                              current_user, login_required)
 from utils import (makeSlug, get_activation_link, check_activation_link,
@@ -12,7 +12,7 @@ from flask.ext.mongoengine import Pagination
 from app.constants import DATE_TIME_NOW
 from emails import email_confirmation, email_password_reset
 from decorators import anon_required
-from app.page.views import static_page, semi_static_page
+from app.page.views import static_page
 
 
 @lm.user_loader
@@ -34,50 +34,10 @@ def index():
 
 
 app.register_blueprint(static_page)
-app.register_blueprint(semi_static_page)
 
-
-@app.route('/page/newpage', methods=['GET', 'POST'])
-@login_required
-def newPage():
-    form = PageForm()
-
-    if request.method == 'POST':
-        slug = makeSlug(form.title.data)
-        if form.validate() is False:
-            return render_template("newPage.html", form=form)
-        else:
-            newPage = Page(title=form.title.data,
-                           slug=slug, content=form.content.data)
-            newPage.author = User.objects.get(email=current_user.email)
-            newPage.save()
-            flash('Your page has been posted')
-            return redirect(url_for('staticPage', slug=slug))
-    elif request.method == 'GET':
-        return render_template("newPage.html", form=form)
-
-
-@app.route('/page/<slug>/edit', methods=['GET', 'POST'])
-@login_required
-def editPage(slug):
-    page = Page.objects.get(slug=slug)
-    slug = page.slug
-    form = PageForm(obj=page)
-
-    if request.method == 'POST':
-        if form.validate() is False:
-            return render_template('editPage.html', title=page.title,
-                                   slug=slug, form=form)
-        else:
-            form.populate_obj(page)
-            page.edited_on.append(DATE_TIME_NOW)
-            page.save()
-            flash("Your page has been updated.")
-            return redirect(url_for('staticPage', slug=slug))
-    elif request.method == 'GET':
-        form.populate_obj(page)
-        return render_template('editPage.html', title=page.title,
-                               slug=slug, form=form)
+#@app.route('/page/food')  # is food part of posts/blog now?
+#def food():
+#    return redirect(url_for('listPosts', tag="food"))
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -96,7 +56,9 @@ def login():
                 user.save()
                 login_user(user)
                 return redirect(request.args.get('next') or
-                                url_for('profile', user=current_user.email))
+                                url_for('profile',
+                                        user=current_user.email)
+                                )
             else:
                 flash("Please confirm your email address.")
                 return render_template('login.html', form=form)

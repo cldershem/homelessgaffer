@@ -5,7 +5,7 @@
 {% block content %}
     {% if current_user.is_authenticated() == True %}
         <p>
-            <a href="{{url_for('editPage', slug=slug)}}">edit page</a>
+            <a href="{{url_for('static_page.editPage', slug=slug)}}">edit page</a>
         </p>
     {% endif %}
 {{content}}

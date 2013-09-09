@@ -15,7 +15,7 @@
                 <ul id="navbar">
                     {% set navBar = ["food", "bike", "work", "resume", "dev", "about", "contact"] %}
                     {% for navButton in navBar -%}
-                        <li {% if page == navButton %} class="currentpage" {% endif %}><a href="{{url_for('static_page.showStaticPage', page=navButton)}}">{{navButton}}</a></li>
+                        <li {% if page == navButton %} class="currentpage" {% endif %}><a href="{{url_for('static_page.showStaticPage', slug=navButton)}}">{{navButton}}</a></li>
                     {%- endfor -%}
                     {% if current_user.is_anonymous() == True -%}
                         <li id="navbarlogin"><a href="{{ url_for('login') }}">login</a></li>			    
