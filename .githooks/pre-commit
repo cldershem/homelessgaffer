@@ -4,8 +4,7 @@ import subprocess
 import os
 from flake8.hooks import git_hook
 
-baseDir = "/home/cldershem/Documents/Development/homelessgaffer.com/hg-Python/"
-BASE_DIR = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 
 
 def gitFlake8():
@@ -19,14 +18,12 @@ def gitFlake8():
 def updateRequirements():
     """updates requirements.txt"""
 
-    with open(baseDir + "requirements.txt", "w") as f:
-        subprocess.call([os.path.join(baseDir, 'venv/bin', "pip"),
+    with open(BASE_DIR + "requirements.txt", "w") as f:
+        subprocess.call([os.path.join(BASE_DIR, 'venv/bin', "pip"),
                         "freeze"], stdout=f)
     print('updated requirements.txt')
 
 
 if __name__ == '__main__':
-    print "s"
     gitFlake8()
-    print "done"
     updateRequirements()
