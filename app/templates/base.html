@@ -18,13 +18,13 @@
                         <li {% if page == navButton %} class="currentpage" {% endif %}><a href="{{url_for('static_page.showStaticPage', slug=navButton)}}">{{navButton}}</a></li>
                     {%- endfor -%}
                     {% if current_user.is_anonymous() == True -%}
-                        <li id="navbarlogin"><a href="{{ url_for('login') }}">login</a></li>			    
+                        <li {% if page == "login" %} class="currentpage" {% endif %} id="navbarlogin"><a href="{{ url_for('users.login') }}">login</a></li>			    
                     {% else -%}
                         <li id="navbarlogin">
-                            <a href="{{ url_for('profile', user=current_user.email) }}">profile</a>
+                            <a href="{{ url_for('users.profile', user=current_user.email) }}">profile</a>
                         </li>
                         <li id="navbarlogin">
-                            <a href="{{ url_for('logout') }}">logout</a>
+                            <a href="{{ url_for('users.logout') }}">logout</a>
                         </li>
                     {% endif -%}           
                 </ul>

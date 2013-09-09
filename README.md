@@ -32,10 +32,10 @@
 - flake8 should only check .py files
 - update "basedir" in post and pre hooks to BASE-DIR and use it correctly
 - find better way to do async
-- add blueprints
-    - user
+- set title=page in base.html?
 
 ###CHANGELOG
+- finished user blueprint
 - finished blog blueprint
 - finished Page Blueprint
 - fixed listpages

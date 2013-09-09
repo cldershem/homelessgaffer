@@ -71,3 +71,7 @@ def editPage(slug):
         form.populate_obj(page)
         return render_template('page/editPage.html', title=page.title,
                                slug=slug, form=form)
+                               
+@mod.route('/food')  # is food part of posts/blog now?
+def food():
+    return redirect(url_for('blog.listPosts', tag="food"))

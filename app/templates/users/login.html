@@ -1,7 +1,6 @@
 <!-- extends base.html -->
 {% extends "base.html" %}
-{% block title %}login{% endblock %}
-{% set page = 'login' %}
+{% block title %}{{page}}{% endblock %}
 
 {% block content %}
 <form id="login" action="" method="post">
@@ -40,11 +39,11 @@
         </tr>
         <tr>
             <td></td>
-            <td>or <a href="{{ url_for('register') }}">register</a></td>
+            <td>or <a href="{{ url_for('users.register') }}">register</a></td>
         </tr>
         <tr>
             <td></td>
-            <td>or <a href="{{ url_for('forgotPassword') }}">Forgot Password</a></td>
+            <td>or <a href="{{ url_for('users.forgotPassword') }}">Forgot Password</a></td>
         </tr>
     </table>
 </form>

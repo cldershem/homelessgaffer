@@ -13,7 +13,7 @@ bcrypt = Bcrypt(app)
 toolbar = DebugToolbarExtension(app)
 mail = Mail(app)
 lm = LoginManager(app)
-lm.login_view = "login"
+lm.login_view = "users.login"
 
 #if not app.debug:
 from app import routes, models, admin  # nopep8

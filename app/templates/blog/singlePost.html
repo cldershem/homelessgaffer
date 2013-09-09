@@ -11,7 +11,7 @@
 		{% endfor %}
     </p>
 	{% endif %}
-    <p>by <strong><a href="{{ url_for('profile', user=post.author.email) }}">{{ post.author.email }}</a></strong></p>
+    <p>by <strong><a href="{{ url_for('users.profile', user=post.author.email) }}">{{ post.author.email }}</a></strong></p>
     <p>{{ post.created_at.strftime('%H:%M %Y-%m-%d') }}</p>
     <hr>
     <h2>Comments</h2>
@@ -44,6 +44,6 @@
 			</table>
 		</form>
 	{% else %}
-		<p><a href="{{url_for('login')}}">login</a> to comment.</p>
+		<p><a href="{{url_for('users.login')}}">login</a> to comment.</p>
 	{% endif %}
 {% endblock %}
