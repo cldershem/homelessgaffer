@@ -9,11 +9,11 @@ app = Flask(__name__)
 app.config.from_object('config')
 
 db = MongoEngine(app)
-lm = LoginManager(app)
-lm.login_view = "login"
 bcrypt = Bcrypt(app)
 toolbar = DebugToolbarExtension(app)
 mail = Mail(app)
+lm = LoginManager(app)
+lm.login_view = "login"
 
 #if not app.debug:
 from app import routes, models, admin  # nopep8

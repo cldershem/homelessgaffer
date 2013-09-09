@@ -3,7 +3,6 @@ from flask import (render_template, url_for, request, redirect, flash,
 from app import app, lm
 from forms import (LoginForm, RegisterUser, CommentForm, PostForm, PageForm,
                    ForgotPasswordForm, ResetPasswordForm)
-from jinja2 import Markup
 from models import (User, Post, Comment, Page)
 from flask.ext.login import (login_user, logout_user,
                              current_user, login_required)
@@ -12,6 +11,8 @@ from utils import (makeSlug, get_activation_link, check_activation_link,
 from flask.ext.mongoengine import Pagination
 from app.constants import DATE_TIME_NOW
 from emails import email_confirmation, email_password_reset
+from decorators import anon_required
+from app.page.views import static_page, semi_static_page
 
 
 @lm.user_loader
@@ -32,52 +33,8 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/food')
-def food():
-    return redirect(url_for('listPosts', tag="food"))
-
-
-@app.route('/bike')
-def bike():
-    return render_template("bike.html")
-
-
-@app.route('/work')
-def work():
-    return render_template("work.html")
-
-
-@app.route('/resume')
-def resume():
-    return render_template("resume.html")
-
-
-@app.route('/about')
-def about():
-    return render_template("about.html")
-
-
-@app.route('/contact')
-def contact():
-    return render_template("contact.html")
-
-
-@app.route('/dev')
-def dev():
-    return render_template("dev.html")
-
-
-@app.route('/battleship')
-def battleship():
-    return render_template("battleship.html")
-
-
-@app.route('/page/<slug>')
-def staticPage(slug):
-    page = Page.objects.get_or_404(slug=slug)
-    content = Markup(page.content)
-    return render_template('staticpage.html', title=page.title,
-                           slug=page.slug, content=content)
+app.register_blueprint(static_page)
+app.register_blueprint(semi_static_page)
 
 
 @app.route('/page/newpage', methods=['GET', 'POST'])
@@ -123,18 +80,10 @@ def editPage(slug):
                                slug=slug, form=form)
 
 
-@app.route('/page/listpages')
-def listPages():
-    pages = Page.objects.all()
-    return render_template('listPages.html', pages=pages)
-
-
 @app.route('/login', methods=['GET', 'POST'])
+@anon_required
 def login():
     form = LoginForm()
-
-    if current_user.is_authenticated() is True:
-        return redirect(url_for('index'))
 
     if request.method == 'POST':
         if form.validate() is False:
@@ -160,17 +109,16 @@ def after_login(resp):
 
 
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
+@anon_required
 def register():
     form = RegisterUser()
-    if current_user.is_authenticated() is True:
-        flash("You are already a user.")
-        return redirect(url_for('index'))
 
     if request.method == 'POST':
         if form.validate() is False:
@@ -191,6 +139,7 @@ def register():
 
 
 @app.route('/user/activate/<payload>')
+@anon_required
 def activateUser(payload):
     user_email = check_activation_link(payload)
     if not user_email:
@@ -209,11 +158,9 @@ def activateUser(payload):
 
 
 @app.route('/user/forgotpassword', methods=['GET', 'POST'])
+@anon_required
 def forgotPassword():
     form = ForgotPasswordForm()
-
-    if current_user.is_authenticated():
-        return redirect(url_for('index'))
 
     if request.method == 'POST':
         if not form.validate():
@@ -234,6 +181,7 @@ def forgotPassword():
 
 
 @app.route('/user/resetpassword/<payload>', methods=['GET', 'POST'])
+@anon_required
 def reset_password(payload):
     form = ResetPasswordForm()
     user_email = check_password_reset_link(payload)

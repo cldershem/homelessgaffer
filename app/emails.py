@@ -6,7 +6,7 @@ from decorators import async
 
 
 @async
-def send_async_email(msg):
+def send_async_email(msg, request):
     mail.send(msg)
 
 
