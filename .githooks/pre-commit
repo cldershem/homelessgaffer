@@ -27,3 +27,4 @@ def updateRequirements():
 if __name__ == '__main__':
     gitFlake8()
     updateRequirements()
+    print "DFLKJSDFIOIWEJF"
