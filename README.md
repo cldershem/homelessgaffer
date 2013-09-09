@@ -37,9 +37,9 @@
     - user
     - blog
     - page
-        - WHY DOESNT LIST PAGES WORK RIGHT?
 
 ###CHANGELOG
+- fixed listpages
 - Page Blueprint add
 - currentPage navButton works again
 - added anon-required decorator
