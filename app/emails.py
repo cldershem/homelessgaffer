@@ -6,7 +6,7 @@ from decorators import async
 
 
 @async
-def send_async_email(msg, request):
+def send_async_email(msg):
     mail.send(msg)
 
 
@@ -33,7 +33,7 @@ def email_confirmation(user, payload):
 
 def email_password_reset(user, payload):
     send_email(
-        "[homelessgaffer.com] - confirm email",
+        "[homelessgaffer.com] - password reset",
         ADMINS[0],
         [ADMINS[0]],  # change this to user.email?
         render_template("emails/password_reset.txt",

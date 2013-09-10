@@ -4,6 +4,6 @@ You have registered for an account at homelessgaffer.com using the email, {{user
 
 To activate your account please click or copy the following link:
 
-<a href="{{ url_for('activateUser', _external=True, payload=payload) }}">Activate account</a>
+<a href="{{ url_for('users.activateUser', _external=True, payload=payload) }}">Activate account</a>
 
 -hg admin

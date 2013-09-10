@@ -79,7 +79,7 @@ def register():
 
     if request.method == 'POST':
         if form.validate() is False:
-            return render_template('register.html',
+            return render_template('users/register.html',
                                    form=form,
                                    page=page)
         else:
@@ -157,7 +157,7 @@ def reset_password(payload):
 
     if not user_email:
         flash("Token incorrect or has expired.  Please try again.")
-        return redirect(url_for('forgotPassword'))
+        return redirect(url_for('.forgotPassword'))
 
     if request.method == 'POST':
         if not form.validate():

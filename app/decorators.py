@@ -4,12 +4,12 @@ from flask import flash, redirect, url_for
 from flask.ext.login import current_user
 
 
-def async(func):
+def async(f):
     """
     enables process to run in background while page is loaded
     """
     def wrapper(*args, **kwargs):
-        thr = Thread(target=func, args=args, kwargs=kwargs)
+        thr = Thread(target=f, args=args, kwargs=kwargs)
         thr.start()
     return wrapper
 
