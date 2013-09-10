@@ -30,11 +30,11 @@
 - Admin
     - fix redirect after password change fail
 - flake8 should only check .py files
-- update "basedir" in post and pre hooks to BASE-DIR and use it correctly
 - find better way to do async
 - set title=page in base.html?
 
 ###CHANGELOG
+- fixed BASE-DIR in pre hook
 - finished user blueprint
 - finished blog blueprint
 - finished Page Blueprint

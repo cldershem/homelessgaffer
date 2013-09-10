@@ -18,13 +18,12 @@ def gitFlake8():
 def updateRequirements():
     """updates requirements.txt"""
 
-    with open(BASE_DIR + "/requirements.txt.asdf", "w") as f:
+    with open(BASE_DIR + "/requirements.txt", "w") as f:
         subprocess.call([os.path.join(BASE_DIR, 'venv/bin', "pip"),
                         "freeze"], stdout=f)
     print('updated requirements.txt')
 
 
 if __name__ == '__main__':
-    gitFlake8()
     updateRequirements()
-    #gitFlake8()
+    gitFlake8()
