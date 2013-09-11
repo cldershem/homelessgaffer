@@ -15,7 +15,7 @@ def newPost():
     form = PostForm()
 
     if request.method == 'POST':
-        if form.validate() is False:
+        if not form.validate():
             return render_template("blog/newPost.html", form=form)
         else:
             slug = makeSlug(form.title.data)
@@ -26,7 +26,7 @@ def newPost():
             newPost.author = User.objects.get(email=current_user.email)
             newPost.save()
             flash('Your post has been posted.')
-            return redirect(url_for('singlePost', slug=slug))
+            return redirect(url_for('.singlePost', slug=slug))
 
     elif request.method == 'GET':
         return render_template("blog/newPost.html", form=form)

@@ -88,7 +88,7 @@ class PostForm(Form):
             newSlug = makeSlug(self.title.data)
             slug = Post.objects.get(slug=newSlug)
             if slug:
-                self.slug.errors.append("That title already exists.")
+                self.title.errors.append("That title already exists.")
                 return False
         except DoesNotExist:
             return True

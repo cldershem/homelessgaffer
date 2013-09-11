@@ -9,7 +9,8 @@ from app.users.views import mod as usersModule
 @app.route('/root')
 @app.route('/index')
 def index():
-    return render_template("index.html")
+    page = "root"
+    return render_template("index.html", page=page)
 
 
 app.register_blueprint(staticPageModule)

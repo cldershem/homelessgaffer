@@ -21,6 +21,7 @@
     - does forgot it need to be in the admin panel?
     - registration shouldn't save unless all goes well
         - currently will save if error
+    - change password
 - add delete to edit page/post
 - fix datetime display
     - moment.js?
