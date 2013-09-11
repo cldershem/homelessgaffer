@@ -22,6 +22,7 @@
     - registration shouldn't save unless all goes well
         - currently will save if error
     - change password
+    - email on comment
 - add delete to edit page/post
 - fix datetime display
     - moment.js?

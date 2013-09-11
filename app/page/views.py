@@ -20,7 +20,7 @@ def listPages():
 
 
 @mod.route('/<slug>')
-def showStaticPage(slug):
+def staticPage(slug):
     try:
         return render_template('page/%s.html' % slug, page=slug)
     except TemplateNotFound:
@@ -45,7 +45,7 @@ def newPage():
             newPage.author = User.objects.get(email=current_user.email)
             newPage.save()
             flash('Your page has been posted')
-            return redirect(url_for('staticPage', slug=slug))
+            return redirect(url_for('.staticPage', slug=slug))
     elif request.method == 'GET':
         return render_template("page/newPage.html", form=form, page="newpage")
 
@@ -66,12 +66,13 @@ def editPage(slug):
             page.edited_on.append(DATE_TIME_NOW)
             page.save()
             flash("Your page has been updated.")
-            return redirect(url_for('staticPage', slug=slug))
+            return redirect(url_for('.staticPage', slug=slug))
     elif request.method == 'GET':
         form.populate_obj(page)
         return render_template('page/editPage.html', title=page.title,
                                slug=slug, form=form)
-                               
+
+
 @mod.route('/food')  # is food part of posts/blog now?
 def food():
     return redirect(url_for('blog.listPosts', tag="food"))
