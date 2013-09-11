@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block title %}{{page}}{% endblock %}
 {% block content %}
-    <div class="jumbo">
-        <h2>User {{user}}'s Profile</h2>
-        <p>Last seen: {{last_seen}}</p>
-    </div>
+    <h2>User {{user.email}}'s Profile</h2>
+    <p>Last seen: {{user.last_seen}}</p>
+    <p><a href="{{url_for('blog.newPost')}}">Create new post.</a></p>
+    <p><a href="{{url_for('static_page.newPage')}}">Create new page.</a></p>
 {% endblock %}

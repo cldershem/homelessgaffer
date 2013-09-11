@@ -47,7 +47,7 @@ def login():
                 login_user(user)
                 return redirect(request.args.get('next') or
                                 url_for('.profile',
-                                        user=current_user.email)
+                                        user_id=user.get_id())
                                 )
             else:
                 flash("Please confirm your email address.")
@@ -177,10 +177,85 @@ def reset_password(payload):
                                page=page)
 
 
-@mod.route('/profile/<user>')
-def profile(user):
-    last_seen = User.objects.get(email=user).last_seen
+@mod.route('/profile/<user_id>')
+def profile(user_id):
+    user = User.objects.get(email=user_id)
     return render_template('users/profile.html',
                            user=user,
-                           last_seen=last_seen,
-                           page=user)
+                           page=user_id)
+
+
+############  FACEBOOK  ############
+from config import FACEBOOK_CONSUMER_KEY, FACEBOOK_CONSUMER_SECRET
+from app import oauth
+from flask import session
+
+
+facebook = oauth.remote_app(
+    'facebook',
+    base_url='https://graph.facebook.com/',
+    request_token_url=None,
+    access_token_url='/oauth/access_token',
+    authorize_url='https://www.facebook.com/dialog/oauth',
+    consumer_key=FACEBOOK_CONSUMER_KEY,
+    consumer_secret=FACEBOOK_CONSUMER_SECRET,
+    request_token_params={'scope': 'email'}
+    )
+
+
+@mod.route('/login/facebook')
+def facebookLogin():
+    return facebook.authorize(callback=url_for(
+        '.facebook_authorized',
+        next=request.args.get('next') or
+        request.referrer or None,
+        _external=True))
+
+
+def createUser(me):
+    newUser = User(firstname=me.data['first_name'],
+                   lastname=me.data['last_name'],
+                   email=me.data['email'])
+    newUser.set_password("None")
+    newUser.activate_user()
+    newUser.save()
+
+
+@mod.route('/login/facebook/authorized')
+@facebook.authorized_handler
+def facebook_authorized(resp):
+    if resp is None:
+        return 'Access denied: reason=%s error=%s' % (
+            request.args['error_reason'],
+            request.args['error_description']
+            )
+    session['oauth_token'] = (resp['access_token'], '')
+    me = facebook.get('/me')
+    user = User.objects.get(email=me.data['email'])
+    if not user:
+        createUser(me)
+    login_user(user)
+    return redirect(request.args.get('next'))  # redirect(next_url)
+
+
+@facebook.tokengetter
+def get_facebook_oauth_token():
+    return session.get('oauth_token')
+
+
+###################  GOOGLE  ###########
+from config import GOOGLE_CONSUMER_KEY, GOOGLE_CONSUMER_SECRET
+
+google = oauth.remote_app(
+    'google',
+    base_url='https://www.google.com/accounts/',
+    authorize_url='https://accounts.google.com/o/oauth2/auth',
+    request_token_url=None,
+    request_token_params={
+        'scope': 'https://www.googleapis.com/auth/userinfo.email',
+        'response_type': 'code'},
+    access_token_url='https://accounts.google.com/o/oauth2/token',
+    access_token_method='POST',
+    access_token_params={'grant_type': 'authorization_code'},
+    consumer_key=GOOGLE_CONSUMER_KEY,
+    consumer_secret=GOOGLE_CONSUMER_SECRET)

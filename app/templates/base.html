@@ -21,7 +21,7 @@
                         <li {% if page == "login" %} class="currentpage" {% endif %} id="navbarlogin"><a href="{{ url_for('users.login') }}">login</a></li>			    
                     {% else -%}
                         <li id="navbarlogin">
-                            <a href="{{ url_for('users.profile', user=current_user.email) }}">profile</a>
+                            <a href="{{ url_for('users.profile', user_id=current_user.email) }}">profile</a>
                         </li>
                         <li id="navbarlogin">
                             <a href="{{ url_for('users.logout') }}">logout</a>

@@ -1,7 +1,6 @@
 <!-- extends base.html -->
 {% extends "base.html" %}
 {% block title %}{{page}}{% endblock %}
-{% set page = 'dev' %}
 
 {% block content %}
 <table id="contactinfo">
@@ -9,7 +8,7 @@
 		<th><a href="http://homelessgaffer.com/wikitest/tikiwiki">wiki</a></th><td>wiki about bicycle tour</td>
 	</tr>
 	<tr>
-		<th><a href="{{ url_for('static_page.showStaticPage', slug='battleship') }}">battleshipWeb</a></th><td>first medium python game turned into a lesson in javascript, kinetic.js, and canvas.</td>
+		<th><a href="{{ url_for('static_page.staticPage', slug='battleship') }}">battleshipWeb</a></th><td>first medium python game turned into a lesson in javascript, kinetic.js, and canvas.</td>
 	</tr>
 	<tr>
 		<th>genealogy</th><td>million dollar idea</td>

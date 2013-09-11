@@ -3,6 +3,6 @@
 
 {% block content %}
     {% for page in pages %}
-        <h3><a href="{{ url_for('static_page.showStaticPage', slug=page.slug) }}">{{ page.title }}</a></h3>
+        <h3><a href="{{ url_for('static_page.staticPage', slug=page.slug) }}">{{ page.title }}</a></h3>
     {% endfor %}
 {% endblock %}
