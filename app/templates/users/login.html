@@ -47,12 +47,15 @@
         </tr>
         <tr>
             <td></td>
-            <td>or <a href="{{ url_for('users.facebookLogin') }}">Login with Facebook</a></td>
+            <td>or <a href="{{ url_for('users.facebookLogin')  }}">Login with Facebook</a></td>
         </tr>
         <tr>
             <td></td>
-            <td>or <a href="{{ url_for('users.facebookLogin') }}">Login with Google+</a></td>
+            <td>or <a href="{{ url_for('users.googleLogin') }}">Login with Google+</a></td>
         </tr>
+        {% if session['credentials'] %}
+            <a href="{{ url_for('users.googleDisconnect') }}">disconnect</a>
+        {% endif %}
     </table>
 </form>
 {% endblock %}

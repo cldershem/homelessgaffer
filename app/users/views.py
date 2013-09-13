@@ -13,7 +13,7 @@ from app.emails import email_confirmation, email_password_reset
 from app.decorators import anon_required
 
 
-mod = Blueprint('users', __name__, url_prefix='/user')
+mod = Blueprint('users', __name__, url_prefix='/users')
 
 
 @lm.user_loader
@@ -55,6 +55,9 @@ def login():
                                        form=form,
                                        page=page)
     elif request.method == 'GET':
+        if request.args.get('next'):
+            session['next'] = (request.args.get('next') or
+                               request.referrer or None)
         return render_template('users/login.html',
                                form=form,
                                page=page)
@@ -68,6 +71,11 @@ def after_login(resp):
 @login_required
 def logout():
     logout_user()
+    if session['credentials']:
+        if redirect(url_for('.googleDisconnect')):
+            flash("Successfully disconnected from Google.")
+    flash("Successfully logged out.")
+    session.clear()
     return redirect(url_for('index'))
 
 
@@ -205,14 +213,11 @@ facebook = oauth.remote_app(
 
 @mod.route('/login/facebook')
 def facebookLogin():
-    return facebook.authorize(callback=url_for(
-        '.facebook_authorized',
-        next=request.args.get('next') or
-        request.referrer or None,
-        _external=True))
+    callback = url_for('.facebook_authorized', _external=True)
+    return facebook.authorize(callback=callback)
 
 
-def createUser(me):
+def createFBUser(me):
     newUser = User(firstname=me.data['first_name'],
                    lastname=me.data['last_name'],
                    email=me.data['email'])
@@ -233,9 +238,13 @@ def facebook_authorized(resp):
     me = facebook.get('/me')
     user = User.objects.get(email=me.data['email'])
     if not user:
-        createUser(me)
+        createFBUser(me)
     login_user(user)
-    return redirect(request.args.get('next'))  # redirect(next_url)
+    next_url = (session.get('next') or
+                url_for('.profile', user_id=user.get_id()))
+    if session.get('next'):
+        session.pop('next')
+    return redirect(next_url)
 
 
 @facebook.tokengetter
@@ -245,17 +254,61 @@ def get_facebook_oauth_token():
 
 ###################  GOOGLE  ###########
 from config import GOOGLE_CONSUMER_KEY, GOOGLE_CONSUMER_SECRET
+from oauth2client.client import (OAuth2WebServerFlow, FlowExchangeError)
+import httplib2
 
-google = oauth.remote_app(
-    'google',
-    base_url='https://www.google.com/accounts/',
-    authorize_url='https://accounts.google.com/o/oauth2/auth',
-    request_token_url=None,
-    request_token_params={
-        'scope': 'https://www.googleapis.com/auth/userinfo.email',
-        'response_type': 'code'},
-    access_token_url='https://accounts.google.com/o/oauth2/token',
-    access_token_method='POST',
-    access_token_params={'grant_type': 'authorization_code'},
-    consumer_key=GOOGLE_CONSUMER_KEY,
-    consumer_secret=GOOGLE_CONSUMER_SECRET)
+
+flow = OAuth2WebServerFlow(
+    client_id=GOOGLE_CONSUMER_KEY,
+    client_secret=GOOGLE_CONSUMER_SECRET,
+    scope='https://www.googleapis.com/auth/plus.login',
+    redirect_uri='http://localhost:5000/users/login/google/authorized')
+
+
+@mod.route('login/google')
+def googleLogin():
+    auth_uri = flow.step1_get_authorize_url()
+    return redirect(auth_uri)
+
+
+@mod.route('/login/google/authorized')
+def googleAuthorized():
+    code = request.args.get('code')
+    try:
+        credentials = flow.step2_exchange(code)
+    except FlowExchangeError:
+        return "FlowExchangeError"
+    gplus_id = credentials.id_token['sub']
+
+    stored_credentials = session.get('credentials')
+    stored_gplus_id = session.get('gplus_id')
+    if stored_credentials is not None and gplus_id == stored_gplus_id:
+        flash("Current user is already connected.")
+        return redirect(url_for('index'))
+    session['credentials'] = credentials.to_json()
+    session['gplus_id'] = gplus_id
+    flash("Successfully connected user.")
+    return redirect(url_for('index'))
+
+
+@mod.route('/login/google/disconnect')
+def googleDisconnect():
+    """Revoke current user's tokena nd reset their session."""
+    # Only disconnect a connected user.
+    credentials = session.get('credentials').to_json()
+    if credentials is None:
+        flash("User was not connected to Google.")
+        return False
+
+    # Execute HTTP GET request to revoke current token.
+    access_token = session['access_token']
+    url = 'https://accounts.google.com/o/oauth2/revoke?token=%r' % access_token
+    h = httplib2.Http()
+    result = h.request(url, 'GET')[0]
+
+    if result['status'] == '200':
+        # Reset the user's session.
+        del session['credentials']
+        return True
+    else:
+        return False
