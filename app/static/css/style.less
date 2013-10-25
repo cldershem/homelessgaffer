@@ -50,11 +50,9 @@ html, body {
 	background-color: @backgroundColor;
 }
 
-#header {
-	#headerphoto {
-		display: none;
-	}
-	
+#leftcontent {}
+
+header {
 	h1 {
 		margin: 0px;
 	}
@@ -141,6 +139,7 @@ html, body {
 		color: @accentColor2;
         }
 }
+
 #cke_1_top { 
     a {
         &:link {
@@ -159,13 +158,20 @@ html, body {
     text-decoration: none;
 }
 
-#footer {
+footer {
 	margin-top: 100px;
 	padding: 0px 0px 1px 0px;
 	font-size: 75%;
 	}
-    
-/*.posttags a:hover { background-color:red;}*/
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid @lightGreen;
+    margin: 1em 0;
+    padding: 0;
+}   
 
 /*
 h1 {font-size: ;}
@@ -173,55 +179,23 @@ h2 {}
 h3 {}
 */
 
-/*
-#header {
-	width: 100%;
-	margin: 0px 0px 0px 0px;
-	padding: 0px 0px 0px 0px;
-	position: relative;
-	}
-#header h1 {
-	font-size: 190%;
-	padding: 19px 0px 19px 5px;
-	margin: 0px 0px 0px 0px;
-	width: 99.7%;
-	position: relative;
-	}
-#header h2 {
-	width: 50%;
-	margin: 2px 0px 3px 0px;
-	}
-#navbar {
-	font-size: 130%;
-	margin: 0px 0px 0px 0px;	
-	padding: 0px 0px 0px 0px;
-	list-style-type: none;
-	background-color: @lightGreen;
-	border-right: 2px solid @darkGrey;
-	border-left: 2px solid @darkGrey;
-	position: relative;
-	}
-#navbarlogin {
-	color:@darkGrey;
-	font-size: 75%;
-	display: inline-block;
-	position: absolute;
-	right: .25em;
-	top: .15em;
-	}
-#navbarlogin input {
-	height: .9em;
-	}
-#navbarloginsubmit {
-	xbackground-color: blue;
-	xcolor: white;
-	xfont-size: 100%;
-	height: 100em;
-    width: 1em;
-	}
+#postmeta {
+    font-size: 90%;
+    #pipeseparator {
+        color: @lightGreen;
+    }
+}
+
 #comments {
-	border-top: 2px solid @lightGreen;
-	}
+	border-top: 1px solid @lightGreen;
+    border-bottom: 1px solid @lightGreen;
+}
+
+#commentmeta {
+    font-size: 80%;
+}
+
+/*
 #sidebar ul {
 	line-height: 1;
 	margin: 0px 0px 10px 0px;
@@ -233,18 +207,6 @@ h3 {}
 #sidebar ul #extlinks { 
 	padding: 0px 0px 0px 0px;
 	}
-#leftcontent {
-	width: 48em;
-	float: left;
-	padding-left: .8em;
-	margin: 0px 10px 100px 0px;
-	}
-#indexleftcontent {
-	width: 40em;
-	float: left;
-	padding-left: .8em;
-	margin: 0px 0px 100px 0px;		
-	}
 #recentposts {
 	float: right;
 	width: 32%;
@@ -252,26 +214,5 @@ h3 {}
 	font-size: 80%;
 	margin: 0px 0px 100px 0px;
 	padding-right: 5px;
-	}
-#recentposts h1 {
-	font-weight: bold;
-	}
-#recentposts a { 
-	text-decoration: none;
-	}
-#footer {
-	text-align: center;
-	margin-top: 0px;
-	padding: 0px 0px 1px 0px;
-	font-size: 75%;
-	clear: both;
-	}
-#contactinfo {
-	border-spacing: 10px 15px;
-	text-align: left;
-	}
-#contactinfo th {
-	font-weight: normal;
-	text-align: right;
 	}
 */

@@ -69,6 +69,7 @@ class Post(db.Document):
     body = db.StringField(required=True)
     tags = db.ListField(db.StringField(max_length=50))
     comments = db.ListField(db.EmbeddedDocumentField(Comment))
+    source = db.StringField()
 
     def get_absolute_url(self):
         return url_for('post', kwargs={"slug": self.slug})

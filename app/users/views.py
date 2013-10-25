@@ -71,7 +71,7 @@ def after_login(resp):
 @login_required
 def logout():
     logout_user()
-    if session['credentials']:
+    if session.get('credentials'):
         if redirect(url_for('.googleDisconnect')):
             flash("Successfully disconnected from Google.")
     flash("Successfully logged out.")
@@ -82,29 +82,32 @@ def logout():
 @mod.route('/register', methods=['GET', 'POST'])
 @anon_required
 def register():
-    form = RegisterUser()
-    page = "register"
+#    form = RegisterUser()
+#    page = "register"
+#
+#    if request.method == 'POST':
+#        if form.validate() is False:
+#            return render_template('users/register.html',
+#                                   form=form,
+#                                   page=page)
+#        else:
+#            newUser = User(firstname=form.firstname.data.title(),
+#                           lastname=form.lastname.data.title(),
+#                           email=form.email.data.lower())
+#            newUser.set_password(form.password.data)
+#            newUser.save()
+#            payload = get_activation_link(newUser)
+#            email_confirmation(newUser, payload)
+#            flash("Please confirm your email address.")
+#            return redirect(url_for('index'))
+#
+#    elif request.method == 'GET':
+#        return render_template('users/register.html',
+#                               form=form,
+#                               page=page)
 
-    if request.method == 'POST':
-        if form.validate() is False:
-            return render_template('users/register.html',
-                                   form=form,
-                                   page=page)
-        else:
-            newUser = User(firstname=form.firstname.data.title(),
-                           lastname=form.lastname.data.title(),
-                           email=form.email.data.lower())
-            newUser.set_password(form.password.data)
-            newUser.save()
-            payload = get_activation_link(newUser)
-            email_confirmation(newUser, payload)
-            flash("Please confirm your email address.")
-            return redirect(url_for('index'))
-
-    elif request.method == 'GET':
-        return render_template('users/register.html',
-                               form=form,
-                               page=page)
+    flash("This feature is currently disabled.")
+    return redirect(url_for('index'))
 
 
 @mod.route('/activate/<payload>')
@@ -129,60 +132,64 @@ def activateUser(payload):
 @mod.route('/forgotpassword', methods=['GET', 'POST'])
 @anon_required
 def forgotPassword():
-    form = ForgotPasswordForm()
-    page = "forgot password"
-
-    if request.method == 'POST':
-        if not form.validate():
-            return render_template('users/forgotPassword.html',
-                                   form=form,
-                                   page=page)
-        else:
-            try:
-                user = User.objects.get(email=form.email.data)
-            except:
-                flash("That email does not exist, please try another.")
-                return render_template('users/forgotPassword.html',
-                                       form=form,
-                                       page=page)
-            payload = get_password_reset_link(user)
-            email_password_reset(user, payload)
-            flash("Password reset email has been sent. \
-                   Link is good for 24 hours.")
-            return redirect(url_for('index'))
-    elif request.method == 'GET':
-        return render_template('users/forgotPassword.html',
-                               form=form,
-                               page=page)
+#    form = ForgotPasswordForm()
+#    page = "forgot password"
+#
+#    if request.method == 'POST':
+#        if not form.validate():
+#            return render_template('users/forgotPassword.html',
+#                                   form=form,
+#                                   page=page)
+#        else:
+#            try:
+#                user = User.objects.get(email=form.email.data)
+#            except:
+#                flash("That email does not exist, please try another.")
+#                return render_template('users/forgotPassword.html',
+#                                       form=form,
+#                                       page=page)
+#            payload = get_password_reset_link(user)
+#            email_password_reset(user, payload)
+#            flash("Password reset email has been sent. \
+#                   Link is good for 24 hours.")
+#            return redirect(url_for('index'))
+#    elif request.method == 'GET':
+#        return render_template('users/forgotPassword.html',
+#                               form=form,
+#                               page=page)
+    flash("This feature is currently disabled.")
+    return redirect(url_for('index'))
 
 
 @mod.route('/resetpassword/<payload>', methods=['GET', 'POST'])
 @anon_required
 def reset_password(payload):
-    form = ResetPasswordForm()
-    user_email = check_password_reset_link(payload)
-    page = "reset password"
-
-    if not user_email:
-        flash("Token incorrect or has expired.  Please try again.")
-        return redirect(url_for('.forgotPassword'))
-
-    if request.method == 'POST':
-        if not form.validate():
-            return render_template('users/resetPassword.html',
-                                   form=form,
-                                   page=page)
-        else:
-            user = User.objects.get(email=user_email)
-            user.set_password(form.password.data)
-            user.save()
-            #email password reset
-            flash("Password has been reset, please login")
-            return redirect(url_for('.login'))
-    elif request.method == 'GET':
-        return render_template('users/resetPassword.html',
-                               form=form,
-                               page=page)
+#    form = ResetPasswordForm()
+#    user_email = check_password_reset_link(payload)
+#    page = "reset password"
+#
+#    if not user_email:
+#        flash("Token incorrect or has expired.  Please try again.")
+#        return redirect(url_for('.forgotPassword'))
+#
+#    if request.method == 'POST':
+#        if not form.validate():
+#            return render_template('users/resetPassword.html',
+#                                   form=form,
+#                                   page=page)
+#        else:
+#            user = User.objects.get(email=user_email)
+#            user.set_password(form.password.data)
+#            user.save()
+#            #email password reset
+#            flash("Password has been reset, please login")
+#            return redirect(url_for('.login'))
+#    elif request.method == 'GET':
+#        return render_template('users/resetPassword.html',
+#                               form=form,
+#                               page=page)
+    flash("This feature is currently disabled.")
+    return redirect(url_for('index'))
 
 
 @mod.route('/profile/<user_id>')
@@ -213,8 +220,10 @@ facebook = oauth.remote_app(
 
 @mod.route('/login/facebook')
 def facebookLogin():
-    callback = url_for('.facebook_authorized', _external=True)
-    return facebook.authorize(callback=callback)
+#    callback = url_for('.facebook_authorized', _external=True)
+#    return facebook.authorize(callback=callback)
+    flash("This feature is currently disabled.")
+    return redirect(url_for('index'))
 
 
 def createFBUser(me):
@@ -267,8 +276,10 @@ flow = OAuth2WebServerFlow(
 
 @mod.route('login/google')
 def googleLogin():
-    auth_uri = flow.step1_get_authorize_url()
-    return redirect(auth_uri)
+#    auth_uri = flow.step1_get_authorize_url()
+#    return redirect(auth_uri)
+    flash("This feature is currently disabled.")
+    return redirect(url_for('index'))
 
 
 @mod.route('/login/google/authorized')

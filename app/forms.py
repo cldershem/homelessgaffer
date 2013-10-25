@@ -76,6 +76,7 @@ class PostForm(Form):
     body = CKTextAreaField("Body", [Required(
                            "Please enter a body to your post.")])
     tags = TextField("Tags")
+    source = TextField("Source")
     submit = SubmitField("Create Post")
 
     def __init__(self, *args, **kwargs):

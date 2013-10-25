@@ -6,6 +6,7 @@ from models import User, Page, Post
 from wtforms import PasswordField
 from flask import flash
 from app.constants import DATE_TIME_NOW
+from app.decorators import admin_required
 
 
 class AdminView(BaseView):
@@ -41,6 +42,7 @@ class UserView(ModelView):
 class PostView(ModelView):
     column_filters = ['title']
     column_exclude_list = ['body']
+    form_excluded_columns = ['created_at']
     form_subdocuments = {'comments': {}}
 
     def on_model_change(self, form, model):

@@ -3,47 +3,58 @@
 {% set page=post.title %}
 {% block content %}
     <p>{{ post.body|safe }}</p>
-    {% if post.tags %}
-    <p>
-        <strong>tags:</strong>
-		{% for tag in post.tags %}
-			<a class="posttags" href="{{ url_for('blog.listPosts', tag=tag) }}">[{{tag}}]</a>
-		{% endfor %}
-    </p>
-	{% endif %}
-    <p>by <strong><a href="{{ url_for('users.profile', user_id=post.author.email) }}">{{ post.author.email }}</a></strong></p>
-    <p>{{ post.created_at.strftime('%H:%M %Y-%m-%d') }}</p>
     <hr>
-    <h2>Comments</h2>
+    <div id="postmeta">
+        <p>
+            by <strong><a href="{{ url_for('users.profile', user_id=post.author.email) }}">{{ post.author.email }}</a></strong>
+            <span id="pipeseparator"> | </span>posted {{ post.created_at.strftime('%H:%M %Y-%m-%d') }}
+            {% if post.edited_on|length > 1 %}
+                <span id="pipeseparator"> | </span>edited {{ post.edited_on[-1].strftime('%H:%M %Y-%m-%d') }}
+            {% endif %}
+        </p>
+        {% if post.tags %}
+            <p>
+                <strong>tags: </strong>
+	    	    {% for tag in post.tags %}
+	    		    <a class="posttags" href="{{ url_for('blog.listPosts', tag=tag) }}">[{{tag}}]</a>
+	    	    {% endfor %}
+            </p>
+	    {% endif %}
+        {% if post.source %}
+            <p>
+                <strong>source: </strong><a href="{{ post.source }}">{{ post.source }}</a>
+            </p>
+        {% endif %}
+    </div><!--end postmeta-->
+    <h2 id="comments">Comments</h2>
     {% if post.comments %}
         {% for comment in post.comments %}
-            <p>{{ comment.body }}</p>
-            <p>by <strong>{{ comment.author.email }}</strong> <small>on {{ comment.created_at.strftime('%H:%M %Y-%m-%d') }}</small></p>
-            {{ comment.text }}
+            <p class="commentbody">{{ comment.body }}</p>
+            <p id="commentmeta">by <strong>{{ comment.author.get_id() }}</strong> on {{ comment.created_at.strftime('%H:%M %Y-%m-%d') }}</p>
+            <hr>
         {% endfor %}
     {% endif %}
-    <hr>
 	{% if current_user.is_authenticated() == True -%}
-		<h2>Add a comment</h2>
-		<form id="addComment" action="" method="post">
-			{{form.hidden_tag()}}
-			<table>
-				<tr>
-					<td>{{form.comment.label}}:</td>
-					<td>{{form.comment}}</td>
-					{% for error in form.errors.comment %}
-						<td>
-							[{{error}}]
-						</td>
-					{% endfor %}
-				</tr>
-				<tr>
-					<td></td>
-					<td>{{form.submit}}</td>
-				</tr>
-			</table>
-		</form>
-	{% else %}
-		<p><a href="{{url_for('users.login')}}">login</a> to comment.</p>
-	{% endif %}
+	    <h2>Add a comment</h2>
+	   	<form id="addComment" action="" method="post">
+	   		{{form.hidden_tag()}}
+	   		<table>
+	   			<tr>
+	   				<td>{{form.comment.label}}:</td>
+	   				<td>{{form.comment}}</td>
+	   				{% for error in form.errors.comment %}
+	   					<td>
+	   						[{{error}}]
+	   					</td>
+	   				{% endfor %}
+	   			</tr>
+	   			<tr>
+	   				<td></td>
+	   				<td>{{form.submit}}</td>
+	   			</tr>
+	   		</table>
+	   	</form>
+	   {% else %}
+	   	<p><a href="{{url_for('users.login')}}">login</a> to comment.</p>
+	 {% endif %}
 {% endblock %}

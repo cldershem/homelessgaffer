@@ -38,6 +38,14 @@
             {% endfor %}
         </tr>
         <tr>
+            <td>{{form.source.label}}:</td>
+            <td>{{form.source}}</td>
+            {% for error in form.errors.source %}
+                <td>
+                    [{{error}}]
+                </td>
+            {% endfor %}
+        <tr>
             <td></td>
             <td>{{form.submit}}</td>
         </tr>

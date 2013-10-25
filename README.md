@@ -1,4 +1,4 @@
-# flake8: noqa
+<!--###### flake8: noqa-->
 ###INSTALLATION
 - clone repo
 - Git-hooks
@@ -34,8 +34,23 @@
 - flake8 should only check .py files
 - find better way to do async
 - set title=page in base.html?
+- make it not look like crap
+- reimplement users and/or disqus for comments
+- get some content
+- admin can only access admin
+- make some better classes 
+    - user should have an update method?
+- admin approval of new users
+- draft mode for new pages and posts
+    - @adminOrAuthorRequired                                        
+    - hg.com/page/draftpages/newpagetitle
+- api to add pages from 
+- integrate bike wiki?
+    -moinmoin?
+    -is another framework really necessary?
 
 ###CHANGELOG
+- disabled user registration until needed
 - fixed BASE-DIR in pre hook
 - finished user blueprint
 - finished blog blueprint
@@ -68,3 +83,12 @@
 - added pagination on posts
 - add https
 - flask admin working
+
+
+###NOTES
+- blog
+    - food
+    - bike
+- work
+- dev
+    - battleship

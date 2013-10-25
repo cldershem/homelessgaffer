@@ -13,6 +13,7 @@
         {% with total=post.comments|length %}
             {{ total }} comment {%- if total > 1 %}s{%- endif -%}
         {% endwith %}
+        <a href="{{ url_for('blog.singlePost', slug=post.slug) }}#disqus_thread">{{post.title}}</a>
         </p>
     {% endfor %}
     <div id="pagination">

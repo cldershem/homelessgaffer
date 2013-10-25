@@ -22,12 +22,15 @@ def listPages():
 @mod.route('/<slug>')
 def staticPage(slug):
     try:
-        return render_template('page/%s.html' % slug, page=slug)
+        return render_template('page/%s.html' % slug,
+                               page=slug)
     except TemplateNotFound:
         page = Page.objects.get_or_404(slug=slug)
         content = Markup(page.content)
-        return render_template('page/staticpage.html', title=page.title,
-                               slug=page.slug, content=content)
+        return render_template('page/staticpage.html',
+                               title=page.title,
+                               slug=page.slug,
+                               content=content)
 
 
 @mod.route('/newpage', methods=['GET', 'POST'])
