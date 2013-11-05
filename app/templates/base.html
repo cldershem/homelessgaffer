@@ -13,7 +13,7 @@
                 <h1 id="hgtitle"><a href="{{ url_for('index') }}">homelessgaffer.com/</a><span id="page">{{page}}</span></h1>
                 <nav>
                     <ul id="navbar">
-                        {% set navBar = ["food", "bike", "work", "resume", "dev", "about", "contact"] %}
+                        {% set navBar = ["food", "bike", "resume", "dev", "about", "contact"] %}
                         {% for navButton in navBar -%}
                             <li {% if page == navButton %} class="currentpage" {% endif %}><a href="{{url_for('static_page.staticPage', slug=navButton)}}">{{navButton}}</a></li>
                         {%- endfor -%}

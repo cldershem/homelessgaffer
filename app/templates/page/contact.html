@@ -1,10 +1,10 @@
 <!-- extends base.html -->
 {% extends "base.html" %}
-{% block title %}contact{% endblock %}
-{% set page = 'contact' %}
+{% block title %}{{page}}{% endblock %}
 
 {% block content %}
-<table id="contactinfo">
+    <p></p>
+<table id="contactinfo" class="tableSmallCaps">
     <tr>
 	<th>phone</th><td><a href="callto://3123610322">312.361.0322</a></td>
     </tr>
@@ -21,7 +21,7 @@
 	<th>last.fm</th><td><a href="http://last.fm/user/cldershem">cldershem</a></td>
     </tr>
     <tr>
-	<th>Google+</th><td><a href="http://plus.google.com/102764710667562987809/posts">cldershem</a></td>
+	<th>google+</th><td><a href="http://plus.google.com/102764710667562987809/posts">cldershem</a></td>
     </tr>
     <tr>
 	<th>github</th><td><a href="http://github.com/cldershem">cldershem</a></td>

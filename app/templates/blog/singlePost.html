@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "macros.html" import render_form with context %}
 {% block title %}{{post.title}}{% endblock %}
 {% set page=post.title %}
 {% block content %}
@@ -37,22 +38,7 @@
 	{% if current_user.is_authenticated() == True -%}
 	    <h2>Add a comment</h2>
 	   	<form id="addComment" action="" method="post">
-	   		{{form.hidden_tag()}}
-	   		<table>
-	   			<tr>
-	   				<td>{{form.comment.label}}:</td>
-	   				<td>{{form.comment}}</td>
-	   				{% for error in form.errors.comment %}
-	   					<td>
-	   						[{{error}}]
-	   					</td>
-	   				{% endfor %}
-	   			</tr>
-	   			<tr>
-	   				<td></td>
-	   				<td>{{form.submit}}</td>
-	   			</tr>
-	   		</table>
+            {{ render_form() }}
 	   	</form>
 	   {% else %}
 	   	<p><a href="{{url_for('users.login')}}">login</a> to comment.</p>

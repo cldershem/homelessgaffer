@@ -1,4 +1,4 @@
-<!--###### flake8: noqa-->
+<!--flake8: noqa-->
 ###INSTALLATION
 - clone repo
 - Git-hooks
@@ -44,12 +44,41 @@
 - draft mode for new pages and posts
     - @adminOrAuthorRequired                                        
     - hg.com/page/draftpages/newpagetitle
-- api to add pages from 
+- api to add pages from (so you can write them in vim)
 - integrate bike wiki?
-    -moinmoin?
-    -is another framework really necessary?
+    - moinmoin?
+    - is another framework really necessary?
+    - roll your own wiki?
+        - similar/same as/ replace 'page' blueprint as wiki?
+        - create newWikiPage and newWikiPage-Discussion for each page
+        - blog/page/wiki selector?
+        - orphaned pages
+            if wikilink is orphan,
+                mark as such,
+                if not on OrpanedPagesList
+                    add
+            else link to wikipage
+        - breadcrumbs
+        - allow TODO on each page
+            - When TODO list is updated
+                - sitewide TODO list is updated using page name to organize
+        - each post can be published or draft
+            - drafts or private until published?
+            - post can be pushed to blog with tags
+            - page/wiki/blog all the same things?
+- add sidebar to blog
+    - if sidebar display
+    - sidebar has categories, related posts, etc
+- fix resume
+    - embed pdf
+    - resume push to release updates website
+- add drop down menus to nav bar
+- shorten homelessgaffer.com when smaller viewport
+- fix title 'page' when reloading page from submission error
+- fix alignment on login page with the "or"s
 
 ###CHANGELOG
+- made forms into a macro
 - disabled user registration until needed
 - fixed BASE-DIR in pre hook
 - finished user blueprint
@@ -84,11 +113,12 @@
 - add https
 - flask admin working
 
-
 ###NOTES
 - blog
     - food
     - bike
-- work
 - dev
     - battleship
+- about
+    - contact
+    - resume

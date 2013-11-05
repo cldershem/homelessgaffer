@@ -1,6 +1,6 @@
 from flask.ext.wtf import Form, RecaptchaField
 from wtforms import (TextField, TextAreaField, PasswordField,
-                     SubmitField, BooleanField)
+                     SubmitField, BooleanField, RadioField)
 from wtforms.validators import Email, EqualTo, Required
 from models import User, Post, Page
 from mongoengine.queryset import DoesNotExist
@@ -103,10 +103,12 @@ class CommentForm(Form):
 
 class PageForm(Form):
 
-    title = TextField("Title", [Required(
+    title = TextField("Title:", [Required(
                       "Please enter a title for your page.")])
-    content = CKTextAreaField("Content", [Required(
+    content = CKTextAreaField("Content:", [Required(
                               "Please enter content for your page.")])
+    isDraft = BooleanField("Save as draft?")
+    isBlogPost = BooleanField("Publish to blog?")
     submit = SubmitField("Submit Page")
 
     def validate(self):

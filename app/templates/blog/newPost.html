@@ -1,5 +1,6 @@
 <!-- extends base.html -->
 {% extends "base.html" %}
+{% from "macros.html" import render_form with context %}
 {% block head %}
     <script src="{{url_for('static', filename='js/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
 {% endblock %}
@@ -8,47 +9,6 @@
 {% set headerImg = url_for('static', filename='img/babytenor-400x67.jpg') %}
 {% block content %}
 <form id="newpost" action="" method="post">
-    {{form.hidden_tag()}}
-    <table>
-        <tr>
-            <td>{{form.title.label}}:</td>
-            <td>{{form.title(size=10)}}</td>
-            {% for error in form.errors.title %}
-                <td>
-                    [{{error}}]
-                </td>
-            {% endfor %}
-        </tr>
-        <tr>
-            <td>{{form.body.label}}:</td>
-            <td>{{form.body(size=10)}}</td>
-            {% for error in form.errors.body %}
-                <td>
-                    [{{error}}]
-                </td>
-            {% endfor %}
-        </tr>
-        <tr>
-            <td>{{form.tags.label}}:</td>
-            <td>{{form.tags(size=10)}}</td>
-            {% for error in form.errors.tags%}
-                <td>
-                    [{{error}}]
-                </td>
-            {% endfor %}
-        </tr>
-        <tr>
-            <td>{{form.source.label}}:</td>
-            <td>{{form.source}}</td>
-            {% for error in form.errors.source %}
-                <td>
-                    [{{error}}]
-                </td>
-            {% endfor %}
-        <tr>
-            <td></td>
-            <td>{{form.submit}}</td>
-        </tr>
-    </table>
+    {{ render_form() }}
 </form>
 {% endblock %}

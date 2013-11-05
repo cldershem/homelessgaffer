@@ -43,6 +43,10 @@ def newPage():
         if form.validate() is False:
             return render_template("page/newPage.html", form=form)
         else:
+            # if isDraft:
+                # do this
+            # if isBlogPost:
+                # do this
             newPage = Page(title=form.title.data,
                            slug=slug, content=form.content.data)
             newPage.author = User.objects.get(email=current_user.email)

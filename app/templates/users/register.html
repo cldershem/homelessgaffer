@@ -1,69 +1,10 @@
 <!-- extends base.html -->
 {% extends "base.html" %}
+{% from "macros.html" import render_form with context %}
 {% block title %}{{page}}{% endblock %}
 
 {% block content %}
 <form id="register" action="" method="post">
-    {{form.hidden_tag()}}
-    <table>
-        <tr>
-            <td>{{form.firstname.label}}:</td>
-            <td>{{form.firstname(size=10)}}</td>
-            {% for error in form.errors.firstname %}
-                <td>
-                    [{{error}}]
-                </td>
-            {% endfor %}
-        </tr>
-        <tr>
-            <td>{{form.lastname.label}}:</td>
-            <td>{{form.lastname(size=10)}}</td>
-            {% for error in form.errors.lastname %}
-                <td>
-                    [{{error}}]
-                </td>
-            {% endfor %}
-        </tr>
-        <tr>
-            <td>{{form.email.label}}:</td>
-            <td>{{form.email(size=10)}}</td>
-            {% for error in form.errors.email %}
-                <td>
-                    [{{error}}]
-                </td>
-            {% endfor %}
-        </tr>
-        <tr>
-            <td>{{form.password.label}}:</td>
-            <td>{{form.password(size=10)}}</td>
-            {% for error in form.errors.password%}
-                <td>
-                    [{{error}}]
-                </td>
-            {% endfor %}
-        </tr>
-        <tr>
-            <td>{{form.confirm.label}}:</td>
-            <td>{{form.confirm(size=10)}}</td>
-            {% for error in form.errors.confirm %}
-                <td>
-                    [{{error}}]
-                </td>
-            {% endfor %}
-        </tr>
-        <tr>
-            <td>{{form.recaptcha.label}}:</td>
-            <td>{{form.recaptcha}}</td>
-            {% for error in form.errors.recaptcha %}
-                <td>
-                    [{{error}}]
-                </td>
-            {% endfor %}
-        </tr>
-        <tr>
-            <td></td>
-            <td>{{form.submit}}</td>
-        </tr>
-    </table>
+    {{ render_form() }}
 </form>
 {% endblock %}

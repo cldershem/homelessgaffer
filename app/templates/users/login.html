@@ -1,42 +1,12 @@
 <!-- extends base.html -->
 {% extends "base.html" %}
+{% from "macros.html" import render_form with context %}
 {% block title %}{{page}}{% endblock %}
 
 {% block content %}
 <form id="login" action="" method="post">
-    {{form.hidden_tag()}}
+    {{ render_form() }}
     <table>
-        <tr>
-            <td>{{form.email.label}}:</td>
-            <td>{{form.email(size=10)}}</td>
-            {% for error in form.errors.email %}
-                <td>
-                    [{{error}}]
-                </td>
-            {% endfor %}
-        </tr>
-        <tr>
-            <td>{{form.password.label}}:</td>
-            <td>{{form.password(size=10)}}</td>
-            {% for error in form.errors.password %}
-                <td>
-                    [{{error}}]
-                </td>
-            {% endfor %}
-        </tr>
-        <tr>
-            <td>{{form.remember_me.label}}:</td>
-            <td>{{form.remember_me(size=10)}}</td>
-            {% for error in form.errors.remember_me %}
-                <td>
-                    [{{error}}]
-                </td>
-            {% endfor %}
-        </tr>
-        <tr>
-            <td></td>
-            <td>{{form.submit}}</td>
-        </tr>
         <tr>
             <td></td>
             <td>or <a href="{{ url_for('users.register') }}">register</a></td>
