@@ -1,10 +1,10 @@
 from flask import (Blueprint, render_template, flash, request,
                    redirect, url_for)
-from jinja2 import Markup, TemplateNotFound
+from jinja2 import TemplateNotFound
 from app.models import Page, User
 from app.forms import PageForm
 from app.constants import DATE_TIME_NOW
-from app.utils import makeSlug
+from app.utils import makeSlug, markRight
 from flask.ext.login import login_required, current_user
 
 mod = Blueprint('static_page', __name__, url_prefix='/page')
@@ -26,7 +26,7 @@ def staticPage(slug):
                                page=slug)
     except TemplateNotFound:
         page = Page.objects.get_or_404(slug=slug)
-        content = Markup(page.content)
+        content = markRight(page.content)
         return render_template('page/staticpage.html',
                                title=page.title,
                                slug=page.slug,
@@ -44,7 +44,16 @@ def newPage():
             return render_template("page/newPage.html", form=form)
         else:
             # if isDraft:
-                # do this
+                # save as draft
+            # elif !isDraft:
+                # save as draft?
+                # send to preview confirm page
+                    # if confirm
+                        # remove "draft" indicator
+                        # publish
+                    # else:
+                        # redirect to edit page
+                        # flash "edit or save as draft"
             # if isBlogPost:
                 # do this
             newPage = Page(title=form.title.data,

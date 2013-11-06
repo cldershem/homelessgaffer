@@ -6,14 +6,14 @@
 {% block content %}
     {% for post in posts.items %}
         <h2><a href="{{ url_for('blog.singlePost', slug=post.slug) }}">{{ post.title }}</a></h2>
-        <p>{{ post.body|striptags|truncate(100) }}</p>
+        {#<p>{{ post.body|striptags|truncate(100) }}</p>#}
+        <p>{{ post.body|markRight|striptags|truncate(100) }}</p>
         <p>
             by <a href="{{ url_for('users.profile', user_id=post.author.email) }}">{{post.author.email}}</a> | 
         {{ post.created_at.strftime('%H:%M %Y-%m-%d') }} |
         {% with total=post.comments|length %}
-            {{ total }} comment {%- if total > 1 %}s{%- endif -%}
+            {{ total }} comment {%- if total != 1 %}s{%- endif -%}
         {% endwith %}
-        <a href="{{ url_for('blog.singlePost', slug=post.slug) }}#disqus_thread">{{post.title}}</a>
         </p>
     {% endfor %}
     <div id="pagination">

@@ -1,10 +1,11 @@
 from flask.ext.wtf import Form, RecaptchaField
 from wtforms import (TextField, TextAreaField, PasswordField,
-                     SubmitField, BooleanField, RadioField)
+                     SubmitField, BooleanField)
 from wtforms.validators import Email, EqualTo, Required
 from models import User, Post, Page
 from mongoengine.queryset import DoesNotExist
-from utils import makeSlug, CKTextAreaField
+from utils import makeSlug  # , CKTextAreaField
+from flask.ext.pagedown.fields import PageDownField
 
 
 class LoginForm(Form):
@@ -73,8 +74,8 @@ class PostForm(Form):
 
     title = TextField("Title", [Required(
                       "Please enter a title for your post.")])
-    body = CKTextAreaField("Body", [Required(
-                           "Please enter a body to your post.")])
+    body = PageDownField("Body", [Required(
+                         "Please enter a body to your post.")])
     tags = TextField("Tags")
     source = TextField("Source")
     submit = SubmitField("Create Post")
@@ -103,10 +104,10 @@ class CommentForm(Form):
 
 class PageForm(Form):
 
-    title = TextField("Title:", [Required(
+    title = TextField("Title", [Required(
                       "Please enter a title for your page.")])
-    content = CKTextAreaField("Content:", [Required(
-                              "Please enter content for your page.")])
+    content = PageDownField("Content", [Required(
+                            "Please enter content for your page.")])
     isDraft = BooleanField("Save as draft?")
     isBlogPost = BooleanField("Publish to blog?")
     submit = SubmitField("Submit Page")

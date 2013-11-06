@@ -2,9 +2,10 @@ from flask import (Blueprint, request, redirect, url_for, render_template,
                    flash)
 from app.models import Post, Comment, User
 from app.forms import PostForm, CommentForm
-from app.utils import makeSlug
+from app.utils import makeSlug, markRight
 from flask.ext.login import login_required, current_user
 from flask.ext.mongoengine import Pagination
+from app import app
 
 mod = Blueprint('blog', __name__, url_prefix='/blog')
 
@@ -32,21 +33,15 @@ def newPost():
         return render_template("blog/newPost.html", form=form)
 
 
-@mod.route('/', defaults={'tag': None,
-                          'user': None,
-                          'page': 1})
-@mod.route('/listposts', defaults={'tag': None,
-                                   'user': None,
-                                   'page': 1})
-@mod.route('/listposts/page/<int:page>', defaults={'tag': None,
-                                                   'user': None})
-@mod.route('/listposts/tag/<tag>', defaults={'user': None,
-                                             'page': 1})
+@mod.route('/', defaults={'tag': None, 'user': None, 'page': 1})
+@mod.route('/listposts', defaults={'tag': None, 'user': None, 'page': 1})
+@mod.route('/listposts/page/<int:page>', defaults={'tag': None, 'user': None})
+@mod.route('/listposts/tag/<tag>', defaults={'user': None, 'page': 1})
 @mod.route('/listposts/tag/<tag>/page/<int:page>', defaults={'user': None})
-@mod.route('/listposts/user/<user>', defaults={'tag': None,
-                                               'page': 1})
+@mod.route('/listposts/user/<user>', defaults={'tag': None, 'page': 1})
 @mod.route('/listposts/user/<user>/page/<int:page>', defaults={'tag': None})
 def listPosts(tag, user, page):
+    app.jinja_env.filters['markRight'] = markRight
     if tag:
         paginator = Pagination(Post.objects(tags=tag), page, 10)
         posts = paginator
@@ -60,8 +55,11 @@ def listPosts(tag, user, page):
         paginator = Pagination(Post.objects.all(), page, 10)
         posts = paginator
         title = "listposts"
-    return render_template('blog/listPosts.html',
-                           posts=posts, title=title, page=page)
+    return render_template(
+        'blog/listPosts.html',
+        posts=posts,
+        title=title,
+        page=page)
 
 
 @mod.route('/<slug>', methods=['GET', 'POST'])
@@ -83,4 +81,8 @@ def singlePost(slug):
             flash('Comment Posted')
         return render_template('blog/singlePost.html', post=post, form=form)
     elif request.method == 'GET':
-        return render_template('blog/singlePost.html', post=post, form=form)
+        return render_template(
+            'blog/singlePost.html',
+            post=post,
+            body=markRight(post.body),
+            form=form)

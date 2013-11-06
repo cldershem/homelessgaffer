@@ -5,7 +5,7 @@ from flask.ext.bcrypt import Bcrypt
 from flask_debugtoolbar import DebugToolbarExtension
 from flask.ext.mail import Mail
 from flask_oauth import OAuth
-
+from flask.ext.pagedown import PageDown
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -17,6 +17,7 @@ mail = Mail(app)
 lm = LoginManager(app)
 lm.login_view = "users.login"
 oauth = OAuth()
+pagedown = PageDown(app)
 
 
 #if not app.debug:

@@ -4,8 +4,12 @@
         {%  for field in form if field.widget.input_type != 'hidden' %}
             {% if field.id != 'submit' %}
                 <tr>
-                    <td>{{field.label}}</td>
-                    <td>{{field(size=10)}}</td>
+                    <td>{{field.label}}: </td>
+                    {% if field.id == 'body' or field.id == 'content' %}
+                        <td>{{field(rows=20,cols=40)}}</td>
+                    {% else %}
+                        <td>{{field}}</td>
+                    {% endif %}
                     {% for error in field.errors %}
                         <td class="formError">
                             [{{error}}]

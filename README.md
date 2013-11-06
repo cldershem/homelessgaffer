@@ -76,8 +76,16 @@
 - shorten homelessgaffer.com when smaller viewport
 - fix title 'page' when reloading page from submission error
 - fix alignment on login page with the "or"s
+- fix spacing between header and first line
+- fix blog list markdown stripping looking dumb
+- fix pagedown editor preview --- looks like crap
+- decide if ckeditor is needed anywhere at all
 
 ###CHANGELOG
+- add markdown support
+    - add pagedown editor with preview
+    - remove ckeditor from templates
+    - add [[wikilink]] support
 - made forms into a macro
 - disabled user registration until needed
 - fixed BASE-DIR in pre hook

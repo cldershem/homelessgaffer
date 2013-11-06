@@ -5,6 +5,8 @@ from wtforms.widgets import TextArea
 from config import SECRET_KEY
 from itsdangerous import (URLSafeSerializer, BadSignature,
                           URLSafeTimedSerializer, SignatureExpired)
+from jinja2 import Markup
+from markdown import markdown
 
 
 def makeSlug(text, delim=u'-'):
@@ -70,3 +72,15 @@ def check_password_reset_link(payload):
     except SignatureExpired or BadSignature:
         return False
     return user_id
+
+
+def markRight(markedText):
+    return Markup(
+        markdown(
+            markedText,
+            extensions=['wikilinks'],
+            extension_configs={
+                'wikilinks': [
+                    ('base_url', ''),
+                    ('end_url', ''),
+                    ('html_class', '')]}, safe_mode=False))

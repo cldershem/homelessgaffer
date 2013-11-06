@@ -2,8 +2,9 @@
 {% from "macros.html" import render_form with context %}
 {% block title %}{{post.title}}{% endblock %}
 {% set page=post.title %}
+
 {% block content %}
-    <p>{{ post.body|safe }}</p>
+    <p>{{ body }}</p>
     <hr>
     <div id="postmeta">
         <p>
