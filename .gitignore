@@ -1,0 +1,8 @@
+tmp/**/*
+!tmp/log/
+tmp/log/*
+
+venv/
+app/static/js/ckeditor
+app/static/js/less*
+app/static/js/kinetic*
