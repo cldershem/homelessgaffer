@@ -3,13 +3,13 @@ from app import mail
 from flask import render_template
 from config import ADMINS
 from decorators import async
-import logging
+# import logging
 
-log = logging.getLogger(__name__)
+# log = logging.getLogger(__name__)
 
 
-def test_logger():
-    log.critical("fuck yes")
+# def test_logger():
+    # log.critical("fuck yes")
 
 
 @async
