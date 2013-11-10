@@ -9,6 +9,7 @@
         - "cldershem ALL= NOPASSWD: /usr/sbin/service nginx *"
         - "cldershem ALL= NOPASSWD: /usr/sbin/service uwsgi *"
     - cp secrets.py
+    - set config.DEBUG = False
 
 ###TODO
 - push github, web at same time?
@@ -38,11 +39,11 @@
 - reimplement users and/or disqus for comments
 - get some content
 - admin can only access admin
-- make some better classes 
+- make some better classes
     - user should have an update method?
 - admin approval of new users
 - draft mode for new pages and posts
-    - @adminOrAuthorRequired                                        
+    - @adminOrAuthorRequired
     - hg.com/page/draftpages/newpagetitle
 - api to add pages from (so you can write them in vim)
 - integrate bike wiki?
@@ -80,6 +81,7 @@
 - fix blog list markdown stripping looking dumb
 - fix pagedown editor preview --- looks like crap
 - decide if ckeditor is needed anywhere at all
+- add class to config so you can import MAIL instead of each individual setting
 
 ###CHANGELOG
 - add markdown support
