@@ -3,6 +3,9 @@ from app import mail
 from flask import render_template
 from config import ADMINS
 from decorators import async
+import logging
+
+logging.basicConfig(filename='logs/email.log', level=logging.INFO)
 
 
 @async
@@ -14,6 +17,8 @@ def send_email(subject, sender, recipients, text_body, html_body):
     msg = Message(subject, sender=sender, recipients=recipients)
     msg.body = text_body
     msg.html = html_body
+    logging.info('[email sent] %s|%s|%s|%s' % (
+                 sender, recipients, text_body, html_body))
     send_async_email(msg)
 
 

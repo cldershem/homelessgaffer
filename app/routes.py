@@ -3,6 +3,7 @@ from app import app
 from app.page.views import mod as staticPageModule
 from app.blog.views import mod as blogModule
 from app.users.views import mod as usersModule
+from app.unity.views import mod as unityModule
 
 
 @app.route('/')
@@ -16,6 +17,7 @@ def index():
 app.register_blueprint(staticPageModule)
 app.register_blueprint(blogModule)
 app.register_blueprint(usersModule)
+app.register_blueprint(unityModule)
 
 
 @app.errorhandler(404)

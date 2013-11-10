@@ -9,7 +9,5 @@
 {% set page = 'newPost' %}
 {% set headerImg = url_for('static', filename='img/babytenor-400x67.jpg') %}
 {% block content %}
-<form id="newpost" action="" method="post">
-    {{ render_form() }}
-</form>
+    {{ render_form('newpost') }}
 {% endblock %}

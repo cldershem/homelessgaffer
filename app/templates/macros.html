@@ -1,27 +1,27 @@
-{% macro render_form() %}
+{% macro render_form(formID) %}
+<form id={{formID}} action="" method="post">
 {{form.hidden_tag()}}
-    <table>
-        {%  for field in form if field.widget.input_type != 'hidden' %}
-            {% if field.id != 'submit' %}
-                <tr>
-                    <td>{{field.label}}: </td>
-                    {% if field.id == 'body' or field.id == 'content' %}
-                        <td>{{field(rows=20,cols=40)}}</td>
-                    {% else %}
-                        <td>{{field}}</td>
-                    {% endif %}
-                    {% for error in field.errors %}
-                        <td class="formError">
-                            [{{error}}]
-                        </td>
-                    {% endfor %}
-                </tr>
+    {%  for field in form if field.widget.input_type != 'hidden' %}
+        {% if field.type == 'TextField' or
+            field.type == 'PageDownField' or
+            field.type == 'TextAreaField' %}
+            {{field.label}}
+                {% for error in field.errors %}
+                    <span class="formError">
+                        [{{error}}]
+                    </span>
+                {% endfor %}</br >
+            {% if field.id == 'body' or field.id == 'content' %}
+                {{field(rows=20,cols=40)}}
             {% else %}
-                <tr>
-                    <td></td>
-                    <td>{{field}}</td>
-                </tr>
-            {% endif %}
-        {% endfor %}
-    </table>
+                {{field}}
+            {% endif %}</br>
+        {% elif field.id == 'submit' %}
+            {{field}}</br>
+        {% else %}
+            {{field.label}}
+            {{field}}</br>
+        {% endif %}
+    {% endfor %}
+</form>
 {% endmacro %}

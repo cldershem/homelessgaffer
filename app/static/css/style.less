@@ -56,9 +56,38 @@ html, body {
     //min-width: 410px;
 }
 
-#leftcontent {}
+#leftcontent {
+    width: 70%;
+    height: 100%;
+    float: left;
+}
+
+#sidebar {
+    // margin-left: 75%;
+    height: 100%;
+    // float: right;
+    * {
+        // text-align: right;
+    }
+    ul {
+        list-style-type: none;
+    }
+}
+
+#markdown-example {
+    h1, h2, h3, hr {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        display: inline-block;
+    }
+}
+
 
 header {
+    margin-bottom: 10px;
+    
 	h1 {
 		margin: 0px;
 	}
@@ -168,6 +197,7 @@ footer {
 	margin-top: 100px;
 	padding: 0px 0px 1px 0px;
 	font-size: 75%;
+    clear: both;
 	}
 
 hr {
@@ -184,7 +214,6 @@ hr {
         font-variant: small-caps;
     }
 }
-
 
 /*
 h1 {font-size: ;}
@@ -207,6 +236,22 @@ h3 {}
 #commentmeta {
     font-size: 80%;
 }
+
+label, input {
+    // width: 200px;
+    // display: block;
+    // float: left;
+    margin-bottom: 10px;
+}
+
+label {
+    // width: 125px;
+    // text-align: right;
+    // padding-right: 10px;
+    // margin-top: 2px;
+}
+
+
 
 /*
 #sidebar ul {
