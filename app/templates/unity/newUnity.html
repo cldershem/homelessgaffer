@@ -1,0 +1,36 @@
+<!-- extends base.html -->
+{% extends "base.html" %}
+{% from "macros.html" import render_form with context %}
+{% block head %}
+    {{ pagedown.html_head() }}
+{% endblock %}
+{% block title %}{{page}}{% endblock %}
+
+{% block content %}
+    {{ render_form('newUnity') }}
+{% endblock %}
+{% block sidebar %}
+    <div id="markdown-help">
+        <h3>Markdown Cheatsheet</h3>
+        <ul id="markdown-example">
+            <li><i>_italic_</i></li>
+            <li><b>**bold**</b></li>
+            <li><i><b>***italic & bold***</b></i></li>
+            <li>&lthttp://foo.com&gt</li>
+            <li>[foo](http://foo.com)</li>
+            <li>[[wikiLink]]</li>
+            <li>![img](http://link/to)</li>
+            <li>-----&lthr&gt</li>
+            <li><h1>###h1</h1> or ===</li>
+            <li><h2>###h2</h2> or ---</li>
+            <li><h3>###h3</h3></li>
+            <li>- list</li>
+            <li>[5spaces]- list</li>
+            <li>1. list</li>
+            <li>[4spaces]A. list</li>
+            <li>[4spaces]code</li>
+            <li><pre>```code```</pre></li>
+            <li><blockquote>>blockquote</blockquote></li>
+        </ul>
+    </div><!--end markdown-help-->
+{% endblock %}
