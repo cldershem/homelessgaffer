@@ -2,7 +2,7 @@ from flask.ext.wtf import Form, RecaptchaField
 from wtforms import (TextField, TextAreaField, PasswordField,
                      SubmitField, BooleanField)
 from wtforms.validators import Email, EqualTo, Required
-from models import User, Post, Page
+from models import User, Post, Page, Unity
 from mongoengine.queryset import DoesNotExist
 from utils import makeSlug  # , CKTextAreaField
 from flask.ext.pagedown.fields import PageDownField
@@ -139,3 +139,31 @@ class ResetPasswordForm(Form):
     confirm = PasswordField('Confirm', [Required(
                             "Password again, please.")])
     submit = SubmitField("submit")
+
+
+class UnityForm(Form):
+
+    title = TextField("Title", [Required(
+                      "Please enter a title for your post.")])
+    body = PageDownField("Body", [Required(
+                         "Please enter a body to your post.")])
+    tags = TextField("Tags")
+    source = TextField("Source")
+    isDraft = BooleanField("Save as draft?")
+    isBlogPost = BooleanField("Publish to blog?")
+    submit = SubmitField("Submit")
+
+    def __init__(self, *args, **kwargs):
+        Form.__init__(self, *args, **kwargs)
+
+    def validate(self):
+        if not Form.validate(self):
+            return False
+        try:
+            newSlug = makeSlug(self.title.data)
+            slug = Unity.objects.get(slug=newSlug)
+            if slug:
+                self.title.errors.append("That title already exists.")
+                return False
+        except DoesNotExist:
+            return True

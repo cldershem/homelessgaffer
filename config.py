@@ -1,8 +1,13 @@
 import os
 import secrets
+import socket
 
 
-DEBUG = True
+if socket.gethostname() == 'xcldershem-laptop':
+    DEBUG = True
+else:
+    DEBUG = False
+
 TESTING = False
 
 # misc

@@ -41,25 +41,13 @@ def restartServices():
 
 def getNonTrackedFiles():
     jsDir = "app/static/js/"
-    ckeditorJS = {
-        "name": "ckeditor/ckeditor.js",
-        "url": "http://download.cksource.com/CKEditor/CKEditor/" +
-               "CKEditor%204.2/ckeditor_4.2_standard.zip",
-        "zip": baseDir + jsDir + "ckeditor_4.2_standard.zip"
-        }
-    lessJS = {
-        "name": "less-1.4.1.min.js",
-        "url": "https://raw.github.com/less/less.js/master/dist/" +
-                "less-1.4.1.min.js",
-        "zip": False
-        }
     kineticJS = {
         "name": "kinetic-v4.6.0.min.js",
         "url": "http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/" +
                "kinetic-v4.6.0.min.js",
         "zip": False
         }
-    neededLibs = [ckeditorJS, lessJS, kineticJS]
+    neededLibs = [kineticJS]
 
     for item in neededLibs:
         try:

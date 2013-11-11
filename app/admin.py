@@ -1,12 +1,12 @@
 from flask.ext.admin import (Admin, BaseView, expose)
 from app import app
 from flask.ext.admin.contrib.mongoengine import ModelView
-from models import User, Page, Post
+from models import User, Page, Post, Unity
 #from utils import CKTextAreaField
 from wtforms import PasswordField
 from flask import flash
 from app.constants import DATE_TIME_NOW
-from app.decorators import admin_required
+# from app.decorators import admin_required
 
 
 class AdminView(BaseView):
@@ -60,8 +60,15 @@ class PageView(ModelView):
         model.edited_on.append(DATE_TIME_NOW)
 
 
+class UnityView(ModelView):
+
+    def on_model_change(self, form, model):
+        model.edited_on.append(DATE_TIME_NOW)
+
+
 admin = Admin(app)
 
 admin.add_view(UserView(User))
 admin.add_view(PostView(Post))
 admin.add_view(PageView(Page))
+admin.add_view(UnityView(Unity))
