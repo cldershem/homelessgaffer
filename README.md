@@ -1,15 +1,17 @@
 <!--flake8: noqa-->
 ###INSTALLATION
-- clone repo
-- Git-hooks
-    - mv .git/hooks .git/hooks.bak
-    - ln -s /path/to/repo/.githooks/ /path/to/repo/.git/hooks
-    - set baseDir in .githooks/post-receive
-    - add to /etc/sudoers
-        - "cldershem ALL= NOPASSWD: /usr/sbin/service nginx *"
-        - "cldershem ALL= NOPASSWD: /usr/sbin/service uwsgi *"
-    - cp secrets.py
-    - set config.DEBUG = False
+```
+git clone /var/www/homelessgaffer.com
+cd /home/$USER
+git init --bare homelessgaffer.git
+mv homelessgaffer.git/hooks homelessgaffer.git/hooks.bak
+ln -s /var/www/homelessgaffer.com/.githooks ./homelessgaffer.git/hooks
+```
+- if needed set "baseDir" in homelessgaffer.git/hooks/post-receive
+- add to /etc/sudoers
+    - "cldershem ALL= NOPASSWD: /usr/sbin/service nginx \*"
+    - "cldershem ALL= NOPASSWD: /usr/sbin/service uwsgi \*"
+- cp secrets.py
 
 ###TODO
 - push github, web at same time?
