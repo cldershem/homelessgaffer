@@ -71,6 +71,13 @@ def getNonTrackedFiles():
     #secrets.py
     #print copied "secrets.py shhh......"
 
+
+def fixPermissions():
+    # print("Fixing permissions of '{0}'".format(baseDir))
+    # subprocess.call(["sudo", "chown", "-R", baseDir, "homeless:homeless"])
+    # print("Permissions set.")
+    pass
+
 if __name__ == '__main__':
     gitCheckout()
     updateRequirements()

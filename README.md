@@ -13,6 +13,13 @@ ln -s /var/www/homelessgaffer.com/.githooks ./homelessgaffer.git/hooks
     - "cldershem ALL= NOPASSWD: /usr/sbin/service uwsgi \*"
 - cp secrets.py
 
+TODAY
+=====
+- all files in /var/www/homelessgaffer.com owned by cldershem
+- if DEBUG
+- move logs to /var/www/hg/tmp/log
+
+
 ###TODO
 - push github, web at same time?
 - Search
