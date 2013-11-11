@@ -3,7 +3,7 @@ import secrets
 import socket
 
 
-if socket.gethostname() == 'xcldershem-laptop':
+if socket.gethostname() == 'cldershem-laptop':
     DEBUG = True
 else:
     DEBUG = False
