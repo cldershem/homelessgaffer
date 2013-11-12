@@ -9,11 +9,12 @@ from flask.ext.pagedown import PageDown
 from socket import gethostname
 
 app = Flask(__name__)
+app.config.from_object('config')
 
 if gethostname() == 'cldershem-laptop':
-    app.config.from_object('config')
+    app.config['DEBUG'] = True
 else:
-    app.config.from_object('server_config')
+    app.config['DEBUG'] = False
 
 db = MongoEngine(app)
 bcrypt = Bcrypt(app)

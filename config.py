@@ -2,9 +2,9 @@ import os
 import secrets
 
 
-DEBUG = True
+# DEBUG set in app/__init__.py
 TESTING = False
-#LOGTO = '/var/www/homelessgaffer.com/tmp/log/'
+# LOGTO = '/var/www/homelessgaffer.com/tmp/log/'
 
 # misc
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
