@@ -16,7 +16,7 @@ ln -s /var/www/homelessgaffer.com/.githooks ./homelessgaffer.git/hooks
 TODAY
 =====
 - all files in /var/www/homelessgaffer.com owned by cldershem
-- if DEBUG maybe?
+- if DEBUG maybe? potentially
 - move logs to /var/www/hg/tmp/log
 
 
