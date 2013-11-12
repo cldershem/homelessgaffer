@@ -2,9 +2,8 @@ import os
 import secrets
 
 
-DEBUG = True
+DEBUG = False
 TESTING = False
-#LOGTO = '/var/www/homelessgaffer.com/tmp/log/'
 
 # misc
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))

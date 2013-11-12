@@ -6,9 +6,14 @@ from flask_debugtoolbar import DebugToolbarExtension
 from flask.ext.mail import Mail
 from flask_oauth import OAuth
 from flask.ext.pagedown import PageDown
+from socket import gethostname
 
 app = Flask(__name__)
-app.config.from_object('config')
+
+if gethostname() == 'cldershem-laptop':
+    app.config.from_object('config')
+else:
+    app.config.from_object('server_config')
 
 db = MongoEngine(app)
 bcrypt = Bcrypt(app)
