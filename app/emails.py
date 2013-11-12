@@ -31,6 +31,7 @@ def email_confirmation(user, payload):
     send_email(
         "[homelessgaffer.com] - confirm email",
         ADMINS[0],
+        #[ADMINS[0]],
         [user.email],
         render_template("emails/email_confirmation.txt",
                         user=user,
@@ -47,6 +48,7 @@ def email_password_reset(user, payload):
     send_email(
         "[homelessgaffer.com] - password reset",
         ADMINS[0],
+        #[ADMINS[0]],
         [user.email],
         render_template("emails/password_reset.txt",
                         user=user,

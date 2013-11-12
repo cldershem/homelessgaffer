@@ -3,5 +3,4 @@ tmp/*
 tmp/logs/*
 venv/
 app/static/js/ckeditor/
-app/static/js/kinetic-v4.6.0.min.js
-
+app/static/js/kinetic*

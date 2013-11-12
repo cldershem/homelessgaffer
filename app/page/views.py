@@ -43,9 +43,9 @@ def newPage():
         if form.validate() is False:
             return render_template("page/newPage.html", form=form)
         else:
-            # if isDraft:
-                # save as draft
-            # elif !isDraft:
+            # if form.isDraft.data:
+                # save as form.title.data + "-draft"
+            # elif !form.isDraft.data:
                 # save as draft?
                 # send to preview confirm page
                     # if confirm

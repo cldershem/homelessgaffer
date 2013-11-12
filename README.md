@@ -33,6 +33,7 @@ TODAY
         - currently will save if error
     - change password
     - email on comment
+    - new accounts need to be approved
 - add delete to edit page/post
 - fix datetime display
     - moment.js?
@@ -89,8 +90,13 @@ TODAY
 - fix spacing between header and first line
 - fix blog list markdown stripping looking dumb
 - fix pagedown editor preview --- looks like crap
+    - figure out pagedown editor wmd-button-bar
 - decide if ckeditor is needed anywhere at all
-- add class to config so you can import MAIL instead of each individual setting
+- fix form css in general
+- comments vs discussion
+    - think wikipedia discussion page
+- rename "page" to "pageTitle"
+- make it so you can import MAIL and not each individulal Mail_USERNAME
 
 ###CHANGELOG
 - add markdown support
@@ -141,3 +147,7 @@ TODAY
 - about
     - contact
     - resume
+
+###BLARG
+- make decision on blog/page/wiki
+- sidebar with markdown
