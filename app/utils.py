@@ -7,6 +7,7 @@ from itsdangerous import (URLSafeSerializer, BadSignature,
                           URLSafeTimedSerializer, SignatureExpired)
 from jinja2 import Markup
 from markdown import markdown
+from app import app
 
 
 def makeSlug(text, delim=u'-'):
@@ -74,6 +75,7 @@ def check_password_reset_link(payload):
     return user_id
 
 
+@app.template_filter()
 def markRight(markedText):
     return Markup(
         markdown(

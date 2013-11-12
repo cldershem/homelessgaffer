@@ -5,7 +5,6 @@ from app.forms import PostForm, CommentForm
 from app.utils import makeSlug, markRight
 from flask.ext.login import login_required, current_user
 from flask.ext.mongoengine import Pagination
-from app import app
 
 mod = Blueprint('blog', __name__, url_prefix='/blog')
 
@@ -41,7 +40,6 @@ def newPost():
 @mod.route('/listposts/user/<user>', defaults={'tag': None, 'page': 1})
 @mod.route('/listposts/user/<user>/page/<int:page>', defaults={'tag': None})
 def listPosts(tag, user, page):
-    app.jinja_env.filters['markRight'] = markRight
     if tag:
         paginator = Pagination(Post.objects(tags=tag), page, 10)
         posts = paginator
