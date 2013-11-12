@@ -10,7 +10,7 @@
     <body>
         <div id="allcontent">
             <header>
-                <h1 id="hgtitle"><a href="{{ url_for('index') }}">homelessgaffer.com/</a><span id="page">{{page}}</span></h1>
+                <h1 id="hgtitle"><a href="{{ url_for('index') }}">homelessgaffer.com/</a><span id="page">{{page or pageTitle}}</span></h1>
                 <nav>
                     <ul id="navbar">
                         {% set navBar = ["food", "bike", "resume", "dev", "about", "contact"] %}

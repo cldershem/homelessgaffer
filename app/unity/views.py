@@ -1,8 +1,8 @@
 from flask import (Blueprint, render_template, flash, request,
                    redirect, url_for)
 # from jinja2 import TemplateNotFound
-from app.models import Unity, User  # , Comment
-from app.forms import UnityForm
+from app.models import Unity, User, Comment
+from app.forms import UnityForm, CommentForm
 # from app.constants import DATE_TIME_NOW
 from app.utils import makeSlug, markRight
 from flask.ext.login import login_required, current_user
@@ -40,24 +40,24 @@ def listPosts(tag, user, pageNum):
 def newUnity():
     form = UnityForm()
 
-    if request.method == 'Post':
-        slug = makeSlug(form.title.data)
+    if request.method == 'POST':
         if not form.validate():
             return render_template("unity/newUnity.html", form=form)
         else:
+            slug = makeSlug(form.title.data)
             # if form.isDraft.data:
-                # save as form.title.data + "-draft"
+            #     save as form.title.data + "-draft"
             # elif !form.isDraft.data:
-                # save as draft?
-                # send to preview confirm page
-                    # if confirm
-                        # remove "draft" indicator
-                        # publish
-                    # else:
-                        # redirect to edit page
-                        # flash "edit or save as draft"
+            #     save as draft?
+            #     send to preview confirm page
+            #         if confirm
+            #             remove "draft" indicator
+            #             publish
+            #         else:
+            #             redirect to edit page
+            #             flash "edit or save as draft"
             # if isBlogPost:
-                # do this
+            #     do this
             newUnity = Unity(title=form.title.data,
                              slug=slug,
                              body=form.body.data)
@@ -79,8 +79,26 @@ def newUnity():
 def staticUnity(slug):
     unity = Unity.objects.get_or_404(slug=slug)
     body = markRight(unity.body)
-    return render_template(
-        'unity/staticUnity.html',
-        pageTitle=unity.title,
-        slug=unity.slug,
-        body=body)
+    form = CommentForm()
+
+    if request.method == 'POST':
+        if not form.validate():
+            return render_template('unity/staticUnity.html',
+                                   unity=unity,
+                                   form=form)
+        else:
+            newComment = Comment(body=form.comment.data)
+            newComment.author = User.objects.get(email=current_user.email)
+            unity.comments.append(newComment)
+            unity.save()
+            form.comment.data = None  # resets field to empty on refresh
+            flash('Comment Posted')
+        return render_template('unity/staticUnity.html',
+                               unity=unity,
+                               form=form)
+    elif request.method == 'GET':
+        return render_template('unity/staticUnity.html',
+                               pageTitle=unity.title,
+                               slug=unity.slug,
+                               body=body,
+                               form=form)
