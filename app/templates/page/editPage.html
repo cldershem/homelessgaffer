@@ -2,7 +2,6 @@
 {% extends "base.html" %}
 {% from "macros.html" import render_form with context %}
 {% block head %}
-    <script src="{{url_for('static', filename='js/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
     {{ pagedown.html_head() }}
 {% endblock %}
 {% block title %}{{title}}edit{% endblock %}

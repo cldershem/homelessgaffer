@@ -91,7 +91,6 @@ TODAY
 - fix blog list markdown stripping looking dumb
 - fix pagedown editor preview --- looks like crap
     - figure out pagedown editor wmd-button-bar
-- decide if ckeditor is needed anywhere at all
 - fix form css in general
 - comments vs discussion
     - think wikipedia discussion page
@@ -100,8 +99,10 @@ TODAY
 - unity/edit tags is populated with "[]"
 - test unity and delete page and blog if solid
 - find word for create or edit if exists for unity new/edit/draft page
+- do i need a robots.txt
 
 ###CHANGELOG
+- removed ckeditor
 - Unity working.  
 - fixed "if server: debug=False"
     - DEBUG flag now set in app/__init__.py
