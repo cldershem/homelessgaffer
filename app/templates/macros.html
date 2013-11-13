@@ -26,29 +26,25 @@
     </form>
 {% endmacro %}
 
-{% macro render_pagination(pagination, endpoint) %}
-    <div id="pagination">
 
-        {% if pagination.has_prev %}
-            <a href="{{url_for(endpoint, page=pagination.prev_num)}}">newer</a>
-        {% endif %}
-
-        {#
-        {%- for page in pagination.iter_pages() %}
-          {% if page %}
-            {% if page != pagination.page %}
-              <a href="{{ url_for(endpoint, page=page) }}">{{ page }}</a>
+{% macro render_pager(pageSet, endpoint) %}
+<div id="pagination">
+    {% if pageSet.has_prev %}
+        <a href="{{url_for(endpoint, pageNum=pageSet.prev_num)}}">newer</a>
+    {% endif %}
+    {% for page in pageSet.iter_pages() %}
+        {% if pageSet.page == 1 and not pageSet.has_next %} <!-- dont show if only page -->#}
+            {{"only page"}}
+        {% else %}
+            {% if page == pageSet.page %}
+                <strong>{{page}}</strong>
             {% else %}
-              <strong>{{ page }}</strong>
+                <a href="{{url_for(endpoint, pageNum=page)}}">{{page}}</strong></a>
             {% endif %}
-          {% else %}
-            <span class=ellipsis>…</span>
-          {% endif %}
-        {%- endfor %}
-        #}
-
-        {% if pagination.has_next %}
-            <a href="{{url_for(endpoint, page=pagination.next_num)}}">older</a>
         {% endif %}
-    </div><!--end pagination-->
+    {% endfor %}
+    {% if pageSet.has_next %}
+        <a href="{{url_for(endpoint, pageNum=pageSet.next_num)}}">older</a>
+    {% endif %} 
+</div><!--pagination-->
 {% endmacro %}

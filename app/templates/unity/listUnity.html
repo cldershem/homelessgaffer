@@ -1,8 +1,7 @@
 {% extends "base.html" %}
-{% from "macros.html" import render_pagination with context %}
-{% block title %}{{pageTitle}}{% endblock %}
+{% from "macros.html" import render_pager with context %}
 {% block content %}
-    {% for item in unityPosts.items %}
+    {% for item in unitySet.items %}
         <h2>
             <a href="{{ url_for('unity.staticUnity', slug=item.slug) }}">{{ item.title }}</a>
         </h2>
@@ -14,19 +13,5 @@
            {% endwith %}
         </p>
     {% endfor %}
-    {#
-        {% for page in unityPosts.iter_pages() %}
-            {% if page %}
-                {% if page == 1 and page.has_next == False %} <!-- if only one page, don't show pages-->
-                {% elif page != unityPosts.page %}
-                    <a href="{{url_for('unity.listUnity', page=page)}}">{{page}}</strong><a>
-                {% else %}
-                    <strong>{{page}}</strong>
-                {% endif %}
-            {% else %}
-                <p>else again </p>
-            {% endif %}
-        {% endfor %}
-    #}
-    {{ render_pagination(unityPosts, 'unity.listUnity') }}
+    {{ render_pager(unitySet, 'unity.listUnity') }}
 {% endblock %}

@@ -16,7 +16,6 @@ ln -s /var/www/homelessgaffer.com/.githooks ./homelessgaffer.git/hooks
 TODAY
 =====
 - all files in /var/www/homelessgaffer.com owned by cldershem
-- if DEBUG maybe? potentially
 - move logs to /var/www/hg/tmp/log
 - unique id num for each post
     - rememdies slug name error on edit
@@ -39,7 +38,7 @@ TODAY
 - add delete to edit page/post
 - fix datetime display
     - moment.js?
-- edit page doesn't work
+- edit page doesn't work (slug already used)
 - add tests
 - fix default nginx error pages
 - Admin
@@ -48,7 +47,7 @@ TODAY
 - find better way to do async
 - set title=page in base.html?
 - make it not look like crap
-- reimplement users and/or disqus for comments
+- disqus for comments?
 - get some content
 - admin can only access admin
 - make some better classes
@@ -56,7 +55,7 @@ TODAY
 - admin approval of new users
 - draft mode for new pages and posts
     - @adminOrAuthorRequired
-    - hg.com/page/draftpages/newpagetitle
+    - hg.com/page/newpagetitle/draft (uses new/edit template)
 - api to add pages from (so you can write them in vim)
 - integrate bike wiki?
     - moinmoin?
@@ -80,7 +79,6 @@ TODAY
             - post can be pushed to blog with tags
             - page/wiki/blog all the same things?
 - add sidebar to blog
-    - if sidebar display
     - sidebar has categories, related posts, etc
 - fix resume
     - embed pdf
@@ -99,8 +97,15 @@ TODAY
     - think wikipedia discussion page
 - rename "page" to "pageTitle"
 - make it so you can import MAIL and not each individulal Mail_USERNAME
+- unity/edit tags is populated with "[]"
+- test unity and delete page and blog if solid
+- find word for create or edit if exists for unity new/edit/draft page
 
 ###CHANGELOG
+- Unity working.  
+- fixed "if server: debug=False"
+    - DEBUG flag now set in app/__init__.py
+- sidebar block added to base template
 - add markdown support
     - add pagedown editor with preview
     - remove ckeditor from templates
