@@ -18,6 +18,8 @@ TODAY
 - all files in /var/www/homelessgaffer.com owned by cldershem
 - if DEBUG maybe? potentially
 - move logs to /var/www/hg/tmp/log
+- unique id num for each post
+    - rememdies slug name error on edit
 
 
 ###TODO
