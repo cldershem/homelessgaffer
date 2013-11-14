@@ -10,12 +10,12 @@
     <body>
         <div id="allcontent">
             <header>
-                <h1 id="hgtitle"><a href="{{ url_for('index') }}">homelessgaffer.com/</a><span id="page">{{pageTitle or page}}</span></h1>
+                <h1 id="hgtitle"><a href="{{ url_for('index') }}">homelessgaffer.com/</a><span id="page">{{pageTitle or "UPDATE ME!!!!"}}</span></h1>
                 <nav>
                     <ul id="navbar">
                         {% set navBar = ["food", "bike", "resume", "dev", "about", "contact"] %}
                         {% for navButton in navBar -%}
-                            <li {% if page == navButton %} class="currentpage" {% endif %}><a href="{{url_for('static_page.staticPage', slug=navButton)}}">{{navButton}}</a></li>
+                            <li {% if page == navButton %} class="currentpage" {% endif %}><a href="{{url_for('unity.staticUnity', slug=navButton)}}">{{navButton}}</a></li>
                         {%- endfor -%}
                         {% if current_user.is_anonymous() == True -%}
                             <li {% if page == "login" %} class="currentpage" {% endif %} id="navbarlogin"><a href="{{ url_for('users.login') }}">login</a></li>			    

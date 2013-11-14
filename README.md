@@ -19,7 +19,6 @@ TODAY
 - move logs to /var/www/hg/tmp/log
 - unique id num for each post
 
-
 ###TODO
 - Search
 - user
@@ -96,8 +95,10 @@ TODAY
 - test unity and delete page and blog if solid
 - find word for create or edit if exists for unity new/edit/draft page
 - do i need a robots.txt
+- what is app/templates/admin?
 
 ###CHANGELOG
+- fix static html file page
 - add pageTitle to title bar
 - fix Sources as TagListField
 - fixed unity/edit tags is populated with "[]"

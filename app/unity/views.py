@@ -81,7 +81,7 @@ def newUnity():
     elif request.method == 'GET':
         return render_template("unity/newUnity.html",
                                form=form,
-                               page="newUnity")
+                               pageTitle="newUnity")
 
 
 @mod.route('/<slug>/edit', methods=['GET', 'POST'])
@@ -119,11 +119,9 @@ def editUnity(slug):
 
 @mod.route('/<slug>')
 def staticUnity(slug):
-    unity = Unity.objects.get_or_404(slug=slug)
-    body = markRight(unity.body)
-    form = CommentForm()
-
     if request.method == 'POST':
+        unity = Unity.objects.get_or_404(slug=slug)
+        form = CommentForm()
         if not form.validate():
             return render_template('unity/staticUnity.html',
                                    unity=unity,
@@ -143,8 +141,10 @@ def staticUnity(slug):
             return render_template('unity/%s.html' % slug,
                                    pageTitle=slug)
         except TemplateNotFound:
+            unity = Unity.objects.get_or_404(slug=slug)
+            form = CommentForm()
             return render_template('unity/staticUnity.html',
                                    pageTitle=unity.title,
                                    slug=unity.slug,
-                                   body=body,
+                                   body=markRight(unity.body),
                                    form=form)

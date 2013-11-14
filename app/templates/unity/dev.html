@@ -1,6 +1,5 @@
 <!-- extends base.html -->
 {% extends "base.html" %}
-{% block title %}{{page}}{% endblock %}
 
 {% block content %}
 <table id="dev" class="tableSmallCaps">
@@ -8,7 +7,7 @@
 		<th><a href="http://homelessgaffer.com/wikitest/tikiwiki">wiki</a></th><td>wiki about bicycle tour</td>
 	</tr>
 	<tr>
-		<th><a href="{{ url_for('static_page.staticPage', slug='battleship') }}">battleshipweb</a></th><td>first non-tiny python game being converted into a webapp.</td>
+		<th><a href="{{ url_for('unity.staticUnity', slug='battleship') }}">battleshipweb</a></th><td>first non-tiny python game being converted into a webapp.</td>
 	</tr>
 	<tr>
         <th>genealogy</th><td>million dollar idea</td>

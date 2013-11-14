@@ -31,13 +31,13 @@ def before_request():
 @anon_required
 def login():
     form = LoginForm()
-    page = "login"
+    pageTitle = "login"
 
     if request.method == 'POST':
         if form.validate() is False:
             return render_template('users/login.html',
                                    form=form,
-                                   page=page)
+                                   pageTitle=pageTitle)
         else:
             user = User.objects.get(email=form.email.data.lower())
             if user and user.roles.can_login is True:
@@ -53,14 +53,14 @@ def login():
                 flash("Please confirm your email address.")
                 return render_template('users/login.html',
                                        form=form,
-                                       page=page)
+                                       pageTitle=pageTitle)
     elif request.method == 'GET':
         if request.args.get('next'):
             session['next'] = (request.args.get('next') or
                                request.referrer or None)
         return render_template('users/login.html',
                                form=form,
-                               page=page)
+                               pageTitle=pageTitle)
 
 
 def after_login(resp):
@@ -83,13 +83,13 @@ def logout():
 @anon_required
 def register():
     form = RegisterUser()
-    page = "register"
+    pageTitle = "register"
 
     if request.method == 'POST':
         if form.validate() is False:
             return render_template('users/register.html',
                                    form=form,
-                                   page=page)
+                                   pageTitle=pageTitle)
         else:
             newUser = User(firstname=form.firstname.data.title(),
                            lastname=form.lastname.data.title(),
@@ -104,7 +104,7 @@ def register():
     elif request.method == 'GET':
         return render_template('users/register.html',
                                form=form,
-                               page=page)
+                               pageTitle=pageTitle)
 
     # flash("This feature is currently disabled.")
     # return redirect(url_for('index'))
@@ -133,13 +133,13 @@ def activateUser(payload):
 @anon_required
 def forgotPassword():
     form = ForgotPasswordForm()
-    page = "forgot password"
+    pageTitle = "forgot password"
 
     if request.method == 'POST':
         if not form.validate():
             return render_template('users/forgotPassword.html',
                                    form=form,
-                                   page=page)
+                                   pageTitle=pageTitle)
         else:
             try:
                 user = User.objects.get(email=form.email.data)
@@ -147,7 +147,7 @@ def forgotPassword():
                 flash("That email does not exist, please try another.")
                 return render_template('users/forgotPassword.html',
                                        form=form,
-                                       page=page)
+                                       pageTitle=pageTitle)
             payload = get_password_reset_link(user)
             email_password_reset(user, payload)
             flash("Password reset email has been sent. \
@@ -156,7 +156,7 @@ def forgotPassword():
     elif request.method == 'GET':
         return render_template('users/forgotPassword.html',
                                form=form,
-                               page=page)
+                               pageTitle="Forgot Password")
     # flash("This feature is currently disabled.")
     # return redirect(url_for('index'))
 
@@ -166,7 +166,7 @@ def forgotPassword():
 def reset_password(payload):
     form = ResetPasswordForm()
     user_email = check_password_reset_link(payload)
-    page = "reset password"
+    pageTitle = "reset password"
 
     if not user_email:
         flash("Token incorrect or has expired.  Please try again.")
@@ -176,7 +176,7 @@ def reset_password(payload):
         if not form.validate():
             return render_template('users/resetPassword.html',
                                    form=form,
-                                   page=page)
+                                   pageTitle=pageTitle)
         else:
             user = User.objects.get(email=user_email)
             user.set_password(form.password.data)
@@ -187,7 +187,7 @@ def reset_password(payload):
     elif request.method == 'GET':
         return render_template('users/resetPassword.html',
                                form=form,
-                               page=page)
+                               pageTitle=pageTitle)
     # flash("This feature is currently disabled.")
     # return redirect(url_for('index'))
 
@@ -197,7 +197,7 @@ def profile(user_id):
     user = User.objects.get(email=user_id)
     return render_template('users/profile.html',
                            user=user,
-                           page=user_id)
+                           pageTitle=user_id)
 
 
 ############  FACEBOOK  ############
