@@ -114,7 +114,7 @@ class Unity(db.Document):
     body = db.StringField(required=True)
     tags = db.ListField(db.StringField(max_length=50))
     comments = db.ListField(db.EmbeddedDocumentField(Comment))
-    source = db.StringField()
+    source = db.ListField(db.StringField(max_length=255))
     isDraft = db.BooleanField(default=True)
     isBlogPost = db.BooleanField(default=False)
 

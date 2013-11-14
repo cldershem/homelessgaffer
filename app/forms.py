@@ -4,7 +4,7 @@ from wtforms import (TextField, TextAreaField, PasswordField,
 from wtforms.validators import Email, EqualTo, Required
 from models import User, Post, Page, Unity
 from mongoengine.queryset import DoesNotExist
-from utils import makeSlug  # , CKTextAreaField
+from utils import makeSlug, TagListField
 from flask.ext.pagedown.fields import PageDownField
 
 
@@ -147,8 +147,8 @@ class UnityForm(Form):
                       "Please enter a title for your post.")])
     body = PageDownField("Body", [Required(
                          "Please enter a body to your post.")])
-    tags = TextField("Tags")
-    source = TextField("Source")
+    tags = TagListField("Tags")
+    source = TagListField("Source")
     isDraft = BooleanField("Save as draft?")
     isBlogPost = BooleanField("Publish to blog?")
     submit = SubmitField("Submit")
@@ -159,11 +159,16 @@ class UnityForm(Form):
     def validate(self):
         if not Form.validate(self):
             return False
-        try:
-            newSlug = makeSlug(self.title.data)
-            slug = Unity.objects.get(slug=newSlug)
-            if slug:
-                self.title.errors.append("That title already exists.")
-                return False
-        except DoesNotExist:
+        else:
             return True
+
+    def validate_with_slug(self):
+        if self.validate():
+            try:
+                newSlug = makeSlug(self.title.data)
+                slug = Unity.objects.get(slug=newSlug)
+                if slug:
+                    self.title.errors.append("That title already exists.")
+                    return False
+            except DoesNotExist:
+                return True

@@ -18,13 +18,10 @@ TODAY
 - all files in /var/www/homelessgaffer.com owned by cldershem
 - move logs to /var/www/hg/tmp/log
 - unique id num for each post
-    - rememdies slug name error on edit
 
 
 ###TODO
-- push github, web at same time?
 - Search
-- flask-principal
 - user
     - can edit own posts or if admin
     - post edited on
@@ -35,7 +32,7 @@ TODAY
     - change password
     - email on comment
     - new accounts need to be approved
-- add delete to edit page/post
+- add delete to edit page
 - fix datetime display
     - moment.js?
 - edit page doesn't work (slug already used)
@@ -96,12 +93,15 @@ TODAY
     - think wikipedia discussion page
 - rename "page" to "pageTitle"
 - make it so you can import MAIL and not each individulal Mail_USERNAME
-- unity/edit tags is populated with "[]"
 - test unity and delete page and blog if solid
 - find word for create or edit if exists for unity new/edit/draft page
 - do i need a robots.txt
 
 ###CHANGELOG
+- fix Sources as TagListField
+- fixed unity/edit tags is populated with "[]"
+- fix edit post error where slug would be duplicate
+- add custom TagListField
 - removed ckeditor
 - Unity working.  
 - fixed "if server: debug=False"
@@ -155,7 +155,3 @@ TODAY
 - about
     - contact
     - resume
-
-###BLARG
-- make decision on blog/page/wiki
-- sidebar with markdown

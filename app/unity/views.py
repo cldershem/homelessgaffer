@@ -50,7 +50,7 @@ def newUnity():
     form = UnityForm()
 
     if request.method == 'POST':
-        if not form.validate():
+        if not form.validate_with_slug():
             return render_template("unity/newUnity.html", form=form)
         else:
             slug = makeSlug(form.title.data)
@@ -71,9 +71,9 @@ def newUnity():
                              slug=slug,
                              body=form.body.data)
             if form.tags.data:
-                newUnity.tags = form.tags.data.split(', ')
+                newUnity.tags = form.tags.data
             if form.source.data:
-                newUnity.source = form.source.data.split(', ')
+                newUnity.source = form.tags.data
             newUnity.author = User.objects.get(email=current_user.email)
             newUnity.save()
             flash('Your unity has been posted.')
@@ -91,8 +91,14 @@ def editUnity(slug):
     slug = unity.slug
     form = UnityForm(obj=unity)
 
+    def validate_on_update():
+        if slug == makeSlug(form.title.data):
+            return form.validate()
+        else:
+            return form.validate_with_slug()
+
     if request.method == 'POST':
-        if form.validate() is False:
+        if not validate_on_update():
             return render_template('unity/newUnity.html',
                                    title=unity.title,
                                    slug=slug,
@@ -106,7 +112,7 @@ def editUnity(slug):
     elif request.method == 'GET':
         form.populate_obj(unity)
         return render_template('unity/newUnity.html',
-                               title=unity.title,
+                               pageTitle=unity.title,
                                slug=slug,
                                form=form)
 
