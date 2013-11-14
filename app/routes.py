@@ -10,8 +10,7 @@ from app.unity.views import mod as unityModule
 @app.route('/root')
 @app.route('/index')
 def index():
-    page = "root"
-    return render_template("index.html", page=page)
+    return render_template("index.html", pageTitle="root")
 
 
 app.register_blueprint(staticPageModule)
@@ -22,9 +21,11 @@ app.register_blueprint(unityModule)
 
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template("error404.html"), 404
+    return render_template("error404.html",
+                           pageTitle="error404"), 404
 
 
 @app.errorhandler(500)
 def internal_server_error(error):
-    return render_template("error500.html"), 500
+    return render_template("error500.html",
+                           pageTitle="error500"), 500

@@ -98,6 +98,7 @@ TODAY
 - do i need a robots.txt
 
 ###CHANGELOG
+- add pageTitle to title bar
 - fix Sources as TagListField
 - fixed unity/edit tags is populated with "[]"
 - fix edit post error where slug would be duplicate
