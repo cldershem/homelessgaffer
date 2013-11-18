@@ -89,7 +89,9 @@ class TagListField(Field):
             return u''
 
     def process_formdata(self, valuelist):
+        """converts string to list"""
         if valuelist:
             self.data = [x.strip() for x in valuelist[0].split(',')]
+            self.data = filter(None, self.data)  # removes empty space
         else:
             self.data = []

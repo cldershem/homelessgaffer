@@ -98,8 +98,10 @@ TODAY
 - what is app/templates/admin?
 - tags need to be slugified
 - make admin redirect if not logged in..
+- add cancel button
 
 ###CHANGELOG
+- fix bug where unity.tags and unity.sources show up when empty
 - fix admin pages not having authentication
     - only admin can login
 - fix static html file page
