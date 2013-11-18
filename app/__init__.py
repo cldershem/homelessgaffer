@@ -60,3 +60,4 @@ pagedown = PageDown(app)
 
 
 from app import routes, models, admin  # nopep8
+from app.admin import views  # nopep8

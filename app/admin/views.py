@@ -1,12 +1,11 @@
 from flask.ext.admin import (Admin, BaseView, expose)
 from app import app
 from flask.ext.admin.contrib.mongoengine import ModelView
-from models import User, Page, Post, Unity
-#from utils import CKTextAreaField
+from app.models import User, Page, Post, Unity
 from wtforms import PasswordField
 from flask import flash
 from app.constants import DATE_TIME_NOW
-# from app.decorators import admin_required
+from flask.ext.login import current_user
 
 
 class AdminView(BaseView):
@@ -15,7 +14,20 @@ class AdminView(BaseView):
         return self.render('index.html')
 
 
-class UserView(ModelView):
+class AuthView(ModelView):
+
+    def is_accessible(self):
+        if current_user.is_authenticated():
+            if current_user.is_admin():
+                return True
+            # else:
+                # flash('You must have admin privlidges to access this page.')
+        # else:
+            # flash('You must be logged into to do access the admin panel.')
+        # return redirect(url_for('users.login'))
+
+
+class UserView(AuthView):
     column_filters = ('firstname', 'lastname', 'email', 'created_at',
                       'last_seen')
     #form_excluded_columns = ('pwdhash')
@@ -39,7 +51,7 @@ class UserView(ModelView):
                 flash("Password and confirm password do not match.")
 
 
-class PostView(ModelView):
+class PostView(AuthView):
     column_filters = ['title']
     column_exclude_list = ['body']
     form_excluded_columns = ['created_at']
@@ -49,7 +61,8 @@ class PostView(ModelView):
         model.edited_on.append(DATE_TIME_NOW)
 
 
-class PageView(ModelView):
+class PageView(AuthView):
+
     column_filters = ['title', 'slug', 'created_at']
 
     #form_overrides = dict(content=CKTextAreaField)
@@ -60,7 +73,7 @@ class PageView(ModelView):
         model.edited_on.append(DATE_TIME_NOW)
 
 
-class UnityView(ModelView):
+class UnityView(AuthView):
 
     def on_model_change(self, form, model):
         model.edited_on.append(DATE_TIME_NOW)

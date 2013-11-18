@@ -1,11 +1,40 @@
 <!-- extends base.html -->
 {% extends "base.html" %}
+{% from "macros.html" import render_form with context %}
+{% from "macros.html" import render_comments with context %}
 
 {% block content %}
-    {% if current_user.is_authenticated() == True %}
+{{unity.body|markRight}}
+<hr>
+<div id="postmeta">
+    <p>
+        by <strong><a href="{{ url_for('users.profile', user_id=unity.author.email) }}">{{ unity.author.email }}</a></strong>
+        <span id="pipeseparator"> | </span>posted {{ unity.created_at.strftime('%H:%M %Y-%m-%d') }}
+        {% if unity.edited_on|length > 1 %}
+            <span id="pipeseparator"> | </span>edited {{ unity.edited_on[-1].strftime('%H:%M %Y-%m-%d') }}
+        {% endif %}
+    </p>
+    {% if unity.tags %}
         <p>
-            <a href="{{url_for('unity.editUnity', slug=slug)}}">edit page</a>
+            <strong>tags: </strong>
+            {% for tag in unity.tags %}
+    		    [<a class="unitytags" href="{{ url_for('unity.listUnity', tag=tag) }}">{{tag}}</a>]
+    	    {% endfor %}
         </p>
     {% endif %}
-{{body}}
+    {% if unity.source %}
+        <p>
+            <strong>source: </strong>
+            {% for source in unity.source %}
+                [<a href="{{ source }}">{{ source }}</a>]
+            {% endfor %}
+        </p>
+    {% endif %}
+    {% if current_user.is_authenticated() == True %}
+        <p>
+            <a href="{{url_for('unity.editUnity', slug=unity.slug)}}">edit page</a>
+        </p>
+    {% endif %}
+</div><!--end postmeta-->
+{{render_comments(unity.comments)}}
 {% endblock %}

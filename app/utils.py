@@ -6,6 +6,8 @@ from itsdangerous import (URLSafeSerializer, BadSignature,
 from jinja2 import Markup
 from markdown import markdown
 from app import app
+from wtforms.fields import Field
+from wtforms.widgets import TextInput
 
 
 def makeSlug(text, delim=u'-'):
@@ -76,14 +78,11 @@ def markRight(markedText):
                     ('html_class', '')]}, safe_mode=False))
 
 
-from wtforms.fields import Field
-from wtforms.widgets import TextInput
-
-
 class TagListField(Field):
     widget = TextInput()
 
     def _value(self):
+        """values on load"""
         if self.data:
             return u', '.join(self.data)
         else:

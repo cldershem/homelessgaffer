@@ -18,6 +18,7 @@ TODAY
 - all files in /var/www/homelessgaffer.com owned by cldershem
 - move logs to /var/www/hg/tmp/log
 - unique id num for each post
+- singlePost display
 
 ###TODO
 - Search
@@ -45,7 +46,6 @@ TODAY
 - make it not look like crap
 - disqus for comments?
 - get some content
-- admin can only access admin
 - make some better classes
     - user should have an update method?
 - admin approval of new users
@@ -96,8 +96,12 @@ TODAY
 - find word for create or edit if exists for unity new/edit/draft page
 - do i need a robots.txt
 - what is app/templates/admin?
+- tags need to be slugified
+- make admin redirect if not logged in..
 
 ###CHANGELOG
+- fix admin pages not having authentication
+    - only admin can login
 - fix static html file page
 - add pageTitle to title bar
 - fix Sources as TagListField

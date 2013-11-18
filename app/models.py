@@ -48,6 +48,9 @@ class User(db.Document):
     def __unicode__(self):
         return self.email
 
+    def is_admin(self):
+        return self.roles.is_admin
+
 
 class Comment(db.EmbeddedDocument):
 
@@ -113,10 +116,10 @@ class Unity(db.Document):
     author = db.ReferenceField(User)
     body = db.StringField(required=True)
     tags = db.ListField(db.StringField(max_length=50))
-    comments = db.ListField(db.EmbeddedDocumentField(Comment))
     source = db.ListField(db.StringField(max_length=255))
     isDraft = db.BooleanField(default=True)
     isBlogPost = db.BooleanField(default=False)
+    comments = db.ListField(db.EmbeddedDocumentField(Comment))
 
     def get_absolute_url(self):
         return url_for('unity', kwargs={"slug": self.slug})

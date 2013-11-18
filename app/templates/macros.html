@@ -33,8 +33,7 @@
         <a href="{{url_for(endpoint, pageNum=pageSet.prev_num)}}">newer</a>
     {% endif %}
     {% for page in pageSet.iter_pages() %}
-        {% if pageSet.page == 1 and not pageSet.has_next %} <!-- dont show if only page -->#}
-            {{"only page"}}
+        {% if pageSet.page == 1 and not pageSet.has_next %} <!-- dont show if only page -->
         {% else %}
             {% if page == pageSet.page %}
                 <strong>{{page}}</strong>
@@ -47,4 +46,23 @@
         <a href="{{url_for(endpoint, pageNum=pageSet.next_num)}}">older</a>
     {% endif %} 
 </div><!--pagination-->
+{% endmacro %}
+
+{% macro render_comments(commentSet) %}
+<div id="comments">
+    <h2 id="commentHeader">Comments</h2>
+    {% if commentSet %}
+        {% for comment in commentSet %}
+            <p class="commentbody">{{ comment.body }}</p>
+            <p id="commentmeta">by <strong>{{ comment.author.get_id() }}</strong> on {{ comment.created_at.strftime('%H:%M %Y-%m-%d') }}</p>
+            <hr>
+        {% endfor %}
+    {% endif %}
+	{% if current_user.is_authenticated() == True -%}
+	    <h2>Add a comment</h2>
+            {{ render_form('addComment') }}
+	   {% else %}
+	   	<p><a href="{{url_for('users.login')}}">login</a> to comment.</p>
+	 {% endif %}
+</div><!--end comments-->
 {% endmacro %}

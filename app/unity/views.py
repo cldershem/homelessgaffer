@@ -4,7 +4,7 @@ from jinja2 import TemplateNotFound
 from app.models import Unity, User, Comment
 from app.forms import UnityForm, CommentForm
 from app.constants import DATE_TIME_NOW
-from app.utils import makeSlug, markRight
+from app.utils import makeSlug
 from flask.ext.login import login_required, current_user
 from flask.ext.mongoengine import Pagination
 
@@ -73,7 +73,7 @@ def newUnity():
             if form.tags.data:
                 newUnity.tags = form.tags.data
             if form.source.data:
-                newUnity.source = form.tags.data
+                newUnity.source = form.source.data
             newUnity.author = User.objects.get(email=current_user.email)
             newUnity.save()
             flash('Your unity has been posted.')
@@ -117,13 +117,14 @@ def editUnity(slug):
                                form=form)
 
 
-@mod.route('/<slug>')
+@mod.route('/<slug>', methods=['GET', 'POST'])
 def staticUnity(slug):
     if request.method == 'POST':
         unity = Unity.objects.get_or_404(slug=slug)
         form = CommentForm()
         if not form.validate():
             return render_template('unity/staticUnity.html',
+                                   pageTitle=unity.title,
                                    unity=unity,
                                    form=form)
         else:
@@ -134,6 +135,7 @@ def staticUnity(slug):
             form.comment.data = None  # resets field on refresh
             flash('Comment Posted')
         return render_template('unity/staticUnity.html',
+                               pageTitle=unity.title,
                                unity=unity,
                                form=form)
     elif request.method == 'GET':
@@ -145,6 +147,5 @@ def staticUnity(slug):
             form = CommentForm()
             return render_template('unity/staticUnity.html',
                                    pageTitle=unity.title,
-                                   slug=unity.slug,
-                                   body=markRight(unity.body),
+                                   unity=unity,
                                    form=form)
