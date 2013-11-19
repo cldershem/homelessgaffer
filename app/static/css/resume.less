@@ -1,27 +1,88 @@
-.jobName{font-weight: bold;}
-.jobTitle{font-style:oblique;}
-.jobHeaderRight{
-    //float:right;
-    border:1px solid red;}
+#leftcontent {
+    width: 100%
+}
+#resume {
+    width: 100%;
+}
+#resumeHeader h2 {
+    font-variant: small-caps;
+}
+#headerNotName, #headerName {
+    display: inline;
+}
+#resumeHeader {
+    // text-align: left;
 
-/*#leftcontent {
-	width: 775px;
-	xfloat: left;
-	padding-left: .8em;
-    padding-right: .8em;
-	margin: auto;
-	margin-bottom: 100px;
-	
-    */
-/*
-	0px 0px 100px 0px;		
-*/
-	}
+    text-align: justify;
+    a {
+        text-decoration: none;
+    }
+}
+#headerNotName {
+}
 
-.likesubsectionHead {font-weight:bold;}
+.sectionHeader, #objectiveHeader {
+    font-weight: bold;
+    font-variant: small-caps;
+    letter-spacing: .1em;
+}
 
-span.TEX {letter-spacing: -0.125em; }
-span.TEX span.E{ position:relative;top:0.5ex;left:-0.0417em;}
-a span.TEX span.E {text-decoration: none; }
-span.LATEX span.A{ position:relative; top:-0.5ex; left:-0.4em; font-size:85%;}
-span.LATEX span.TEX{ position:relative; left: -0.4em; }
+#objectiveHeader {
+}
+
+.jobHeader {
+    font-variant: small-caps;
+
+    .jobName {
+        font-weight: bold;
+        letter-spacing: .1em;
+    }
+    .jobTitle{}
+    .location{
+        float: right;
+        clear: right;
+        letter-spacing: .1em;
+    }
+    .dates{
+        float: right;
+        clear: right;
+    }
+}
+
+dl dt, dl dd {
+    display: inline;
+    margin-left: 0px;
+}
+dl dt {
+    font-weight: bold;
+    font-variant: small-caps;
+}
+.latex {
+    font-size: 1em;
+    sub {
+        text-transform: uppercase;
+        vertical-align: -0.5ex;
+        margin-left: -0.1667em;
+        margin-right: -0.125em;
+        font-size: 1em;
+    }
+    sup {
+        text-transform: uppercase;
+        vertical-align: -0.5ex;
+        font-size: 0.85em;
+        vertical-align: 0.15em;
+        margin-left: -0.36em;
+        margin-right: -0.15em;
+    }
+}
+
+#skillsmulticol {
+    #skillsleftcol {
+        width: 44%;
+        float: left;
+    }
+    #skillsrightcol {
+        width: 44%;
+        float: right;
+    }
+}

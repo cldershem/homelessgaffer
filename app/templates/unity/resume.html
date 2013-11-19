@@ -2,24 +2,24 @@
 {% extends "base.html" %}
 
 {% block head %}
-    <link rel="stylesheet/less" type="text/css" href="{{ url_for('static', filename='css/style.less') }}" />
     <link rel="stylesheet/less" type="text/css" href="{{ url_for('static', filename='css/resume.less') }}" />
-    <script src="{{ url_for('static', filename='js/less-1.4.1.min.js') }}" type="text/javascript"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.4.1/less.min.js" type="text/javascript"></script>
 {% endblock %}
 
 {% block content %}
 <div id="resume">
 <div id="resumeHeader">
-    <h2>Cameron Dershem</h2>
-    <a href="mailto:cldershem@gmail.com">cldershem@gmail.com</a>
-        <span id="pipeseparator"> | </span>
-    <a href="callto:312.361.0322">312.361.0322</a>
-        <span id="pipeseparator"> | </span>
-    Indianapolis, IN
-    <br>
-    <a href="{{ url_for('index')}}">homelessgaffer.com</a>
-        <span id="pipeseparator"> | </span>
-    <a href="http://github.com/cldershem">github.com/cldershem</a>
+    <h2 id="headerName">Cameron Dershem</h2>
+    <div id="headerNotName">
+        <script src="{{ url_for('static', filename='js/email_resume.js') }}">
+            </script><span id="pipeseparator"> | </span>
+        <a href="callto:312.361.0322">312.361.0322</a>
+            <span id="pipeseparator"> | </span>
+        Indianapolis, IN<br>
+        <a href="{{ url_for('index')}}">homelessgaffer.com</a>
+            <span id="pipeseparator"> | </span>
+        <a href="http://github.com/cldershem">github.com/cldershem</a>
+    </div><!--end headerNotName-->
 </div><!--end resumeHeader-->
 <hr class="resumeHR">
 {# show if Dev #}
@@ -158,11 +158,11 @@
         <h3>PERSONAL &amp; PUBLIC PROJECTS</h3>
     </div><!--sectionHeader-->
     <dl id="projectList">
-        <dt>Battleship</dt>
+        <dt>Battleship &ndash;</dt>
         <dd>
             Multiplayer game written in Python&mdash;eventually to be rewritten as a web app
         </dd>
-        <dt>HomelessGaffer.com</dt>
+        <dt>HomelessGaffer.com &ndash;</dt>
         <dd>
             Simple CMS written in Python using Flask&mdash;deployed using git-hooks
         </dd>
@@ -189,47 +189,47 @@
     </div><!--sectionHeader-->
     <div id="skillsmulticol">
         <ul id="skillsleftcol">
-        	    <li>
-                    Adept in Linux, Windows, OS X, Chrome OS, Android
-                </li>
-                <li>
-                    Confident and comfortable with Python, Flask, HTML, CSS, LESS, JavaScript, <span class="LATEX">L<span class="A">A</span><span class="TEX">T<span class="E">E</span>X,</span></span>
-                </li>
-        	    <li>
-                    Good understanding and capable of working with MySQL, MongoDB, PHP
-                </li>
-        	    <li>
-                    Willingness and ability to learn new products and skills efficiently along with the patience to teach others
-                </li>
-        	    <li>
-                    Strong troubleshooting skills&mdash;always focused on efficiency and finding solutions
-                </li>
-        	    <li>
-                    Very capable of competently multitasking and able to keep up morale while doing just about anything
-                </li>
+            <li>
+                Adept in Linux, Windows, OS X, Chrome OS, Android
+            </li>
+            <li>
+                Confident and comfortable with Python, Flask, HTML, CSS, LESS, JavaScript, <span class="latex">L<sup>a</sup>T<sub>e</sub>X</span>
+            </li>
+        	<li>
+                Good understanding and capable of working with MySQL, MongoDB, PHP
+            </li>
+        	<li>
+                Willingness and ability to learn new products and skills efficiently along with the patience to teach others
+            </li>
+        	<li>
+                Strong troubleshooting skills&mdash;always focused on efficiency and finding solutions
+            </li>
+        	<li>
+                Very capable of competently multitasking and able to keep up morale while doing just about anything
+            </li>
         </ul>
-        <ul id="skillrightcol">
-        	    <li>
-                    Excellent communication skills&mdash;able to take direction as well as lead a team
-                </li>
-        	    <li>
-                    Prefers Vim for editing, Git for versioning, and been an Ubuntu user since Hardy
-                </li>
-        	    <li>
-                    Always reading about technologies, tinkering with gadgets, and an all around geek
-                </li>
-        	    <li>
-                    Enjoys cooking and complete cast iron nerd
-                </li>
-        	    <li>
-                    Passionate about cinema, cinematography, still photography&mdash;specifically lighting
-                </li>
-        	    <li>
-                    Avid cyclist, wishful randonneur, and dedicated velodrome attendee
-                </li>
-                <li>
-                    Currently learning Java and attempting to learn Spanish (albeit, muy lentamente)
-                </li>
+        <ul id="skillsrightcol">
+        	<li>
+                Excellent communication skills&mdash;able to take direction as well as lead a team
+            </li>
+        	<li>
+                Prefers Vim for editing, Git for versioning, and been an Ubuntu user since Hardy
+            </li>
+        	<li>
+                Always reading about technologies, tinkering with gadgets, and an all around geek
+            </li>
+        	<li>
+                Enjoys cooking and complete cast iron nerd
+            </li>
+        	<li>
+                Passionate about cinema, cinematography, still photography&mdash;specifically lighting
+            </li>
+        	<li>
+                Avid cyclist, wishful randonneur, and dedicated velodrome attendee
+            </li>
+            <li>
+                Currently learning Java and attempting to learn Spanish (albeit, muy lentamente)
+            </li>
         </ul>
     </div><!--end skillsmulticol-->
 </div><!--end skills-->
