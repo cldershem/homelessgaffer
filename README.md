@@ -9,16 +9,18 @@ ln -s /var/www/homelessgaffer.com/.githooks ./homelessgaffer.git/hooks
 ```
 - if needed set "baseDir" in homelessgaffer.git/hooks/post-receive
 - add to /etc/sudoers
-    - "cldershem ALL= NOPASSWD: /usr/sbin/service nginx \*"
-    - "cldershem ALL= NOPASSWD: /usr/sbin/service uwsgi \*"
+    ```
+    "cldershem ALL= NOPASSWD: /usr/sbin/service nginx \*"
+    "cldershem ALL= NOPASSWD: /usr/sbin/service uwsgi \*"
+    ```
 - cp secrets.py
 
 TODAY
 =====
 - all files in /var/www/homelessgaffer.com owned by cldershem
 - move logs to /var/www/hg/tmp/log
-- unique id num for each post
-- singlePost display
+- fix githook
+- database copy
 
 ###TODO
 - Search
@@ -99,6 +101,7 @@ TODAY
 - tags need to be slugified
 - make admin redirect if not logged in..
 - add cancel button
+- add resend confirm email
 
 ###CHANGELOG
 - fix bug where unity.tags and unity.sources show up when empty

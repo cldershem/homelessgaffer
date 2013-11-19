@@ -1,6 +1,6 @@
-tmp/*
-!tmp/logs/
-tmp/logs/*
+/tmp/log/*
+/tmp/*
+!/tmp/log/.gitignore
 venv/
 app/static/js/ckeditor/
 app/static/js/kinetic*
