@@ -19,7 +19,7 @@ TODAY
 =====
 - all files in /var/www/homelessgaffer.com owned by cldershem
 - move logs to /var/www/hg/tmp/log
-- fix githook
+- fix githook - permissions issues maybe fixed?
 - database copy
 
 ###TODO
