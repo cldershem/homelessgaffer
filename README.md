@@ -19,7 +19,6 @@ TODAY
 =====
 - all files in /var/www/homelessgaffer.com owned by cldershem
 - move logs to /var/www/hg/tmp/log
-- fix githook
 - database copy
 
 ###TODO
@@ -104,6 +103,7 @@ TODAY
 - add resend confirm email
 
 ###CHANGELOG
+- githook fixed
 - fix bug where unity.tags and unity.sources show up when empty
 - fix admin pages not having authentication
     - only admin can login
