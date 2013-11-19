@@ -1,0 +1,198 @@
+<!-- extends base.html -->
+{% extends "base.html" %}
+
+{% block head %}
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="src" content="CameronResumeTex.tex"> 
+<meta name="date" content="2013-06-12 03:58:00"> 
+<link rel="stylesheet/less" type="text/css" href="{{ url_for('static', filename='css/style.less') }}" />
+<link rel="stylesheet/less" type="text/css" href="{{ url_for('static', filename='css/resume.less') }}" />
+<script src="{{ url_for('static', filename='js/less-1.4.1.min.js') }}" type="text/javascript"></script>
+
+{% endblock %}
+
+{% block content %}
+<div id="resume">
+<h2 class="likesubsectionHead">Experience</h2>
+<hr>
+<span class="jobName">MarketStar</span>
+<span class="jobHeaderRight">Indianapolis, IN</span>
+<br />
+<span class="jobTitle">Google Specialist</span>
+<span class="jobHeaderRight">November 2012 &#8211; December 2012</span>
+    <ul class="itemize1">
+        <li class="itemize">
+			Educated and demonstrated Google&#8217;s ecosystem and products focusing on the Google Chromebook
+        </li>
+        <li class="itemize">
+			Answered any questions involving Google and how it could better the guests current needs
+        </li>
+        <li class="itemize">
+			Initialized training, development, and continued education of colleagues
+        </li>
+        <li class="itemize">
+			Assisted guests in finding the answer to their issues &#8211; even if the answer was not a Google product
+        </li>
+        <li class="itemize">
+			Used, tested, troubleshot products, and reported bugs to their proper teams
+		</li>
+	</ul>
+<span class="jobName">Orange 20 Bikes</span>
+<span class="jobHeaderRight">Los Angeles, CA</span>
+<br />
+<span class="jobTitle">IT Management &amp; Inventory Control</span>
+<span class="jobHeaderRight">October 2011 &#8211; June 2012</span>
+    <ul class="itemize1">
+        <li class="itemize">
+			Designed and implemented improvements to POS and inventory control systems
+        </li>
+        <li class="itemize">
+			Improved employee communications and morale &#8211; greatly increasing efficiency
+        </li>
+        <li class="itemize">
+			Consulted with and trained management and employees on new processes and best practices
+        </li>
+        <li class="itemize">
+			Outlined and deployed new knowledge classes for employees
+        </li>
+        <li class="itemize">
+			Undertook numerous special projects to reduce loss, save time, and save money
+        </li>
+        <li class="itemize">
+			Advised and administered needed hardware and software improvements
+		</li>
+	</ul>
+<span class="jobName">Camadeus Film Technologies, Inc</span>
+<span class="jobHeaderRight">Los Angeles, CA</span>
+<br />
+<span class="jobTitle">Rental Agent</span>
+<span class="jobHeaderRight">June 2010 &#8211; September 2011</span>
+    <ul class="itemize1">
+        <li class="itemize">
+			Coordinated rentals from initial contact to delivery and return including invoicing, subrentals, and follow ups
+        </li>
+        <li class="itemize">
+			Maintained and serviced equipment
+        </li>
+        <li class="itemize">
+			Supported customers both by phone and on location
+        </li>
+        <li class="itemize">
+			Handled equipment sales under $35,000
+        </li>
+        <li class="itemize">
+			Implemented and maintained inventory control &#8211; improving office and warehouse efficiency
+        </li>
+        <li class="itemize">
+			Trained clients and employees through demonstrations and workshops
+			</li>
+	</ul>
+<span class="jobName">Various Productions</span>
+<span class="jobHeaderRight">Chicago, IL &amp; Los Angeles, CA</span>
+<br />
+<span class="jobTitle">Freelance Gaffer &amp; Best Boy Electric</span>
+<span class="jobHeaderRight">June 2002 &#8211; June 2010</span>
+    <ul class="itemize1">
+		<li class="itemize">
+			Controlled the look of a film through lighting techniques
+		</li>
+		<li class="itemize">
+			Managed crew ranging from 2 to 20, including all personnel decisions
+		</li>
+		<li class="itemize">
+			Analyzed electrical needs and distributed power appropriately &#8211; always keeping a safe and efficient set
+		</li>
+		<li class="itemize">
+			Serviced, repaired, and maintained equipment inventory
+		</li>
+		<li class="itemize">
+			Acted as liaison between the Lighting Department, Production, and all other departments
+		</li>
+		<li class="itemize">
+			Maintained accurate and up to date personnel files, time cards, and budget for the department
+		</li>
+	</ul>
+<span class="jobName">Columbia College Chicago</span>
+<span class="jobHeaderRight">Chicago, IL</span>
+<br />
+<span class="jobTitle">Teacher&#8217;s Assistant &amp; Projectionist</span>
+<span class="jobHeaderRight">August 2003 &#8211; June 2006</span>
+<ul class="itemize1">
+    <li class="itemize">
+		Projected film in 35mm, 16mm, DVD, VHS, Beta, and MiniDV formats
+    </li>
+    <li class="itemize">
+		Maintained equipment and including troubleshooting issues, managing rentals, and contorling inventory
+    </li>
+    <li class="itemize">
+		Assisted students and teachers with questions along with better conveying the material
+    </li>
+    <li class="itemize">
+		 Taught classes occasionally in teacher&#8217;s absence
+	</li>
+</ul>
+<hr>
+<h2 class="likesubsectionHead">Education</h2>
+<hr>
+<span class="jobName">Columbia College Chicago</span>
+<span class="jobHeaderRight">Chicago, IL</span>
+<br />
+<span class="jobTitle">B.A. Film/Video &#8211; Cinematography Concentration</span>
+<span class="jobHeaderRight">2003 &#8211; 2008</span>
+<hr>
+<h2 class="likesubsectionHead">Skills &amp; Interests</h2>
+<hr>
+<div class="minipage">
+	<ul class="itemize1">
+        <li class="itemize">
+			Adept  in  Windows,  OSX,  Linux,  most  office  suites, 
+			Final Cut, Avid, QuickBooks, OpenERP, HTML, CSS, PHP, MySQL,
+			<span class="LATEX">L<span class="A">A</span><span 
+			class="TEX">T<span class="E">E</span>X,</span></span>and
+			various CMS&#8217;s
+        </li>
+        <li class="itemize">
+			Willingness and ability to learn new things and skills efficiently along with the patience to teach others
+        </li>
+        <li class="itemize">
+			Strong troubleshooting skills &#8211; Always focused on efficiency and finding solutions
+        </li>
+        <li class="itemize">
+			Excellent communication skills &#8211; able to take direction as well as lead a team
+        </li>
+        <li class="itemize">
+			Very capable of competently multitasking and able to keep up morale while doing just about anything
+        </li>
+<!--
+    </ul>
+</div>
+<div class="minipage">
+	<ul class="itemize1">
+-->
+        <li class="itemize">
+			Exceptional customer service &#8211; capable of  
+			creating and maintaining long-term relationships
+        </li>
+        <li class="itemize">
+			Always reading about technologies, tinkering with gadgets, 
+			and an all around computer geek
+        </li>
+        <li class="itemize">
+			Complete food, cooking, and cast iron nerd
+        </li>
+        <li class="itemize">
+			Passionate about cinema, cinematography, still photography 
+			&#8211; specifically lighting
+        </li>
+        <li class="itemize">
+			Avid cyclist, wishful randonneur, and dedicated velodrome 
+			attendee
+        </li>
+        <li class="itemize">
+			Currently learning Python, JavaScript, and Spanish
+		</li>
+	</ul>
+</div>
+{% endblock %}

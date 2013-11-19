@@ -7,6 +7,7 @@ git init --bare homelessgaffer.git
 mv homelessgaffer.git/hooks homelessgaffer.git/hooks.bak
 ln -s /var/www/homelessgaffer.com/.githooks ./homelessgaffer.git/hooks
 ```
+- /var/www/homelessgaffer.com must be owned by user, add write to group?
 - if needed set "baseDir" in homelessgaffer.git/hooks/post-receive
 - add to /etc/sudoers
     ```
@@ -103,6 +104,7 @@ TODAY
 - add resend confirm email
 
 ###CHANGELOG
+= begin work on updated resume
 - githook fixed
 - fix bug where unity.tags and unity.sources show up when empty
 - fix admin pages not having authentication
