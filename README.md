@@ -110,6 +110,7 @@ TODAY
 - create random salt for every user?
 
 ###CHANGELOG
+- hashed password reset link oldpwd has inside of payload
 - remove google and facebook login that was never finished
 - password reset link cannot be reused
     - added oldpwdhash to payload

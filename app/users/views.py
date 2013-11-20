@@ -148,9 +148,12 @@ def forgotPassword():
                 return render_template('users/forgotPassword.html',
                                        form=form,
                                        pageTitle=pageTitle)
-            # disallows password reset link to be reused
-            oldhash = user.pwdhash[:10]
-            payload = get_password_reset_link(user) + oldhash
+
+            # # disallows password reset link to be reused
+            # oldhash = user.pwdhash[:10]
+            # payload = get_password_reset_link(user) + oldhash
+
+            payload = get_password_reset_link(user)
             email_password_reset(user, payload)
 
             flash("Password reset email has been sent. \
@@ -169,10 +172,9 @@ def reset_password(payload):
     pageTitle = "reset password"
 
     # disallows password reset link to be reused
-    oldhash = payload[len(payload)-10:len(payload)]
-    payload = payload[:len(payload)-10]
-
-    user_email = check_password_reset_link(payload)
+    unhashed_payload = check_password_reset_link(payload)
+    user_email = unhashed_payload[0]
+    oldhash = unhashed_payload[1]
 
     if user_email:
         user_oldhash = User.objects.get(email=user_email).pwdhash[:10]

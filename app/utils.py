@@ -52,17 +52,24 @@ def get_timed_serializer(secret_key=None):
 def get_password_reset_link(user):
     user_id = user.get_id()
     s = get_timed_serializer()
-    payload = s.dumps(user_id)
+
+    # disallows password reset link to be reused
+    oldhash = user.pwdhash[:10]
+    payload = s.dumps(user_id+oldhash)
     return payload
 
 
 def check_password_reset_link(payload):
     s = get_timed_serializer()
     try:
-        user_id = s.loads(payload, max_age=86400)
+        # disallows password reset link to be reused
+        unhashed_payload = s.loads(payload, max_age=86400)
+        oldhash = unhashed_payload[
+            len(unhashed_payload)-10:len(unhashed_payload)]
+        user_id = unhashed_payload[:-10]
     except SignatureExpired or BadSignature:
         return False
-    return user_id
+    return (user_id, oldhash)
 
 
 @app.template_filter()
