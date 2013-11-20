@@ -110,6 +110,7 @@ TODAY
 - create random salt for every user?
 
 ###CHANGELOG
+- remove google and facebook login that was never finished
 - password reset link cannot be reused
     - added oldpwdhash to payload
 - fix bug where login wouldn't work with extra whitespace (common on phones)
