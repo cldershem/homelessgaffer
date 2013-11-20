@@ -64,47 +64,49 @@ class Comment(db.EmbeddedDocument):
 
 class Post(db.Document):
 
-    created_at = db.DateTimeField(default=DATE_TIME_NOW, required=True)
-    edited_on = db.ListField(db.DateTimeField(default=DATE_TIME_NOW))
-    title = db.StringField(max_length=255, required=True)
-    slug = db.StringField(max_length=255, required=True)
-    author = db.ReferenceField(User)
-    body = db.StringField(required=True)
-    tags = db.ListField(db.StringField(max_length=50))
-    comments = db.ListField(db.EmbeddedDocumentField(Comment))
-    source = db.StringField()
+    # created_at = db.DateTimeField(default=DATE_TIME_NOW, required=True)
+    # edited_on = db.ListField(db.DateTimeField(default=DATE_TIME_NOW))
+    # title = db.StringField(max_length=255, required=True)
+    # slug = db.StringField(max_length=255, required=True)
+    # author = db.ReferenceField(User)
+    # body = db.StringField(required=True)
+    # tags = db.ListField(db.StringField(max_length=50))
+    # comments = db.ListField(db.EmbeddedDocumentField(Comment))
+    # source = db.StringField()
 
-    def get_absolute_url(self):
-        return url_for('post', kwargs={"slug": self.slug})
+    # def get_absolute_url(self):
+    #     return url_for('post', kwargs={"slug": self.slug})
 
-    def __unicode__(self):
-        return self.title
+    # def __unicode__(self):
+    #     return self.title
 
-    meta = {'allow_inheritance': True,
-            'indexes': ['-created_at', 'slug'],
-            'ordering': ['-created_at']}
+    # meta = {'allow_inheritance': True,
+    #         'indexes': ['-created_at', 'slug'],
+    #         'ordering': ['-created_at']}
 
-    def __repr__(self):
-        return '<Post %r, -%r>' % (self.slug, self.author)
+    # def __repr__(self):
+    #     return '<Post %r, -%r>' % (self.slug, self.author)
+    pass
 
 
 class Page(db.Document):
 
-    created_at = db.DateTimeField(default=DATE_TIME_NOW, required=True)
-    edited_on = db.ListField(db.DateTimeField(default=DATE_TIME_NOW))
-    title = db.StringField(required=True)
-    slug = db.StringField(required=True)
-    content = db.StringField(required=True)
-    isDraft = db.BooleanField(default=True)
-    isBlogPost = db.BooleanField(default=False)
-    author = db.ReferenceField(User)
+    # created_at = db.DateTimeField(default=DATE_TIME_NOW, required=True)
+    # edited_on = db.ListField(db.DateTimeField(default=DATE_TIME_NOW))
+    # title = db.StringField(required=True)
+    # slug = db.StringField(required=True)
+    # content = db.StringField(required=True)
+    # isDraft = db.BooleanField(default=True)
+    # isBlogPost = db.BooleanField(default=False)
+    # author = db.ReferenceField(User)
 
-    meta = {'allow_inheritance': True,
-            'indexes': ['-created_at', 'title'],
-            'ordering': ['-created_at']}
+    # meta = {'allow_inheritance': True,
+    #         'indexes': ['-created_at', 'title'],
+    #         'ordering': ['-created_at']}
 
-    def __repr__(self):
-        return '<Page %r>' % (self.title)
+    # def __repr__(self):
+    #     return '<Page %r>' % (self.title)
+    pass
 
 
 class Unity(db.Document):

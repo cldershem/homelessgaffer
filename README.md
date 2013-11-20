@@ -91,8 +91,7 @@ TODAY
     - figure out pagedown editor wmd-button-bar
 - fix form css in general
 - comments vs discussion
-    - think wikipedia discussion page
-- rename "page" to "pageTitle"
+    - think wikipedia discussion pae
 - make it so you can import MAIL and not each individulal Mail_USERNAME
 - test unity and delete page and blog if solid
 - find word for create or edit if exists for unity new/edit/draft page
@@ -105,6 +104,7 @@ TODAY
 - sometimes listposts in wrong order
 
 ###CHANGELOG
+- commented out blog and page
 - add unity.summary
 - begin work on updated resume
 - githook fixed
@@ -112,6 +112,7 @@ TODAY
 - fix admin pages not having authentication
     - only admin can login
 - fix static html file page
+- renamed "page" to "pageTitle"
 - add pageTitle to title bar
 - fix Sources as TagListField
 - fixed unity/edit tags is populated with "[]"
