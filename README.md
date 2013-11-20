@@ -37,14 +37,12 @@ TODAY
 - add delete to edit page
 - fix datetime display
     - moment.js?
-- edit page doesn't work (slug already used)
 - add tests
 - fix default nginx error pages
 - Admin
     - fix redirect after password change fail
 - flake8 should only check .py files
 - find better way to do async
-- set title=page in base.html?
 - make it not look like crap
 - disqus for comments?
 - get some content
@@ -93,17 +91,19 @@ TODAY
 - comments vs discussion
     - think wikipedia discussion pae
 - make it so you can import MAIL and not each individulal Mail_USERNAME
-- test unity and delete page and blog if solid
 - find word for create or edit if exists for unity new/edit/draft page
 - do i need a robots.txt
-- what is app/templates/admin?
 - tags need to be slugified
 - make admin redirect if not logged in..
 - add cancel button
 - add resend confirm email
 - sometimes listposts in wrong order
+- "are you sure you want to navigate away from this page?"
+- create db, add admin@hg.com with admin privlidges
+- migrate db
 
 ###CHANGELOG
+- update flask-pagedown
 - commented out blog and page
 - add unity.summary
 - begin work on updated resume
