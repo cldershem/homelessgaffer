@@ -1,7 +1,7 @@
 from flask.ext.admin import (Admin, BaseView, expose)
 from app import app
 from flask.ext.admin.contrib.mongoengine import ModelView
-from app.models import User, Unity  # Page, Post
+from app.models import User, Unity
 from wtforms import PasswordField
 from flask import flash
 from app.constants import DATE_TIME_NOW
@@ -51,30 +51,6 @@ class UserView(AuthView):
                 flash("Password and confirm password do not match.")
 
 
-class PostView(AuthView):
-    # column_filters = ['title']
-    # column_exclude_list = ['body']
-    # form_excluded_columns = ['created_at']
-    # form_subdocuments = {'comments': {}}
-
-    # def on_model_change(self, form, model):
-    #     model.edited_on.append(DATE_TIME_NOW)
-    pass
-
-
-class PageView(AuthView):
-
-    # column_filters = ['title', 'slug', 'created_at']
-
-    # #form_overrides = dict(content=CKTextAreaField)
-    # #create_template = 'admin/edit.html'
-    # #edit_template = 'admin/edit.html'
-
-    # def on_model_change(self, form, model):
-    #     model.edited_on.append(DATE_TIME_NOW)
-    pass
-
-
 class UnityView(AuthView):
 
     def on_model_change(self, form, model):
@@ -84,6 +60,4 @@ class UnityView(AuthView):
 admin = Admin(app)
 
 admin.add_view(UserView(User))
-# admin.add_view(PostView(Post))
-# admin.add_view(PageView(Page))
 admin.add_view(UnityView(Unity))

@@ -2,7 +2,7 @@ from flask.ext.wtf import Form, RecaptchaField
 from wtforms import (TextField, TextAreaField, PasswordField,
                      SubmitField, BooleanField)
 from wtforms.validators import Email, EqualTo, Required
-from models import User, Post, Page, Unity
+from models import User, Unity
 from mongoengine.queryset import DoesNotExist
 from utils import makeSlug, TagListField
 from flask.ext.pagedown.fields import PageDownField
@@ -70,61 +70,10 @@ class RegisterUser(Form):
             return True
 
 
-class PostForm(Form):
-
-    # title = TextField("Title", [Required(
-    #                   "Please enter a title for your post.")])
-    # body = PageDownField("Body", [Required(
-    #                      "Please enter a body to your post.")])
-    # tags = TextField("Tags")
-    # source = TextField("Source")
-    # submit = SubmitField("Create Post")
-
-    # def __init__(self, *args, **kwargs):
-    #     Form.__init__(self, *args, **kwargs)
-
-    # def validate(self):
-    #     if not Form.validate(self):
-    #         return False
-    #     try:
-    #         newSlug = makeSlug(self.title.data)
-    #         slug = Post.objects.get(slug=newSlug)
-    #         if slug:
-    #             self.title.errors.append("That title already exists.")
-    #             return False
-    #     except DoesNotExist:
-    #         return True
-    pass
-
-
 class CommentForm(Form):
 
     comment = TextAreaField('comment', [Required()])
     submit = SubmitField("submit")
-
-
-class PageForm(Form):
-
-    # title = TextField("Title", [Required(
-    #                   "Please enter a title for your page.")])
-    # content = PageDownField("Content", [Required(
-    #                         "Please enter content for your page.")])
-    # isDraft = BooleanField("Save as draft?")
-    # isBlogPost = BooleanField("Publish to blog?")
-    # submit = SubmitField("Submit Page")
-
-    # def validate(self):
-    #     if not Form.validate(self):
-    #         return False
-    #     try:
-    #         slug = makeSlug(self.title.data)
-    #         page = Page.objects.get(slug=slug)
-    #         if page:
-    #             self.title.errors.append("That page already exists.")
-    #             return False
-    #     except DoesNotExist:
-    #         return True
-    pass
 
 
 class ForgotPasswordForm(Form):
