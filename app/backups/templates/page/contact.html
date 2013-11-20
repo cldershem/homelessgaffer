@@ -1,0 +1,29 @@
+<!-- extends base.html -->
+{% extends "base.html" %}
+{% block title %}{{page}}{% endblock %}
+
+{% block content %}
+<table id="contactinfo" class="tableSmallCaps">
+    <tr>
+	<th>phone</th><td><a href="callto://3123610322">312.361.0322</a></td>
+    </tr>
+    <tr>
+	<th>email</th><td><script src="{{ url_for('static', filename='js/email.js') }}"></script></td>
+    </tr>
+    <tr>
+	<th>twitter</th><td><a href="http://twitter.com/jerknextdoor">@jerknextdoor</a></td>
+    </tr>
+    <tr>
+	<th>skype</th><td><a href="callto://cldershem">cldershem</a></td>
+    </tr>
+    <tr>
+	<th>last.fm</th><td><a href="http://last.fm/user/cldershem">cldershem</a></td>
+    </tr>
+    <tr>
+	<th>google+</th><td><a href="http://plus.google.com/102764710667562987809/posts">cldershem</a></td>
+    </tr>
+    <tr>
+	<th>github</th><td><a href="http://github.com/cldershem">cldershem</a></td>
+    </tr>
+</table>
+{% endblock %}
