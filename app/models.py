@@ -115,6 +115,7 @@ class Unity(db.Document):
     slug = db.StringField(max_length=255, required=True)
     author = db.ReferenceField(User)
     body = db.StringField(required=True)
+    summary = db.StringField(max_length=255)
     tags = db.ListField(db.StringField(max_length=50))
     source = db.ListField(db.StringField(max_length=255))
     isDraft = db.BooleanField(default=True)

@@ -102,8 +102,10 @@ TODAY
 - make admin redirect if not logged in..
 - add cancel button
 - add resend confirm email
+- sometimes listposts in wrong order
 
 ###CHANGELOG
+- add unity.summary
 - begin work on updated resume
 - githook fixed
 - fix bug where unity.tags and unity.sources show up when empty

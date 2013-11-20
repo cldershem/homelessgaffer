@@ -6,7 +6,11 @@
         <h2>
             <a href="{{ url_for('unity.staticUnity', slug=item.slug) }}">{{ item.title }}</a>
         </h2>
-        <p>{{ item.body|markRight|striptags|truncate(100) }}</p>
+        {% if item.summary %}
+            <p>{{item.summary|markRight|striptags}}</p>
+        {% else %}
+            <p>{{ item.body|markRight|striptags|truncate(100) }}</p>
+        {% endif %}
         <p>by <a href="{{ url_for('users.profile', user_id=item.author.email) }}">{{item.author.email}}</a> | 
            {{ item.created_at.strftime('%H:%M %Y-%m-%d') }} |
            {% with total=item.comments|length %}

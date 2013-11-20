@@ -74,6 +74,8 @@ def newUnity():
                 newUnity.tags = form.tags.data
             if form.source.data:
                 newUnity.source = form.source.data
+            if form.summary.data:
+                newUnity.summary = form.summary.data
             newUnity.author = User.objects.get(email=current_user.email)
             newUnity.save()
             flash('Your unity has been posted.')

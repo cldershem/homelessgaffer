@@ -147,6 +147,7 @@ class UnityForm(Form):
                       "Please enter a title for your post.")])
     body = PageDownField("Body", [Required(
                          "Please enter a body to your post.")])
+    summary = TextAreaField("Summary")
     tags = TagListField("Tags")
     source = TagListField("Source")
     isDraft = BooleanField("Save as draft?")
