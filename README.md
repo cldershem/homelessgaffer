@@ -21,6 +21,9 @@ TODAY
 - all files in /var/www/homelessgaffer.com owned by cldershem
 - move logs to /var/www/hg/tmp/log
 - database copy
+- database migrate (see below)
+- tty or askpwd would solve sudoers issue
+- add pwdhash to pwdreset token
 
 ###TODO
 - Search
@@ -101,8 +104,15 @@ TODAY
 - "are you sure you want to navigate away from this page?"
 - create db, add admin@hg.com with admin privlidges
 - migrate db
+- make requirements.txt check version numbers
+- trunicate 'source'
+- merge battleship repos
+- create random salt for every user?
 
 ###CHANGELOG
+- password reset link cannot be reused
+    - added oldpwdhash to payload
+- fix bug where login wouldn't work with extra whitespace (common on phones)
 - update flask-pagedown
 - commented out blog and page
 - add unity.summary

@@ -23,9 +23,8 @@ class LoginForm(Form):
     def validate(self):
         if not Form.validate(self):
             return False
-
         try:
-            user = User.objects.get(email=self.email.data.lower())
+            user = User.objects.get(email=self.email.data.lower().strip())
         except DoesNotExist:
             self.email.errors.append("Invalid email address")
             return False
@@ -60,9 +59,8 @@ class RegisterUser(Form):
     def validate(self):
         if not Form.validate(self):
             return False
-
         try:
-            user = User.objects.get(email=self.email.data.lower())
+            user = User.objects.get(email=self.email.data.lower().strip())
             if user:
                 self.email.errors.append("That email already exists.")
             return False

@@ -39,7 +39,7 @@ def login():
                                    form=form,
                                    pageTitle=pageTitle)
         else:
-            user = User.objects.get(email=form.email.data.lower())
+            user = User.objects.get(email=form.email.data.lower().strip())
             if user and user.roles.can_login is True:
                 #add remember_me
                 user.last_seen = DATE_TIME_NOW
@@ -93,7 +93,7 @@ def register():
         else:
             newUser = User(firstname=form.firstname.data.title(),
                            lastname=form.lastname.data.title(),
-                           email=form.email.data.lower())
+                           email=form.email.data.lower().strip())
             newUser.set_password(form.password.data)
             newUser.save()
             payload = get_activation_link(newUser)
@@ -142,14 +142,17 @@ def forgotPassword():
                                    pageTitle=pageTitle)
         else:
             try:
-                user = User.objects.get(email=form.email.data)
+                user = User.objects.get(email=form.email.data.lower().strip())
             except:
                 flash("That email does not exist, please try another.")
                 return render_template('users/forgotPassword.html',
                                        form=form,
                                        pageTitle=pageTitle)
-            payload = get_password_reset_link(user)
+            # disallows password reset link to be reused
+            oldhash = user.pwdhash[:10]
+            payload = get_password_reset_link(user) + oldhash
             email_password_reset(user, payload)
+
             flash("Password reset email has been sent. \
                    Link is good for 24 hours.")
             return redirect(url_for('index'))
@@ -157,16 +160,25 @@ def forgotPassword():
         return render_template('users/forgotPassword.html',
                                form=form,
                                pageTitle="Forgot Password")
-    # flash("This feature is currently disabled.")
-    # return redirect(url_for('index'))
 
 
 @mod.route('/resetpassword/<payload>', methods=['GET', 'POST'])
 @anon_required
 def reset_password(payload):
     form = ResetPasswordForm()
-    user_email = check_password_reset_link(payload)
     pageTitle = "reset password"
+
+    # disallows password reset link to be reused
+    oldhash = payload[len(payload)-10:len(payload)]
+    payload = payload[:len(payload)-10]
+
+    user_email = check_password_reset_link(payload)
+
+    if user_email:
+        user_oldhash = User.objects.get(email=user_email).pwdhash[:10]
+        if oldhash != user_oldhash:
+            flash("Token has been used previously.  Please try again.")
+            return redirect(url_for('.forgotPassword'))
 
     if not user_email:
         flash("Token incorrect or has expired.  Please try again.")
@@ -188,8 +200,6 @@ def reset_password(payload):
         return render_template('users/resetPassword.html',
                                form=form,
                                pageTitle=pageTitle)
-    # flash("This feature is currently disabled.")
-    # return redirect(url_for('index'))
 
 
 @mod.route('/profile/<user_id>')
