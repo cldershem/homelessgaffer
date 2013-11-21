@@ -23,7 +23,14 @@ TODAY
 - database copy
 - database migrate (see below)
 - tty or askpwd would solve sudoers issue
-- add pwdhash to pwdreset token
+- password salt for each user
+- admin email to approve each user
+    - user signs up
+    - admin gets email "user wants an account"
+    - if admin approves
+        - user gets email verification email
+    - if admin doesn't approves
+        - user gets email notifying them that their request was denied
 
 ###TODO
 - Search
@@ -108,6 +115,7 @@ TODAY
 - trunicate 'source'
 - merge battleship repos
 - create random salt for every user?
+    - should pwd reset oldhash be the last 10 characters
 
 ###CHANGELOG
 - hashed password reset link oldpwd has inside of payload
