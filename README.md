@@ -32,6 +32,8 @@ TODAY
     - if admin doesn't approves
         - user gets email notifying them that their request was denied
 - add disqus back
+- check DEBUG on server
+    - added it back to config not __init__
 
 ###TODO
 - Search
@@ -121,6 +123,7 @@ TODAY
 - when on page 6 of listpages page 3 in pager is None?
 
 ###CHANGELOG
+- add DEBUG back to config
 - add testing disqus db
 - hashed password reset link oldpwd has inside of payload
 - remove google and facebook login that was never finished

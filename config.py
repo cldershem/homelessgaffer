@@ -6,8 +6,19 @@ import secrets
 TESTING = False
 # LOGTO = '/var/www/homelessgaffer.com/tmp/log/'
 
-# DISQUS_SHORTNAME = 'homelessgaffer'
-DISQUS_SHORTNAME = 'hgtesting'
+from socket import gethostname
+if gethostname() == 'cldershem-laptop':
+    DEBUG = True
+    # app.config['DEBUG'] = True
+else:
+    DEBUG = False
+    # app.config['DEBUG'] = False
+
+
+if DEBUG:
+    DISQUS_SHORTNAME = 'hgtesting'
+else:
+    DISQUS_SHORTNAME = 'homelessgaffer'
 
 # misc
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
