@@ -1,36 +1,37 @@
 <!--flake8: noqa-->
 ###INSTALLATION
-```
-git clone /var/www/homelessgaffer.com
-cd /home/$USER
-git init --bare homelessgaffer.git
-mv homelessgaffer.git/hooks homelessgaffer.git/hooks.bak
-ln -s /var/www/homelessgaffer.com/.githooks ./homelessgaffer.git/hooks
-```
-- /var/www/homelessgaffer.com must be owned by user, add write to group?
-- if needed set "baseDir" in homelessgaffer.git/hooks/post-receive
-- add to /etc/sudoers
-```
-cldershem ALL= NOPASSWD: /usr/sbin/service nginx \*
-cldershem ALL= NOPASSWD: /usr/sbin/service uwsgi \*
-```
-- cp secrets.py
+    ```
+    git clone /var/www/homelessgaffer.com
+    cd /home/$USER
+    git init --bare homelessgaffer.git
+    mv homelessgaffer.git/hooks homelessgaffer.git/hooks.bak
+    ln -s /var/www/homelessgaffer.com/.githooks ./homelessgaffer.git/hooks
+    ```
+    - /var/www/homelessgaffer.com must be owned by user, add write to group?
+    - if needed set "baseDir" in homelessgaffer.git/hooks/post-receive
+    - add to /etc/sudoers
+    ```
+    cldershem ALL= NOPASSWD: /usr/sbin/service nginx \*
+    cldershem ALL= NOPASSWD: /usr/sbin/service uwsgi \*
+    ```
+    - cp secrets.py
 
 TODAY
 =====
-- all files in /var/www/homelessgaffer.com owned by cldershem
-- move logs to /var/www/hg/tmp/log
-- database copy
-- database migrate (see below)
-- tty or askpwd would solve sudoers issue
-- password salt for each user
-- admin email to approve each user
-    - user signs up
-    - admin gets email "user wants an account"
-    - if admin approves
-        - user gets email verification email
-    - if admin doesn't approves
-        - user gets email notifying them that their request was denied
+    - all files in /var/www/homelessgaffer.com owned by cldershem
+    - move logs to /var/www/hg/tmp/log
+    - database copy
+    - database migrate (see below)
+    - tty or askpwd would solve sudoers issue
+    - password salt for each user
+    - admin email to approve each user
+        - user signs up
+        - admin gets email "user wants an account"
+        - if admin approves
+            - user gets email verification email
+        - if admin doesn't approves
+            - user gets email notifying them that their request was denied
+    - add disqus back
 
 ###TODO
 - Search
@@ -116,6 +117,7 @@ TODAY
 - merge battleship repos
 - create random salt for every user?
     - should pwd reset oldhash be the last 10 characters
+- rename unity
 
 ###CHANGELOG
 - hashed password reset link oldpwd has inside of payload
