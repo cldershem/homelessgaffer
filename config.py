@@ -1,19 +1,17 @@
 import os
 import secrets
-
-
-# DEBUG set in app/__init__.py
-TESTING = False
-# LOGTO = '/var/www/homelessgaffer.com/tmp/log/'
-
 from socket import gethostname
+
+
 if gethostname() == 'cldershem-laptop':
     DEBUG = True
-    # app.config['DEBUG'] = True
 else:
     DEBUG = False
-    # app.config['DEBUG'] = False
 
+HOSTNAME = gethostname()
+
+TESTING = False
+# LOGTO = '/var/www/homelessgaffer.com/tmp/log/'
 
 if DEBUG:
     DISQUS_SHORTNAME = 'hgtesting'

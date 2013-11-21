@@ -11,11 +11,6 @@ from flask.ext.pagedown import PageDown
 app = Flask(__name__)
 app.config.from_object('config')
 
-# if gethostname() == 'cldershem-laptop':
-#     app.config['DEBUG'] = True
-# else:
-#     app.config['DEBUG'] = False
-
 db = MongoEngine(app)
 bcrypt = Bcrypt(app)
 toolbar = DebugToolbarExtension(app)
