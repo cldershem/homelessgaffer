@@ -1,5 +1,5 @@
 {% macro render_form(formID) %}
-<form id={{formID}} action="" method="post">
+    <form id={{formID}} action="" method="post">
     {{form.hidden_tag()}}
         {%  for field in form if field.widget.input_type != 'hidden' %}
             {% if field.type == 'TextField' or
@@ -28,41 +28,73 @@
 
 
 {% macro render_pager(pageSet, endpoint) %}
-<div id="pagination">
-    {% if pageSet.has_prev %}
-        <a href="{{url_for(endpoint, pageNum=pageSet.prev_num)}}">newer</a>
-    {% endif %}
-    {% for page in pageSet.iter_pages() %}
-        {% if pageSet.page == 1 and not pageSet.has_next %} <!-- dont show if only page -->
-        {% else %}
-            {% if page == pageSet.page %}
-                <strong>{{page}}</strong>
-            {% else %}
-                <a href="{{url_for(endpoint, pageNum=page)}}">{{page}}</strong></a>
-            {% endif %}
+    <div id="pagination">
+        {% if pageSet.has_prev %}
+            <a href="{{url_for(endpoint, pageNum=pageSet.prev_num)}}">newer</a>
         {% endif %}
-    {% endfor %}
-    {% if pageSet.has_next %}
-        <a href="{{url_for(endpoint, pageNum=pageSet.next_num)}}">older</a>
-    {% endif %} 
-</div><!--pagination-->
+        {% for page in pageSet.iter_pages() %}
+            {% if pageSet.page == 1 and not pageSet.has_next %} <!-- dont show if only page -->
+            {% else %}
+                {% if page == pageSet.page %}
+                    <strong>{{page}}</strong>
+                {% else %}
+                    <a href="{{url_for(endpoint, pageNum=page)}}">{{page}}</strong></a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if pageSet.has_next %}
+            <a href="{{url_for(endpoint, pageNum=pageSet.next_num)}}">older</a>
+        {% endif %} 
+    </div><!--pagination-->
 {% endmacro %}
 
 {% macro render_comments(commentSet) %}
-<div id="comments">
-    <h2 id="commentHeader">Comments</h2>
-    {% if commentSet %}
-        {% for comment in commentSet %}
-            <p class="commentbody">{{ comment.body }}</p>
-            <p id="commentmeta">by <strong>{{ comment.author.get_id() }}</strong> on {{ comment.created_at.strftime('%H:%M %Y-%m-%d') }}</p>
-            <hr>
-        {% endfor %}
-    {% endif %}
-	{% if current_user.is_authenticated() == True -%}
-	    <h2>Add a comment</h2>
-            {{ render_form('addComment') }}
-	   {% else %}
-	   	<p><a href="{{url_for('users.login')}}">login</a> to comment.</p>
-	 {% endif %}
-</div><!--end comments-->
+    <div id="comments">
+        <h2 id="commentHeader">Comments</h2>
+        {% if commentSet %}
+            {% for comment in commentSet %}
+                <p class="commentbody">{{ comment.body }}</p>
+                <p id="commentmeta">by <strong>{{ comment.author.get_id() }}</strong> on {{ comment.created_at.strftime('%H:%M %Y-%m-%d') }}</p>
+                <hr>
+            {% endfor %}
+        {% endif %}
+    	{% if current_user.is_authenticated() == True -%}
+    	    <h2>Add a comment</h2>
+                {{ render_form('addComment') }}
+    	   {% else %}
+    	   	<p><a href="{{url_for('users.login')}}">login</a> to comment.</p>
+    	 {% endif %}
+    </div><!--end comments-->
+{% endmacro %}
+
+{% macro render_disqus() %}
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = '{{config.DISQUS_SHORTNAME}}'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+{% endmacro %}
+
+{% macro render_disqus_count() %}
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = '{{config.DISQUS_SHORTNAME}}'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
 {% endmacro %}

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% from "macros.html" import render_pager with context %}
+{% from "macros.html" import render_disqus_count with context %}
 
 {% block content %}
     {% for item in unitySet.items %}
@@ -12,11 +13,17 @@
             <p>{{ item.body|markRight|striptags|truncate(100) }}</p>
         {% endif %}
         <p>by <a href="{{ url_for('users.profile', user_id=item.author.email) }}">{{item.author.email}}</a> | 
-           {{ item.created_at.strftime('%H:%M %Y-%m-%d') }} |
+            {{ item.created_at.strftime('%H:%M %Y-%m-%d') }} | 
+            <a href="{{ url_for('unity.staticUnity', slug=item.slug) }}#disqus_thread"></a>
+           {#
            {% with total=item.comments|length %}
                {{ total }} comment {%- if total != 1 %}s{%- endif -%}
            {% endwith %}
+           #}
         </p>
     {% endfor %}
     {{ render_pager(unitySet, 'unity.listUnity') }}
+{% endblock %}
+{% block footer %}
+    {{ render_disqus_count() }}
 {% endblock %}

@@ -2,6 +2,7 @@
 {% extends "base.html" %}
 {% from "macros.html" import render_form with context %}
 {% from "macros.html" import render_comments with context %}
+{% from "macros.html" import render_disqus with context %}
 
 {% block content %}
 {{unity.body|markRight}}
@@ -36,5 +37,6 @@
         </p>
     {% endif %}
 </div><!--end postmeta-->
-{{render_comments(unity.comments)}}
+{#{render_comments(unity.comments)}#}
+{{render_disqus()}}
 {% endblock %}

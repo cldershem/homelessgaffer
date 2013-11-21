@@ -6,6 +6,9 @@ import secrets
 TESTING = False
 # LOGTO = '/var/www/homelessgaffer.com/tmp/log/'
 
+# DISQUS_SHORTNAME = 'homelessgaffer'
+DISQUS_SHORTNAME = 'hgtesting'
+
 # misc
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
