@@ -11,53 +11,17 @@
     <body>
         <div id="allcontent">
             <header>
-                <h1 id="hgtitle"><a href="{{ url_for('index') }}">homelessgaffer.com/</a><span id="page">{{pageTitle or "UPDATE ME!!!!"}}</span></h1>
-                <nav>
-                    <ul id="navbar">
-                        {% set navBar = ["food", "bike", "resume", "dev", "about", "contact"] %}
-                        {% for navButton in navBar -%}
-                            <li {% if pageTitle == navButton %} class="currentpage" {% endif %}><a href="{{url_for('unity.staticUnity', slug=navButton)}}">{{navButton}}</a></li>
-                        {%- endfor -%}
-                        {% if current_user.is_anonymous() == True -%}
-                            <li {% if pageTitle == "login" %} class="currentpage" {% endif %} id="navbarlogin"><a href="{{ url_for('users.login') }}">login</a></li>			    
-                        {% else -%}
-                            <li id="navbarlogin">
-                                <a href="{{ url_for('users.profile', user_id=current_user.email) }}">profile</a>
-                            </li>
-                            <li id="navbarlogin">
-                                <a href="{{ url_for('users.logout') }}">logout</a>
-                            </li>
-                        {% endif -%}           
-                    </ul>
+                <h1 id="hgtitle"><a href="{{ url_for('index') }}">hg/</a><span id="pageTitle">{{pageTitle or "UPDATE ME!!!!"}}</span></h1>
+                <nav><ul>
+                        {{render_navbar(pageTitle, 'slug', 'blog')}}<ul>
+                        {{render_navbar(pageTitle, 'tag', 'food')}}</li>
+                        {{render_navbar(pageTitle, 'tag', 'bike')}}</li></ul></li>
+                        {{render_navbar(pageTitle, 'slug', 'dev')}}<ul>
+                        {{render_navbar(pageTitle, 'slug', 'battleship')}}</li></ul></li>
+                        {{render_navbar(pageTitle, 'slug', 'about')}}<ul>
+                        {{render_navbar(pageTitle, 'slug', 'resume')}}</li>
+                        {{render_navbar(pageTitle, 'slug', 'contact')}}</li></ul></li></ul>
                 </nav>
-                {#
-                <nav>
-                    <ul id="navbar">
-                        <li {% if pageTitle == 'blog' %} class="currentpage" {% endif %}>
-                            <a href="{{url_for('unity.listUnity')}}">blog</a>
-                            <ul>
-                                <li>food</li>
-                                <li>bike</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <li {% if pageTitle == 'dev' %} class="currentpage" {% endif %}>
-                            <a href="{{url_for('unity.staticUnity', slug='dev')}}">dev</a>
-                            <ul>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                        </li>
-                        <li>
-                            {{render_navbar('about')}}
-                            <ul>
-                                {{render_navbar('resume')}}
-                                <li>contact</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-                #}
             </header>
             <div id="main">
                 <div id="leftcontent">

@@ -26,7 +26,6 @@
     </form>
 {% endmacro %}
 
-
 {% macro render_pager(pageSet, endpoint) %}
     <div id="pagination">
         {% if pageSet.has_prev %}
@@ -99,10 +98,11 @@
     </script>
 {% endmacro %}
 
-{% macro render_navbar(endpoint) %}
-    {# 
-        why doesn't currentpage work?
-    #}
-    <li {% if pageTitle == endpoint %} class="currentpage" {% endif %}>
-    <a href="{{url_for('unity.staticUnity', slug=endpoint)}}">{{endpoint}}</a>
-{% endmacro %}
+{%- macro render_navbar(pageTitle, type, arg) %}
+    <li {% if pageTitle == arg %} class="currentpage" {% endif %}>
+    {%- if type == 'slug' -%}
+        <a href="{{url_for('unity.staticUnity', slug=arg)}}">{{arg}}</a>
+    {%- elif type == 'tag' -%}
+        <a href="{{url_for('unity.listUnity', tag=arg)}}">{{arg}}</a>
+    {%- endif -%}
+{% endmacro -%}

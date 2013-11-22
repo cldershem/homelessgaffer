@@ -108,49 +108,77 @@ header {
             //background-color: @fontColor;
 		}
 		
-		#page {
+		#pageTitle {
 			color: @accentColor2;
-			//z-index: ;
 		}
 	}
+}
 
-	#navbar {
-		margin: 0px 0px 0px 0px;
-		padding: 0px 0px 0px 0px;
-		list-style-type: none;
-		border-left: 2px solid @backgroundColor;
-		border-right: 2px solid @backgroundColor;
-		line-height: 100%;
-		
-		li {
-			background-color: @accentColor1;
-			display: inline;
-			border-right: 2px solid @backgroundColor;
-			
-			&:first-child {
-			}	
-			&:last-child {
-			}
-			a:link {
-				color:@navbarFontColor;
-				text-decoration: none;
+// nav ul {
+//         padding: 0px 0px 0px 0px;
+//         margin: 0px 0px 0px 0px;
+//     li {
+//         display: inline;
+//         background-color: blue;
+//         padding: 0px 0px 0px 0px;
+//         margin: 0px 0px 0px 0px;
+//         a {
+//             background-color: red;
+//         padding: 0px 0px 0px 0px;
+//         margin: 0px 0px 0px 0px;
+//         }
+//         ul {
+//             display: none;
+//         padding: 0px 0px 0px 0px;
+//         margin: 0px 0px 0px 0px;
+//             li {
+//                 background-color: yellow;
+//         margin: 0px 0px 0px 0px;
+//         padding: 0px 0px 0px 0px;
+//             }
+//         }
+//     }
+// }
+
+nav {
+	border-left: 2px solid @backgroundColor;
+	border-right: 2px solid @backgroundColor;
+	line-height: 100%;
+
+    li {
+        float: left;
+    }
+    ul {
+        margin: 0px 0px 0px 0px;
+   	    padding: 0px 0px 0px 0px;
+        list-style-type: none;
+        ul {
+           display: none;
+        }
+    
+        li {
+            border-right: 2px solid @backgroundColor;
+            &:hover > ul {
+                display:block;
+            }
+            a {
+                line-height: 100%;
+                background-color: @accentColor1;
+                text-decoration: none;
+                color: @navbarFontColor;
 				padding: 0px 6px 0px 6px;
-			}
-			a:visited {
-				color:@navbarFontColor;
-			}
-			a:hover {
-				background-color: @navbarBackColor;
-				color: @navbarFontColor;
-			}
-			&.currentpage {
-				background-color: @accentColor2;
-			}
-		}
-		
-		#navbarlogin {
-			}
-	}
+    
+                &:visited {
+                    color: @navbarFontColor;
+                }
+    
+                &:hover {
+                    background-color: @navbarBackColor;
+                    color: @navbarFontColor;
+                }
+            }
+        }
+    }
 }
 
 #main {

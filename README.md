@@ -121,7 +121,7 @@ TODAY
 - remove old comment system from code
 
 ###CHANGELOG
-- being work on new navbar (currently commented out)
+- begin work on new navbar
 - disqus implemented..
 - add DEBUG back to config
 - add testing disqus db
