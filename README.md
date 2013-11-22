@@ -31,9 +31,6 @@ TODAY
         - user gets email verification email
     - if admin doesn't approves
         - user gets email notifying them that their request was denied
-- add disqus back
-- check DEBUG on server
-    - added it back to config not __init__
 
 ###TODO
 - Search
@@ -121,8 +118,11 @@ TODAY
     - should pwd reset oldhash be the last 10 characters
 - rename unity
 - when on page 6 of listpages page 3 in pager is None?
+- remove old comment system from code
 
 ###CHANGELOG
+- being work on new navbar (currently commented out)
+- disqus implemented..
 - add DEBUG back to config
 - add testing disqus db
 - hashed password reset link oldpwd has inside of payload
@@ -188,13 +188,3 @@ TODAY
 - added pagination on posts
 - add https
 - flask admin working
-
-###NOTES
-- blog
-    - food
-    - bike
-- dev
-    - battleship
-- about
-    - contact
-    - resume

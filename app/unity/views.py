@@ -12,6 +12,7 @@ mod = Blueprint('unity', __name__, url_prefix='/unity')
 
 
 @mod.route('/', defaults={'tag': None, 'user': None, 'pageNum': 1})
+@mod.route('/blog', defaults={'tag': None, 'user': None, 'pageNum': 1})
 @mod.route('/listposts', defaults={'tag': None, 'user': None, 'pageNum': 1})
 @mod.route('/listposts/page/<int:pageNum>',
            defaults={'tag': None, 'user': None})
@@ -37,7 +38,7 @@ def listUnity(tag, user, pageNum):
         pageTitle = user.email
     elif not tag and not user:
         unitySet = Pagination(Unity.objects.all(), pageNum, 10)
-        pageTitle = "listUnity"
+        pageTitle = "blog"  # "listUnity"
     return render_template('unity/listUnity.html',
                            pageTitle=pageTitle,
                            unitySet=unitySet,

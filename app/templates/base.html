@@ -6,6 +6,7 @@
         <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}">
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.4.1/less.min.js" type="text/javascript"></script>
         {% block head %}{% endblock %}
+        {% from 'macros.html' import render_navbar %}
     </head>
     <body>
         <div id="allcontent">
@@ -15,10 +16,10 @@
                     <ul id="navbar">
                         {% set navBar = ["food", "bike", "resume", "dev", "about", "contact"] %}
                         {% for navButton in navBar -%}
-                            <li {% if page == navButton %} class="currentpage" {% endif %}><a href="{{url_for('unity.staticUnity', slug=navButton)}}">{{navButton}}</a></li>
+                            <li {% if pageTitle == navButton %} class="currentpage" {% endif %}><a href="{{url_for('unity.staticUnity', slug=navButton)}}">{{navButton}}</a></li>
                         {%- endfor -%}
                         {% if current_user.is_anonymous() == True -%}
-                            <li {% if page == "login" %} class="currentpage" {% endif %} id="navbarlogin"><a href="{{ url_for('users.login') }}">login</a></li>			    
+                            <li {% if pageTitle == "login" %} class="currentpage" {% endif %} id="navbarlogin"><a href="{{ url_for('users.login') }}">login</a></li>			    
                         {% else -%}
                             <li id="navbarlogin">
                                 <a href="{{ url_for('users.profile', user_id=current_user.email) }}">profile</a>
@@ -29,6 +30,34 @@
                         {% endif -%}           
                     </ul>
                 </nav>
+                {#
+                <nav>
+                    <ul id="navbar">
+                        <li {% if pageTitle == 'blog' %} class="currentpage" {% endif %}>
+                            <a href="{{url_for('unity.listUnity')}}">blog</a>
+                            <ul>
+                                <li>food</li>
+                                <li>bike</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <li {% if pageTitle == 'dev' %} class="currentpage" {% endif %}>
+                            <a href="{{url_for('unity.staticUnity', slug='dev')}}">dev</a>
+                            <ul>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </li>
+                        <li>
+                            {{render_navbar('about')}}
+                            <ul>
+                                {{render_navbar('resume')}}
+                                <li>contact</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                #}
             </header>
             <div id="main">
                 <div id="leftcontent">

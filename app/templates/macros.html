@@ -98,3 +98,11 @@
         }());
     </script>
 {% endmacro %}
+
+{% macro render_navbar(endpoint) %}
+    {# 
+        why doesn't currentpage work?
+    #}
+    <li {% if pageTitle == endpoint %} class="currentpage" {% endif %}>
+    <a href="{{url_for('unity.staticUnity', slug=endpoint)}}">{{endpoint}}</a>
+{% endmacro %}
