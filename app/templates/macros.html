@@ -99,7 +99,7 @@
 {% endmacro %}
 
 {%- macro render_navbar(pageTitle, type, arg) %}
-    <li {% if pageTitle == arg %} class="currentpage" {% endif %}>
+    <li {%- if pageTitle == arg %} class="currentpage" {% endif %}>
     {%- if type == 'slug' -%}
         <a href="{{url_for('unity.staticUnity', slug=arg)}}">{{arg}}</a>
     {%- elif type == 'tag' -%}

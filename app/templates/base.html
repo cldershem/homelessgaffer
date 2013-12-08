@@ -9,21 +9,60 @@
         {% from 'macros.html' import render_navbar %}
     </head>
     <body>
-        <div id="allcontent">
+        <div id="bigOwrapper">
             <header>
-                <h1 id="hgtitle"><a href="{{ url_for('index') }}">hg/</a><span id="pageTitle">{{pageTitle or "UPDATE ME!!!!"}}</span></h1>
-                <nav><ul>
-                        {{render_navbar(pageTitle, 'slug', 'blog')}}<ul>
-                        {{render_navbar(pageTitle, 'tag', 'food')}}</li>
-                        {{render_navbar(pageTitle, 'tag', 'bike')}}</li></ul></li>
-                        {{render_navbar(pageTitle, 'slug', 'dev')}}<ul>
-                        {{render_navbar(pageTitle, 'slug', 'battleship')}}</li></ul></li>
-                        {{render_navbar(pageTitle, 'slug', 'about')}}<ul>
-                        {{render_navbar(pageTitle, 'slug', 'resume')}}</li>
-                        {{render_navbar(pageTitle, 'slug', 'contact')}}</li></ul></li></ul>
+                <nav>
+                    <ul>
+                        <li id="hgtitle" >
+                            <a href="/index"><span id="tilde">~/</span>hg/</a>
+                        </li>
+                        <li class="topmenu">
+                            <a {%- if pageTitle == 'blog' %} class="currentpage" {% endif %} href="/unity/blog">blog</a>
+                            <ul class="submenu">
+                                <li>
+                                    <a {%- if pageTitle == 'blog' %} class="currentpage" {% endif %} href="/unity/blog">blog</a>
+                                </li>
+                                <li>
+                                    <a {%- if pageTitle == 'food' %} class="currentpage" {% endif %} href="/unity/listposts/tag/food">food</a>
+                                </li>
+                                <li>
+                                    <a {%- if pageTitle == 'bike' %} class="currentpage" {% endif %} href="/unity/listposts/tag/bike">bike</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="topmenu">
+                            <a {%- if pageTitle == 'dev' %} class="currentpage" {% endif %} href="/unity/dev">dev</a>
+                            <ul class="submenu">
+                                <li>
+                                    <a {%- if pageTitle == 'dev' %} class="currentpage" {% endif %} href="/unity/dev">dev</a>
+                                </li>
+                                <li>
+                                    <a {%- if pageTitle == 'battleship' %} class="currentpage" {% endif %} href="/unity/battleship">battleship</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="topmenu">
+                            <a {%- if pageTitle == 'about' %} class="currentpage" {% endif %} href="/unity/about">about</a>
+                            <ul class="submenu">
+                                <li>
+                                    <a {%- if pageTitle == 'about' %} class="currentpage" {% endif %} href="/unity/about">about</a>
+                                </li>
+                                <li>
+                                    <a {%- if pageTitle == 'resume' %} class="currentpage" {% endif %} href="/unity/resume">resume</a>
+                                </li>
+                                <li>
+                                    <a {%- if pageTitle == 'contact' %} class="currentpage" {% endif %} href="/unity/contact">contact</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </nav>
             </header>
-            <div id="main">
+            <div id="allNonHeader">
+                <div id="pageTitle">
+                    <h1>{{pageTitle or "UPDATE ME!!!!"}}</h1>
+                    <hr>
+                </div>
                 <div id="leftcontent">
                     <div id="flashMessage">
                         {% with messages = get_flashed_messages() %}
@@ -39,18 +78,21 @@
                 {% block content %}
                 {% endblock %}
                 </div><!--end leftcontent-->
-            <div id="sidebar">
-                {% block sidebar %}
-                {% endblock %} 
-            </div><!--end sidebar-->
-            </div><!--end main-->
+                {% if isSidebar %}
+                    <div id="sidebar">
+                        {% block sidebar %}
+                        {% endblock %} 
+                    </div><!--end sidebar-->
+                {% endif %}
             <footer>
+                <hr>
                 <p>
                     this is the footer to this page.  it is copycentered.
                 </p>
                 {% block footer %}
                 {% endblock %}
             </footer>
-        </div><!--end #allcontent-->
+            </div><!--end allNonheader-->
+        </div><!--end #bigOwrapper-->
     </body>
 </html>

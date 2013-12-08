@@ -119,6 +119,11 @@ TODAY
 - rename unity
 - when on page 6 of listpages page 3 in pager is None?
 - remove old comment system from code
+- breadcrumbs:
+    cldershem@hg.com/blog/post-name
+- add ability to add sidebar from newunity
+- add index.html to staticUnity
+    - really add all .html to the db
 
 ###CHANGELOG
 - begin work on new navbar
