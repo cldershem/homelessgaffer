@@ -31,30 +31,30 @@ TODO
 LOOK
 ----
 
-- make it not look like crap
-- fix resume
+  - make it not look like crap
+  - fix resume
 
-  - embed pdf?
-  - resume push to release updates website
+    - embed pdf?
+    - resume push to release updates website
 
-    - git module?
+      - git module?
 
-- add sidebar to blog
+  - add sidebar to blog
 
-  - sidebar has categories, related posts, etc.
+    - sidebar has categories, related posts, etc.
 
-- fix alignment on pages with forms
-- fix spacing between header and first line
-- shorten homelessgaffer.com when smaller view port
-- fix blog list markdown stripping looking dumb
-- fix pagedown editor preview --- looks like crap
+  - fix alignment on pages with forms
+  - fix spacing between header and first line
+  - shorten homelessgaffer.com when smaller view port
+  - fix blog list markdown stripping looking dumb
+  - fix pagedown editor preview --- looks like crap
 
-  - figure out pagedown editor wmd-button-bar
+    - figure out pagedown editor wmd-button-bar
 
-- truncate `unity.source`
-- fix datetime display
+  - truncate `unity.source`
+  - fix datetime display
 
-  - moment.js?
+    - moment.js?
 
 SERVER
 ------
