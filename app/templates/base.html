@@ -4,7 +4,7 @@
         <title>hg-{% block title %}{{pageTitle}}{% endblock %}</title>
         <link rel="stylesheet/less" type="text/css" href="{{ url_for('static', filename='css/style.less') }}" />
         <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}">
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.4.1/less.min.js" type="text/javascript"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.4.1/less.min.js" type="text/javascript"></script>
         {% block head %}{% endblock %}
         {% from 'macros.html' import render_navbar %}
     </head>
@@ -12,16 +12,11 @@
         <div id="bigOwrapper">
             <header>
                 <nav>
+                    <a id="hgtitle" href="/index"><span id="tilde">~/</span>hg/</a>
                     <ul>
-                        <li id="hgtitle" >
-                            <a href="/index"><span id="tilde">~/</span>hg/</a>
-                        </li>
                         <li class="topmenu">
                             <a {%- if pageTitle == 'blog' %} class="currentpage" {% endif %} href="/unity/blog">blog</a>
                             <ul class="submenu">
-                                <li>
-                                    <a {%- if pageTitle == 'blog' %} class="currentpage" {% endif %} href="/unity/blog">blog</a>
-                                </li>
                                 <li>
                                     <a {%- if pageTitle == 'food' %} class="currentpage" {% endif %} href="/unity/listposts/tag/food">food</a>
                                 </li>
@@ -34,9 +29,6 @@
                             <a {%- if pageTitle == 'dev' %} class="currentpage" {% endif %} href="/unity/dev">dev</a>
                             <ul class="submenu">
                                 <li>
-                                    <a {%- if pageTitle == 'dev' %} class="currentpage" {% endif %} href="/unity/dev">dev</a>
-                                </li>
-                                <li>
                                     <a {%- if pageTitle == 'battleship' %} class="currentpage" {% endif %} href="/unity/battleship">battleship</a>
                                 </li>
                             </ul>
@@ -44,9 +36,6 @@
                         <li class="topmenu">
                             <a {%- if pageTitle == 'about' %} class="currentpage" {% endif %} href="/unity/about">about</a>
                             <ul class="submenu">
-                                <li>
-                                    <a {%- if pageTitle == 'about' %} class="currentpage" {% endif %} href="/unity/about">about</a>
-                                </li>
                                 <li>
                                     <a {%- if pageTitle == 'resume' %} class="currentpage" {% endif %} href="/unity/resume">resume</a>
                                 </li>
@@ -61,16 +50,15 @@
             <div id="allNonHeader">
                 <div id="pageTitle">
                     <h1>{{pageTitle or "UPDATE ME!!!!"}}</h1>
-                    <hr>
                 </div>
                 <div id="leftcontent">
                     <div id="flashMessage">
-                        {% with messages = get_flashed_messages() %}
-                            {% if messages %}
+                        {%- with messages = get_flashed_messages() -%}
+                            {%- if messages -%}
                                 <ul>
-                                    {% for message in messages %}
+                                    {%- for message in messages -%}
                                         <li>{{ message }}</li>
-                                    {% endfor %}
+                                    {%- endfor %}
                                 </ul>
                             {% endif %}
                         {% endwith %}
@@ -78,14 +66,11 @@
                 {% block content %}
                 {% endblock %}
                 </div><!--end leftcontent-->
-                {% if isSidebar %}
-                    <div id="sidebar">
-                        {% block sidebar %}
-                        {% endblock %} 
-                    </div><!--end sidebar-->
-                {% endif %}
+                <div id="sidebar">
+                    {% block sidebar %}
+                    {% endblock %}
+                </div><!--end sidebar-->
             <footer>
-                <hr>
                 <p>
                     this is the footer to this page.  it is copycentered.
                 </p>

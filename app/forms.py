@@ -1,6 +1,6 @@
 from flask.ext.wtf import Form, RecaptchaField
-from wtforms import (TextField, TextAreaField, PasswordField,
-                     SubmitField, BooleanField)
+from wtforms import (TextField, TextAreaField, PasswordField, SubmitField,
+                     BooleanField)
 from wtforms.validators import Email, EqualTo, Required
 from models import User, Unity
 from mongoengine.queryset import DoesNotExist

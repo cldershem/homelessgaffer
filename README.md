@@ -1,6 +1,7 @@
 <!--flake8: noqa-->
-###INSTALLATION
-```
+INSTALLATION
+============
+```Bash
 git clone /var/www/homelessgaffer.com
 cd /home/$USER
 git init --bare homelessgaffer.git
@@ -16,25 +17,55 @@ cldershem ALL= NOPASSWD: /usr/sbin/service uwsgi \*
 ```
 - cp secrets.py
 
-TODAY
-=====
+TODO
+====
+
+LOOK
+----
+- make it not look like crap
+- fix resume
+    - embed pdf
+    - resume push to release updates website
+- add sidebar to blog
+    - sidebar has categories, related posts, etc.
+- fix alignment on pages with forms
+- fix spacing between header and first line
+- shorten homelessgaffer.com when smaller view port
+- fix blog list markdown stripping looking dumb
+- fix pagedown editor preview --- looks like crap
+    - figure out pagedown editor wmd-button-bar
+- truncate post 'source'
+- fix datetime display
+    - moment.js?
+
+SERVER
+------
 - all files in /var/www/homelessgaffer.com owned by cldershem
 - move logs to /var/www/hg/tmp/log
 - database copy
 - database migrate (see below)
-- tty or askpwd would solve sudoers issue
-- password salt for each user
-- admin email to approve each user
-    - user signs up
-    - admin gets email "user wants an account"
-    - if admin approves
-        - user gets email verification email
-    - if admin doesn't approves
-        - user gets email notifying them that their request was denied
+- `tty` or `askpwd` would solve sudoers issue
+- fix default nginx error pages
+- make requirements.txt check version numbers
+- create db, add admin@hg.com with admin privileges
+- migrate db
 
-###TODO
+FEATURE REQUESTS
+----------------
 - Search
-- user
+- add delete to edit page
+- add cancel button
+- add resend confirm email
+- breadcrumbs:
+    cldershem@hg.com/blog/post-name
+- add index.html to staticUnity
+    - really add all .html to the db
+    - need to be able to add sidebar from post
+- api to add pages from (so you can write them in vim)
+- draft mode for new pages and posts
+    - @adminOrAuthorRequired
+    - hg.com/page/newpagetitle/draft (uses new/edit template)
+- user features
     - can edit own posts or if admin
     - post edited on
     - profile with all posts
@@ -44,88 +75,66 @@ TODAY
     - change password
     - email on comment
     - new accounts need to be approved
-- add delete to edit page
-- fix datetime display
-    - moment.js?
-- add tests
-- fix default nginx error pages
+- integrate bike wiki?
+    - http://homelessgaffer.3821.a.hostable.me/wikitest/tikiwiki/tiki-index.php
+    - create newWikiPage and newWikiPage-Discussion for each page
+    - orphaned pages
+        if wikilink is orphan,
+            mark as such,
+            if not on OrpanedPagesList
+                add
+        else link to wikipage
+    - allow TODO on each page
+        - When TODO list is updated
+            - sitewide TODO list is updated using page name to organize
+    - each post can be published or draft
+        - drafts or private until published?
+        - post can be pushed to blog with tags
+        - page/wiki/blog all the same things?
+        - make draft/blog drop down
+- "are you sure you want to navigate away from this page?"
+
+SECURITY
+--------
+- password salt for each user
+    - should password reset oldhash be the last 10 characters instead of first?
+- admin email to approve each user
+    - user signs up
+    - admin gets email "user wants an account"
+    - if admin approves
+        - user gets email verification email
+    - if admin doesn't approves
+        - user gets email notifying them that their request was denied
+
+BUG FIXES
+---------
 - Admin
     - fix redirect after password change fail
-- flake8 should only check .py files
-- find better way to do async
-- make it not look like crap
-- disqus for comments?
-- get some content
-- make some better classes
-    - user should have an update method?
-- admin approval of new users
-- draft mode for new pages and posts
-    - @adminOrAuthorRequired
-    - hg.com/page/newpagetitle/draft (uses new/edit template)
-- api to add pages from (so you can write them in vim)
-- integrate bike wiki?
-    - moinmoin?
-    - is another framework really necessary?
-    - roll your own wiki?
-        - similar/same as/ replace 'page' blueprint as wiki?
-        - create newWikiPage and newWikiPage-Discussion for each page
-        - blog/page/wiki selector?
-        - orphaned pages
-            if wikilink is orphan,
-                mark as such,
-                if not on OrpanedPagesList
-                    add
-            else link to wikipage
-        - breadcrumbs
-        - allow TODO on each page
-            - When TODO list is updated
-                - sitewide TODO list is updated using page name to organize
-        - each post can be published or draft
-            - drafts or private until published?
-            - post can be pushed to blog with tags
-            - page/wiki/blog all the same things?
-- add sidebar to blog
-    - sidebar has categories, related posts, etc
-- fix resume
-    - embed pdf
-    - resume push to release updates website
-- add drop down menus to nav bar
-- shorten homelessgaffer.com when smaller viewport
+- when on page 6 of listPages page 3 in pager is None?
 - fix title 'page' when reloading page from submission error
-- fix alignment on login page with the "or"s
-- fix spacing between header and first line
-- fix blog list markdown stripping looking dumb
-- fix pagedown editor preview --- looks like crap
-    - figure out pagedown editor wmd-button-bar
-- fix form css in general
-- comments vs discussion
-    - think wikipedia discussion pae
-- make it so you can import MAIL and not each individulal Mail_USERNAME
-- find word for create or edit if exists for unity new/edit/draft page
-- do i need a robots.txt
-- tags need to be slugified
+- sometimes listPosts in wrong order
 - make admin redirect if not logged in..
-- add cancel button
-- add resend confirm email
-- sometimes listposts in wrong order
-- "are you sure you want to navigate away from this page?"
-- create db, add admin@hg.com with admin privlidges
-- migrate db
-- make requirements.txt check version numbers
-- trunicate 'source'
-- merge battleship repos
-- create random salt for every user?
-    - should pwd reset oldhash be the last 10 characters
-- rename unity
-- when on page 6 of listpages page 3 in pager is None?
-- remove old comment system from code
-- breadcrumbs:
-    cldershem@hg.com/blog/post-name
-- add ability to add sidebar from newunity
-- add index.html to staticUnity
-    - really add all .html to the db
 
-###CHANGELOG
+MISC
+----
+- get some content
+- rename unity
+- replace `#!/venv/bin/python` with `!/usr/bin/env python`
+- merge battleship repos
+- flake8 should only check .py files
+- make it so you can import MAIL and not each individual Mail_USERNAME
+- do I need a robots.txt
+- comments vs discussion
+    - think wikipedia discussion page
+    - is disqus just good enough?
+        - if so remove old comment system from code
+- find better way to do async, celery?
+- add tests/logging
+- find word for create or edit if exists for unity new/edit/draft page
+- tags need to be slugified
+
+CHANGELOG
+=========
 - begin work on new navbar
 - disqus implemented..
 - add DEBUG back to config
@@ -151,7 +160,7 @@ TODAY
 - fix edit post error where slug would be duplicate
 - add custom TagListField
 - removed ckeditor
-- Unity working.  
+- Unity working.
 - fixed "if server: debug=False"
     - DEBUG flag now set in app/__init__.py
 - sidebar block added to base template
@@ -176,7 +185,7 @@ TODAY
 - flask-mail is async
 - flask-mail setup
 - added constants.py
-- dateTimeNow depricated, DATE-TIME-NOW replaces (underscores not hyphens)
+- dateTimeNow deprecated, DATE-TIME-NOW replaces (underscores not hyphens)
 - git hook downloads js libraries
 - git hook restarts nginx, uwsgi PROPERLY!!!!!!
 - rewrote git hooks in python, added flake8
