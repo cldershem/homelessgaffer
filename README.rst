@@ -3,6 +3,7 @@
 ======
 README
 ======
+
 INSTALLATION
 ============
 .. code:: sh
@@ -26,17 +27,19 @@ INSTALLATION
 
 TODO
 ====
+
 LOOK
 ----
+
 - make it not look like crap
 - fix resume
 
-    - embed pdf
-    - resume push to release updates website
+  - embed pdf
+  - resume push to release updates website
 
 - add sidebar to blog
 
-    - sidebar has categories, related posts, etc.
+  - sidebar has categories, related posts, etc.
 
 - fix alignment on pages with forms
 - fix spacing between header and first line
@@ -44,15 +47,16 @@ LOOK
 - fix blog list markdown stripping looking dumb
 - fix pagedown editor preview --- looks like crap
 
-    - figure out pagedown editor wmd-button-bar
+  - figure out pagedown editor wmd-button-bar
 
 - truncate post 'source'
 - fix datetime display
 
-    - moment.js?
+  - moment.js?
 
 SERVER
 ------
+
 - all files in /var/www/homelessgaffer.com owned by cldershem
 - move logs to /var/www/hg/tmp/log
 - database copy
@@ -65,59 +69,60 @@ SERVER
 
 FEATURE REQUESTS
 ----------------
+
 - Search
 - add delete to edit page
 - add cancel button
 - add resend confirm email
-- breadcrumbs:
+- breadcrumbs
 
-    cldershem@hg.com/blog/post-name
+  - cldershem@hg.com/blog/post-name
 
 - add index.html to staticUnity
 
-    - really add all .html to the db
-    - need to be able to add sidebar from post
+  - really add all .html to the db
+  - need to be able to add sidebar from post
 
 - api to add pages from (so you can write them in vim)
 - draft mode for new pages and posts
 
-    - `@adminOrAuthorRequired`
-    - hg.com/page/newpagetitle/draft (uses new/edit template)
+  - `@adminOrAuthorRequired`
+  - hg.com/page/newpagetitle/draft (uses new/edit template)
 
 - user features
 
-    - can edit own posts or if admin
-    - post edited on
-    - profile with all posts
-    - does forgot it need to be in the admin panel?
-    - registration shouldn't save unless all goes well
+  - can edit own posts or if admin
+  - post edited on
+  - profile with all posts
+  - does forgot it need to be in the admin panel?
+  - registration shouldn't save unless all goes well
 
-        - currently will save if error
+    - currently will save if error
 
-    - change password
-    - email on comment
-    - new accounts need to be approved
+  - change password
+  - email on comment
+  - new accounts need to be approved
 
 - integrate bike wiki?
 
-    - http://homelessgaffer.3821.a.hostable.me/wikitest/tikiwiki/tiki-index.php
-    - create newWikiPage and newWikiPage-Discussion for each page
-    - orphaned pages
+  - http://homelessgaffer.3821.a.hostable.me/wikitest/tikiwiki/tiki-index.php
+  - create newWikiPage and newWikiPage-Discussion for each page
+  - orphaned pages
 
-        - if wikilink is orphan,
+    - if wikilink is orphan,
 
-            - mark as such,
-            - if not on OrpanedPagesList
+      - mark as such,
+      - if not on OrpanedPagesList
 
-                - add
-        - else link to wikipage
+        - add
+      - else link to wikipage
     - allow TODO on each page
 
-        - When TODO list is updated
+      - When TODO list is updated
 
-            - sitewide TODO list is updated using page name to organize
+        - sitewide TODO list is updated using page name to organize
 
-    - each post can be published or draft
+  - each post can be published or draft
 
         - drafts or private until published?
         - post can be pushed to blog with tags
@@ -128,6 +133,7 @@ FEATURE REQUESTS
 
 SECURITY
 --------
+
 - password salt for each user
 
     - should password reset oldhash be the last 10 characters instead of first?
@@ -146,6 +152,7 @@ SECURITY
 
 BUG FIXES
 ---------
+
 - Admin
 
     - fix redirect after password change fail
@@ -157,6 +164,7 @@ BUG FIXES
 
 MISC
 ----
+
 - get some content
 - rename unity
 - replace `#!/venv/bin/python` with `!/usr/bin/env python`
@@ -166,10 +174,11 @@ MISC
 - do I need a robots.txt
 - comments vs discussion
 
-    - think wikipedia discussion page
-    - is disqus just good enough?
+  -
+  - think wikipedia discussion page
+  - is disqus just good enough?
 
-        - if so remove old comment system from code
+    - if so remove old comment system from code
 
 - find better way to do `@async`, celery?
 - add tests/logging
@@ -178,6 +187,7 @@ MISC
 
 CHANGELOG
 =========
+
 - begin work on new navbar
 - disqus implemented..
 - add DEBUG back to config
@@ -186,7 +196,7 @@ CHANGELOG
 - remove google and facebook login that was never finished
 - password reset link cannot be reused
 
-    - added oldpwdhash to payload
+  - added oldpwdhash to payload
 
 - fix bug where login wouldn't work with extra whitespace (common on phones)
 - update flask-pagedown
@@ -197,7 +207,7 @@ CHANGELOG
 - fix bug where unity.tags and unity.sources show up when empty
 - fix admin pages not having authentication
 
-    - only admin can login
+  - only admin can login
 
 - fix static html file page
 - renamed "page" to "pageTitle"
