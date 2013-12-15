@@ -33,14 +33,10 @@ LOOK
 
 - make it not look like crap
 - fix resume
-
   - embed pdf
   - resume push to release updates website
-
 - add sidebar to blog
-
   - sidebar has categories, related posts, etc.
-
 - fix alignment on pages with forms
 - fix spacing between header and first line
 - shorten homelessgaffer.com when smaller view port
