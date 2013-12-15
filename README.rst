@@ -63,7 +63,7 @@ FEATURE REQUESTS
     - need to be able to add sidebar from post
 - api to add pages from (so you can write them in vim)
 - draft mode for new pages and posts
-    - @adminOrAuthorRequired
+    - `@adminOrAuthorRequired`
     - hg.com/page/newpagetitle/draft (uses new/edit template)
 - user features
     - can edit own posts or if admin
@@ -79,11 +79,11 @@ FEATURE REQUESTS
     - http://homelessgaffer.3821.a.hostable.me/wikitest/tikiwiki/tiki-index.php
     - create newWikiPage and newWikiPage-Discussion for each page
     - orphaned pages
-        if wikilink is orphan,
-            mark as such,
-            if not on OrpanedPagesList
-                add
-        else link to wikipage
+        - if wikilink is orphan,
+            - mark as such,
+            - if not on OrpanedPagesList
+                - add
+        - else link to wikipage
     - allow TODO on each page
         - When TODO list is updated
             - sitewide TODO list is updated using page name to organize
@@ -128,7 +128,7 @@ MISC
     - think wikipedia discussion page
     - is disqus just good enough?
         - if so remove old comment system from code
-- find better way to do async, celery?
+- find better way to do `@async`, celery?
 - add tests/logging
 - find word for create or edit if exists for unity new/edit/draft page
 - tags need to be slugified
