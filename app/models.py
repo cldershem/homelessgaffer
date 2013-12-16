@@ -73,8 +73,7 @@ class Unity(db.Document):
     summary = db.StringField(max_length=255)
     tags = db.ListField(db.StringField(max_length=50))
     source = db.ListField(db.StringField(max_length=255))
-    isDraft = db.BooleanField(default=True)
-    isBlogPost = db.BooleanField(default=False)
+    postType = db.StringField(max_length=20, required=True)  # required?
     comments = db.ListField(db.EmbeddedDocumentField(Comment))
 
     def get_absolute_url(self):

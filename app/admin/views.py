@@ -9,6 +9,7 @@ from flask.ext.login import current_user
 
 
 class AdminView(BaseView):
+
     @expose('/')
     def index(self):
         return self.render('index.html')
@@ -28,6 +29,7 @@ class AuthView(ModelView):
 
 
 class UserView(AuthView):
+
     column_filters = ('firstname', 'lastname', 'email', 'created_at',
                       'last_seen')
     #form_excluded_columns = ('pwdhash')

@@ -21,23 +21,21 @@ mod = Blueprint('unity', __name__, url_prefix='/unity')
 @mod.route('/listposts/user/<user>', defaults={'tag': None, 'pageNum': 1})
 @mod.route('/listposts/user/<user>/page/<int:pageNum>', defaults={'tag': None})
 def listUnity(tag, user, pageNum):
-    # if postToBlog:
-    #     display list with preview
-    # if !postToBlog:
-    #     display list of titles in order of recently edited
-    # if !draft:
-    #     display list of non drafts
-    # if tag or if user:
-    #     display list of both
     if tag:
-        unitySet = Pagination(Unity.objects(tags=tag), pageNum, 10)
+        unitySet = Pagination(
+            Unity.objects(postType='blog', tags=tag),
+            pageNum, 10)
         pageTitle = tag
     if user:
         user = User.objects.get(email=user)
-        unitySet = Pagination(Unity.objects(author=user), pageNum, 10)
+        unitySet = Pagination(
+            Unity.objects(postType='blog', author=user),
+            pageNum, 10)
         pageTitle = user.email
     elif not tag and not user:
-        unitySet = Pagination(Unity.objects.all(), pageNum, 10)
+        unitySet = Pagination(
+            Unity.objects(postType='blog'),
+            pageNum, 10)
         pageTitle = "blog"  # "listUnity"
     return render_template('unity/listUnity.html',
                            pageTitle=pageTitle,
@@ -55,22 +53,10 @@ def newUnity():
             return render_template("unity/newUnity.html", form=form)
         else:
             slug = makeSlug(form.title.data)
-            # if form.isDraft.data:
-            #     save as form.title.data + "-draft"
-            # elif !form.isDraft.data:
-            #     save as draft?
-            #     send to preview confirm page
-            #         if confirm
-            #             remove "draft" indicator
-            #             publish
-            #         else:
-            #             redirect to edit page
-            #             flash "edit or save as draft"
-            # if isBlogPost:
-            #     do this
             newUnity = Unity(title=form.title.data,
                              slug=slug,
-                             body=form.body.data)
+                             body=form.body.data,
+                             postType=form.postType.data)
             if form.tags.data:
                 newUnity.tags = form.tags.data
             if form.source.data:
@@ -94,14 +80,8 @@ def editUnity(slug):
     slug = unity.slug
     form = UnityForm(obj=unity)
 
-    def validate_on_update():
-        if slug == makeSlug(form.title.data):
-            return form.validate()
-        else:
-            return form.validate_with_slug()
-
     if request.method == 'POST':
-        if not validate_on_update():
+        if not form.validate_on_update(slug):
             return render_template('unity/newUnity.html',
                                    title=unity.title,
                                    slug=slug,
@@ -147,8 +127,15 @@ def staticUnity(slug):
                                    pageTitle=slug)
         except TemplateNotFound:
             unity = Unity.objects.get_or_404(slug=slug)
-            form = CommentForm()
-            return render_template('unity/staticUnity.html',
-                                   pageTitle=unity.title,
-                                   unity=unity,
-                                   form=form)
+            currentUser = User.objects.get(email=current_user.email)
+            if (unity.postType == 'draft' and
+                    unity.author != currentUser and
+                    currentUser.is_admin() is False):
+                flash('You must be draft author or admin to view.')
+                return redirect(url_for('.listUnity'))
+            else:
+                form = CommentForm()
+                return render_template('unity/staticUnity.html',
+                                       pageTitle=unity.title,
+                                       unity=unity,
+                                       form=form)

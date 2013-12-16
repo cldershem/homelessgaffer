@@ -1,6 +1,6 @@
 from flask.ext.wtf import Form, RecaptchaField
 from wtforms import (TextField, TextAreaField, PasswordField, SubmitField,
-                     BooleanField)
+                     BooleanField, SelectField)
 from wtforms.validators import Email, EqualTo, Required
 from models import User, Unity
 from mongoengine.queryset import DoesNotExist
@@ -99,8 +99,11 @@ class UnityForm(Form):
     summary = TextAreaField("Summary")
     tags = TagListField("Tags")
     source = TagListField("Source")
-    isDraft = BooleanField("Save as draft?")
-    isBlogPost = BooleanField("Publish to blog?")
+    postType = SelectField(
+        "Post Type", choices=[
+            ('draft', 'draft'),
+            ('blog', 'blog post'),
+            ('page', 'page')])
     submit = SubmitField("Submit")
 
     def __init__(self, *args, **kwargs):
@@ -122,3 +125,9 @@ class UnityForm(Form):
                     return False
             except DoesNotExist:
                 return True
+
+    def validate_on_update(self, slug):
+        if slug == makeSlug(self.title.data):
+            return self.validate()
+        else:
+            return self.validate_with_slug()

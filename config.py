@@ -3,11 +3,10 @@ import secrets
 from socket import gethostname
 
 
-# if gethostname() == 'cldershem-laptop':
-    # DEBUG = True
-# else:
-    # DEBUG = False
-DEBUG = False
+if gethostname() == 'cldershem-laptop':
+    DEBUG = True
+else:
+    DEBUG = False
 
 HOSTNAME = gethostname()
 

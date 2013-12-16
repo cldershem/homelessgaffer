@@ -31,30 +31,30 @@ TODO
 LOOK
 ----
 
-  - make it not look like crap
-  - fix resume
+- make it not look like crap
+- fix resume
 
-    - embed pdf?
-    - resume push to release updates website
+  - embed pdf?
+  - resume push to release updates website
 
-      - git module?
+    - git module?
 
-  - add sidebar to blog
+- add sidebar to blog
 
-    - sidebar has categories, related posts, etc.
+  - sidebar has categories, related posts, etc.
 
-  - fix alignment on pages with forms
-  - fix spacing between header and first line
-  - shorten homelessgaffer.com when smaller view port
-  - fix blog list markdown stripping looking dumb
-  - fix pagedown editor preview --- looks like crap
+- fix alignment on pages with forms
+- fix spacing between header and first line
+- shorten homelessgaffer.com when smaller view port
+- fix blog list markdown stripping looking dumb
+- fix pagedown editor preview --- looks like crap
 
-    - figure out pagedown editor wmd-button-bar
+  - figure out pagedown editor wmd-button-bar
 
-  - truncate `unity.source`
-  - fix datetime display
+- truncate `unity.source`
+- fix datetime display
 
-    - moment.js?
+  - moment.js?
 
 SERVER
 ------
@@ -86,16 +86,12 @@ FEATURE REQUESTS
   - need to be able to add sidebar from post
 
 - api to add pages from (so you can write them in vim)
-- draft mode for new pages and posts
-
-  - `@adminOrAuthorRequired`
-  - hg.com/page/newpagetitle/draft (uses new/edit template)
-
 - user features
 
   - can edit own posts or if admin
   - post edited on
   - profile with all posts
+  - can view all drafts
   - does forgot it need to be in the admin panel?
   - registration shouldn't save unless all goes well
 
@@ -188,6 +184,11 @@ MISC
 
 CHANGELOG
 =========
+
+- draft mode for new pages and posts working
+
+  - viewable only by author or admin
+  - hg.com/page/newpagetitle/draft (uses new/edit template)
 
 - begin work on new navbar
 - disqus implemented..
