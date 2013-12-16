@@ -57,12 +57,12 @@
                 <hr>
             {% endfor %}
         {% endif %}
-    	{% if current_user.is_authenticated() == True -%}
-    	    <h2>Add a comment</h2>
+        {% if current_user.is_authenticated() == True -%}
+            <h2>Add a comment</h2>
                 {{ render_form('addComment') }}
-    	   {% else %}
-    	   	<p><a href="{{url_for('users.login')}}">login</a> to comment.</p>
-    	 {% endif %}
+        {% else %}
+            <p><a href="{{url_for('users.login')}}">login</a> to comment.</p>
+        {% endif %}
     </div><!--end comments-->
 {% endmacro %}
 

@@ -1,3 +1,13 @@
+"""
+    app.forms
+    ~~~~~~~~~
+
+    All classes for forms needed throughout the application.  May eventually
+    be broken out into seperate modules for each blueprint.
+
+    :copyright: and :license: see TOPMATTER.
+"""
+
 from flask.ext.wtf import Form, RecaptchaField
 from wtforms import (TextField, TextAreaField, PasswordField, SubmitField,
                      BooleanField, SelectField)
@@ -9,6 +19,7 @@ from flask.ext.pagedown.fields import PageDownField
 
 
 class LoginForm(Form):
+    """Class for login form."""
 
     email = TextField('email', [Required(
                       "Please enter a username.")])
@@ -21,6 +32,10 @@ class LoginForm(Form):
         Form.__init__(self, *args, **kwargs)
 
     def validate(self):
+        """
+        Attempts to look up `self.email.data` in db returning an error if not
+        found or sending it to `user.check_password()` if found.
+        """
         if not Form.validate(self):
             return False
         try:
@@ -36,15 +51,15 @@ class LoginForm(Form):
 
 
 class RegisterUser(Form):
+    """Class for registration form."""
 
     firstname = TextField("First name",  [Required(
                           "Please enter your first name.")])
     lastname = TextField("Last name",  [Required(
                          "Please enter your last name.")])
-    email = TextField(
-        "Email", [
-            Required("Please enter your email address."),
-            Email("Please engter a valid email address.")])
+    email = TextField("Email",
+                      [Required("Please enter your email address."),
+                       Email("Please engter a valid email address.")])
     password = PasswordField('New Password', [Required(),
                              EqualTo('confirm',
                                      message='Passwords must match')])
@@ -57,6 +72,10 @@ class RegisterUser(Form):
         Form.__init__(self, *args, **kwargs)
 
     def validate(self):
+        """
+        Checks if `self.email` alread in db.  Returns error if found or True
+        if unique.
+        """
         if not Form.validate(self):
             return False
         try:
@@ -69,18 +88,21 @@ class RegisterUser(Form):
 
 
 class CommentForm(Form):
+    """Class for comment form."""
 
     comment = TextAreaField('comment', [Required()])
     submit = SubmitField("submit")
 
 
 class ForgotPasswordForm(Form):
+    """Class for forgot password form."""
 
     email = TextField("email", [Required("Please enter your email.")])
     submit = SubmitField("submit")
 
 
 class ResetPasswordForm(Form):
+    """Class for reset password form."""
 
     password = PasswordField('New Password', [Required(),
                              EqualTo('confirm',
@@ -91,6 +113,7 @@ class ResetPasswordForm(Form):
 
 
 class UnityForm(Form):
+    """Class for new posts form."""
 
     title = TextField("Title", [Required(
                       "Please enter a title for your post.")])
@@ -110,12 +133,18 @@ class UnityForm(Form):
         Form.__init__(self, *args, **kwargs)
 
     def validate(self):
+        """Retuns true if form valid, false if not."""
         if not Form.validate(self):
             return False
         else:
             return True
 
     def validate_with_slug(self):
+        """
+        Attempts to slugify `self.title.data` and find it in the db.  If found,
+        returns an error saying it already exists.  If not found, it is unique
+        and returns True.
+        """
         if self.validate():
             try:
                 newSlug = makeSlug(self.title.data)
@@ -127,6 +156,12 @@ class UnityForm(Form):
                 return True
 
     def validate_on_update(self, slug):
+        """
+        On update/edit of a previously submitted post, checks to see whether
+        the title/slug has changed.  If it has changed, it returns
+        `self.validate_with_slug()`.  If it has not changed, it returns
+        `self.validate()`.
+        """
         if slug == makeSlug(self.title.data):
             return self.validate()
         else:

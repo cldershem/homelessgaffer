@@ -23,7 +23,12 @@ INSTALLATION
   cldershem ALL= NOPASSWD: /usr/sbin/service nginx \*
   cldershem ALL= NOPASSWD: /usr/sbin/service uwsgi \*
 
-- `cp secrets.py`
+- fill out secrets.py
+
+.. code:: sh
+
+  cp secrets.py.example secrets.py
+
 
 TODO
 ====
@@ -185,6 +190,8 @@ MISC
 CHANGELOG
 =========
 
+- add secrets.py.example
+- add docstrings for a lot of things
 - draft mode for new pages and posts working
 
   - viewable only by author or admin

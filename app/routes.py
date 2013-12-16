@@ -1,3 +1,13 @@
+"""
+    app.routes
+    ~~~~~~~~~
+
+    Main views/routes.  All but `index` and errors handled by individual
+    blueprints.
+
+    :copyright: and :license: see TOPMATTER.
+"""
+
 from flask import (render_template)
 from app import app
 from app.users.views import mod as usersModule

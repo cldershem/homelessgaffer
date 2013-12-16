@@ -1,11 +1,27 @@
+"""
+    app.models
+    ~~~~~~~~~
+
+    All models for db document structure.  Maybe eventually be split into
+    separate modules for each blueprint.
+
+    :copyright: and :license: see TOPMATTER.
+"""
+
 from flask import url_for
 from app import db, bcrypt
 from app.constants import DATE_TIME_NOW
 
 
 class User(db.Document):
+    """
+    Defines db model for `User`.
+    """
 
     class Roles(db.EmbeddedDocument):
+        """
+        Doc embedded in User showing users permissions, roles, and rights.
+        """
         can_login = db.BooleanField(default=False)
         can_comment = db.BooleanField(default=True)
         can_post = db.BooleanField(default=True)
@@ -21,25 +37,38 @@ class User(db.Document):
     roles = db.EmbeddedDocumentField(Roles, default=Roles)
 
     def set_password(self, password):
+        """Takes user password and stores it as a hash using bcrypt."""
         self.pwdhash = bcrypt.generate_password_hash(password)
 
     def check_password(self, password):
+        """Takes a password and checks its bcrypt hash against the db."""
         return bcrypt.check_password_hash(self.pwdhash, password)
 
     def is_authenticated(self):
+        """Returns true if user is logged in."""
         return True
 
     def activate_user(self):
+        """
+        Sets user to active, allowing user to login.  Sets `User.confrimed`
+        to `DATE_TIME_NOW` and updates `user.roles.can_login` to `True`.
+        """
         self.confirmed = DATE_TIME_NOW
         self.roles.can_login = True
 
     def is_active(self):
+        """Returns `True` if user is active."""
         return True
 
     def is_anonymous(self):
+        """
+        Returns `True` if user is logged in.  Returns `False` if user
+        not logged in.
+        """
         return False
 
     def get_id(self):
+        """Returns user.email which is currently used as the unique ID."""
         return self.email
 
     def __repr__(self):
@@ -49,10 +78,12 @@ class User(db.Document):
         return self.email
 
     def is_admin(self):
+        """Returns `user.roles.is_admin`."""
         return self.roles.is_admin
 
 
 class Comment(db.EmbeddedDocument):
+    """Defines db model for `Comment`."""
 
     created_at = db.DateTimeField(default=DATE_TIME_NOW, required=True)
     body = db.StringField(required=True)
@@ -63,6 +94,7 @@ class Comment(db.EmbeddedDocument):
 
 
 class Unity(db.Document):
+    """Defines db model for `Unity`."""
 
     created_at = db.DateTimeField(default=DATE_TIME_NOW, required=True)
     edited_on = db.ListField(db.DateTimeField(default=DATE_TIME_NOW))
@@ -77,6 +109,7 @@ class Unity(db.Document):
     comments = db.ListField(db.EmbeddedDocumentField(Comment))
 
     def get_absolute_url(self):
+        """Returns url for individual pages using slug."""
         return url_for('unity', kwargs={"slug": self.slug})
 
     def __unicode__(self):

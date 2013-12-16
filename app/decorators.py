@@ -1,3 +1,12 @@
+"""
+    app.decorators
+    ~~~~~~~~~
+
+    All decorator functions needed throughout application.
+
+    :copyright: and :license: see TOPMATTER.
+"""
+
 from threading import Thread
 from functools import wraps
 from flask import flash, redirect, url_for
@@ -6,7 +15,7 @@ from flask.ext.login import current_user
 
 def async(func):
     """
-    enables process to run in background while page is loaded
+    Enables process to run in background while page is loaded.
     """
     def wrapper(*args, **kwargs):
         thr = Thread(target=func, args=args, kwargs=kwargs)
@@ -15,7 +24,10 @@ def async(func):
 
 
 def anon_required(func):
-    """antitheses of login_required"""
+    """
+    Antitheses of `LoginManager(app).login_required`, requires user to be
+    logged out.
+    """
     @wraps(func)
     def wrapper(*args, **kwargs):
         if current_user.is_authenticated():
@@ -27,7 +39,7 @@ def anon_required(func):
 
 
 def admin_required(func):
-    """admin privlidges required to access admin pages"""
+    """Admin privlidges required to access admin pages."""
     @wraps(func)
     def wrapper(*args, **kwargs):
         if current_user.is_authenticated():  # and current_user.roles.is_admin:

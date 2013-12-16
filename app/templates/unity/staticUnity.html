@@ -19,15 +19,15 @@
         <p>
             <strong>tags: </strong>
             {% for tag in unity.tags %}
-    		    [<a class="unitytags" href="{{ url_for('unity.listUnity', tag=tag) }}">{{tag}}</a>]
-    	    {% endfor %}
+                [<a class="unitytags" href="{{ url_for('unity.listUnity', tag=tag) }}">{{tag}}</a>]
+            {% endfor %}
         </p>
     {% endif %}
     {% if unity.source %}
         <p>
             <strong>source: </strong>
             {% for source in unity.source %}
-                [<a href="{{ source }}">{{ source }}</a>]
+            [<a href="{{ source }}" title="{{ source }}">{{ source }}</a>]
             {% endfor %}
         </p>
     {% endif %}
