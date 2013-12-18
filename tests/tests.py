@@ -43,7 +43,7 @@ class TestEmail(unittest.TestCase):
 #             self.bodyHTML)
 
     def test_send_email_confirmirmation(self):
-        user = User.objects.get(email=self.userEmail)
+        user = User.get(email=self.userEmail)
         emails.email_confirmation(user, "payload")
 
     def test_send_password_reset(self):

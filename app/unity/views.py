@@ -23,18 +23,18 @@ mod = Blueprint('unity', __name__, url_prefix='/unity')
 def listUnity(tag, user, pageNum):
     if tag:
         unitySet = Pagination(
-            Unity.objects(postType='blog', tags=tag),
+            Unity.get_set(postType='blog', tags=tag),
             pageNum, 10)
         pageTitle = tag
     if user:
-        user = User.objects.get(email=user)
+        user = User.get(email=user)
         unitySet = Pagination(
-            Unity.objects(postType='blog', author=user),
+            Unity.get_set(postType='blog', author=user),
             pageNum, 10)
         pageTitle = user.email
     elif not tag and not user:
         unitySet = Pagination(
-            Unity.objects(postType='blog'),
+            Unity.get_set(postType='blog'),
             pageNum, 10)
         pageTitle = "blog"  # "listUnity"
     return render_template('unity/listUnity.html',
@@ -63,7 +63,7 @@ def newUnity():
                 newUnity.source = form.source.data
             if form.summary.data:
                 newUnity.summary = form.summary.data
-            newUnity.author = User.objects.get(email=current_user.email)
+            newUnity.author = User.get(email=current_user.email)
             newUnity.save()
             flash('Your unity has been posted.')
             return redirect(url_for('.staticUnity', slug=slug))
@@ -76,7 +76,7 @@ def newUnity():
 @mod.route('/<slug>/edit', methods=['GET', 'POST'])
 @login_required
 def editUnity(slug):
-    unity = Unity.objects.get(slug=slug)
+    unity = Unity.get_unique(slug=slug)
     slug = unity.slug
     form = UnityForm(obj=unity)
 
@@ -103,7 +103,7 @@ def editUnity(slug):
 @mod.route('/<slug>', methods=['GET', 'POST'])
 def staticUnity(slug):
     if request.method == 'POST':
-        unity = Unity.objects.get_or_404(slug=slug)
+        unity = Unity.get_or_404(slug=slug)
         form = CommentForm()
         if not form.validate():
             return render_template('unity/staticUnity.html',
@@ -112,7 +112,7 @@ def staticUnity(slug):
                                    form=form)
         else:
             newComment = Comment(body=form.comment.data)
-            newComment.author = User.objects.get(email=current_user.email)
+            newComment.author = User.get(email=current_user.email)
             unity.comments.append(newComment)
             unity.save()
             form.comment.data = None  # resets field on refresh
@@ -126,8 +126,8 @@ def staticUnity(slug):
             return render_template('unity/%s.html' % slug,
                                    pageTitle=slug)
         except TemplateNotFound:
-            unity = Unity.objects.get_or_404(slug=slug)
-            currentUser = User.objects.get(email=current_user.email)
+            unity = Unity.get_or_404(slug=slug)
+            currentUser = User.get(email=current_user.email)
             if (unity.postType == 'draft' and
                     unity.author != currentUser and
                     currentUser.is_admin() is False):

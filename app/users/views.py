@@ -18,7 +18,7 @@ mod = Blueprint('users', __name__, url_prefix='/users')
 
 @lm.user_loader
 def load_user(id):
-    user = User.objects.get(email=id)
+    user = User.get(email=id)
     return user
 
 
@@ -39,7 +39,8 @@ def login():
                                    form=form,
                                    pageTitle=pageTitle)
         else:
-            user = User.objects.get(email=form.email.data.lower().strip())
+            # user = User.get(email=form.email.data.lower().strip())
+            user = User.get(email=form.email.data.lower().strip())
             if user and user.roles.can_login is True:
                 #add remember_me
                 user.last_seen = DATE_TIME_NOW
@@ -116,7 +117,7 @@ def activateUser(payload):
     user_email = check_activation_link(payload)
     if not user_email:
         return abort(404)
-    user = User.objects.get(email=user_email)
+    user = User.get(email=user_email)
     if user:
         if user.confirmed is None:
             user.activate_user()
@@ -142,7 +143,7 @@ def forgotPassword():
                                    pageTitle=pageTitle)
         else:
             try:
-                user = User.objects.get(email=form.email.data.lower().strip())
+                user = User.get(email=form.email.data.lower().strip())
             except:
                 flash("That email does not exist, please try another.")
                 return render_template('users/forgotPassword.html',
@@ -177,7 +178,7 @@ def reset_password(payload):
     oldhash = unhashed_payload[1]
 
     if user_email:
-        user_oldhash = User.objects.get(email=user_email).pwdhash[:10]
+        user_oldhash = User.get(email=user_email).pwdhash[:10]
         if oldhash != user_oldhash:
             flash("Token has been used previously.  Please try again.")
             return redirect(url_for('.forgotPassword'))
@@ -192,7 +193,7 @@ def reset_password(payload):
                                    form=form,
                                    pageTitle=pageTitle)
         else:
-            user = User.objects.get(email=user_email)
+            user = User.get(email=user_email)
             user.set_password(form.password.data)
             user.save()
             #email password reset
@@ -206,7 +207,7 @@ def reset_password(payload):
 
 @mod.route('/profile/<user_id>')
 def profile(user_id):
-    user = User.objects.get(email=user_id)
+    user = User.get(email=user_id)
     return render_template('users/profile.html',
                            user=user,
                            pageTitle=user_id)

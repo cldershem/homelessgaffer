@@ -39,7 +39,7 @@ class LoginForm(Form):
         if not Form.validate(self):
             return False
         try:
-            user = User.objects.get(email=self.email.data.lower().strip())
+            user = User.get(email=self.email.data.lower().strip())
         except DoesNotExist:
             self.email.errors.append("Invalid email address")
             return False
@@ -79,7 +79,7 @@ class RegisterUser(Form):
         if not Form.validate(self):
             return False
         try:
-            user = User.objects.get(email=self.email.data.lower().strip())
+            user = User.get(email=self.email.data.lower().strip())
             if user:
                 self.email.errors.append("That email already exists.")
             return False
@@ -148,7 +148,7 @@ class UnityForm(Form):
         if self.validate():
             try:
                 newSlug = makeSlug(self.title.data)
-                slug = Unity.objects.get(slug=newSlug)
+                slug = Unity.get_unique(slug=newSlug)
                 if slug:
                     self.title.errors.append("That title already exists.")
                     return False

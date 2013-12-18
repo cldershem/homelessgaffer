@@ -57,7 +57,10 @@ class User(db.Document):
         self.roles.can_login = True
 
     def is_active(self):
-        """Returns `True` if user is active."""
+        """
+        Returns `True` if user is active.  Will be used to find banned,
+        suspended, or defunct users in the future.
+        """
         return True
 
     def is_anonymous(self):
@@ -80,6 +83,11 @@ class User(db.Document):
     def is_admin(self):
         """Returns `user.roles.is_admin`."""
         return self.roles.is_admin
+
+    @staticmethod
+    def get(**kwargs):
+        """returns `User` object."""
+        return User.objects.get(**kwargs)
 
 
 class Comment(db.EmbeddedDocument):
@@ -121,3 +129,18 @@ class Unity(db.Document):
 
     def __repr__(self):
         return '<Unity %r, -%r>' % (self.slug, self.author)
+
+    @staticmethod
+    def get_set(**kwargs):
+        """Returns a set of objects."""
+        return Unity.objects(**kwargs)
+
+    @staticmethod
+    def get_unique(**kwargs):
+        """Returns a unique object."""
+        return Unity.objects.get(**kwargs)
+
+    @staticmethod
+    def get_or_404(**kwargs):
+        """Returns a unique object or 404."""
+        return Unity.objects.get_or_404(**kwargs)

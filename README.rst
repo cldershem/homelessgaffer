@@ -29,7 +29,6 @@ INSTALLATION
 
   cp secrets.py.example secrets.py
 
-
 TODO
 ====
 
@@ -189,6 +188,10 @@ MISC
 
 CHANGELOG
 =========
+
+- abstracted db calls out
+
+  - instead of `User.objects.get(tag='taco')` use `User.find()`
 
 - add secrets.py.example
 - add docstrings for a lot of things
