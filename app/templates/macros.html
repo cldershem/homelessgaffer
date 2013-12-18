@@ -35,7 +35,7 @@
             {% if pageSet.page == 1 and not pageSet.has_next %} <!-- dont show if only page -->
             {% else %}
                 {% if page == pageSet.page %}
-                    <strong>{{page}}</strong>
+                    {{page}}
                 {% else %}
                     <a href="{{url_for(endpoint, pageNum=page)}}">{{page}}</strong></a>
                 {% endif %}

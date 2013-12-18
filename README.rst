@@ -160,7 +160,6 @@ BUG FIXES
   - fix redirect after password change fail
 
 - when on page 6 of listPages page 3 in pager is None?
-- fix title 'page' when reloading page from submission error
 - sometimes listPosts in wrong order
 - make admin redirect if not logged in..
 
@@ -189,6 +188,8 @@ MISC
 CHANGELOG
 =========
 
+- bug fix: title 'page' when reloading page from submission error
+- remove <strong> from page numbers
 - abstracted db calls out
 
   - instead of `User.objects.get(tag='taco')` use `User.find()`

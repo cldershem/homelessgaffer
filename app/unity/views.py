@@ -50,7 +50,9 @@ def newUnity():
 
     if request.method == 'POST':
         if not form.validate_with_slug():
-            return render_template("unity/newUnity.html", form=form)
+            return render_template("unity/newUnity.html",
+                                   form=form,
+                                   pageTitle="newUnity")
         else:
             slug = makeSlug(form.title.data)
             newUnity = Unity(title=form.title.data,
@@ -83,7 +85,7 @@ def editUnity(slug):
     if request.method == 'POST':
         if not form.validate_on_update(slug):
             return render_template('unity/newUnity.html',
-                                   title=unity.title,
+                                   pageTitle=unity.title,
                                    slug=slug,
                                    form=form)
         else:
