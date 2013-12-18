@@ -53,9 +53,9 @@ class LoginForm(Form):
 class RegisterUser(Form):
     """Class for registration form."""
 
-    firstname = TextField("First name",  [Required(
+    firstname = TextField("First name", [Required(
                           "Please enter your first name.")])
-    lastname = TextField("Last name",  [Required(
+    lastname = TextField("Last name", [Required(
                          "Please enter your last name.")])
     email = TextField("Email",
                       [Required("Please enter your email address."),
