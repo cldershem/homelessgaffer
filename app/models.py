@@ -136,7 +136,7 @@ class Unity(db.Document):
         return Unity.objects(**kwargs)
 
     @staticmethod
-    def get_unique(**kwargs):
+    def get(**kwargs):
         """Returns a unique object."""
         return Unity.objects.get(**kwargs)
 

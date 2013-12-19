@@ -78,7 +78,7 @@ def newUnity():
 @mod.route('/<slug>/edit', methods=['GET', 'POST'])
 @login_required
 def editUnity(slug):
-    unity = Unity.get_unique(slug=slug)
+    unity = Unity.get(slug=slug)
     slug = unity.slug
     form = UnityForm(obj=unity)
 

@@ -148,7 +148,7 @@ class UnityForm(Form):
         if self.validate():
             try:
                 newSlug = makeSlug(self.title.data)
-                slug = Unity.get_unique(slug=newSlug)
+                slug = Unity.get(slug=newSlug)
                 if slug:
                     self.title.errors.append("That title already exists.")
                     return False
