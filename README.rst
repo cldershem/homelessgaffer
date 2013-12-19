@@ -65,13 +65,16 @@ SERVER
 
 - all files in /var/www/homelessgaffer.com owned by cldershem
 - move logs to /var/www/hg/tmp/log
-- database copy
-- database migrate (see below)
 - `tty` or `askpwd` would solve sudoers issue
 - fix default nginx error pages
 - make requirements.txt check version numbers
-- create db, add admin@hg.com with admin privileges
-- migrate db
+- update manage.py
+
+  - create db, add admin@hg.com with admin privileges
+  - database copy
+  - database migrate (see below)
+  - remove `run.py` in favor of `python manage runserver`
+  - check out quokka's manage.py
 
 FEATURE REQUESTS
 ----------------
@@ -161,7 +164,7 @@ BUG FIXES
 
 - when on page 6 of listPages page 3 in pager is None?
 - sometimes listPosts in wrong order
-- make admin redirect if not logged in..
+- make admin redirect if not logged in
 
 MISC
 ----
@@ -171,7 +174,7 @@ MISC
 - replace `#!/venv/bin/python` with `!/usr/bin/env python`
 - merge battleship repos
 - flake8 should only check .py files
-- make it so you can import MAIL and not each individual Mail_USERNAME
+- make it so you can import MAIL and not each individual MAIL_USERNAME
 - do I need a robots.txt
 - comments vs discussion
 
@@ -188,6 +191,7 @@ MISC
 CHANGELOG
 =========
 
+- change `app.models.Unity.get_unique()` to `app.models.Unity.get()`
 - bug fix: title 'page' when reloading page from submission error
 - remove <strong> from page numbers
 - abstracted db calls out
