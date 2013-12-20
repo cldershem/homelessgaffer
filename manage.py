@@ -20,16 +20,20 @@ manager = Manager(app)
 manager.add_command("runserver", Server(
     use_debugger=True,
     use_reloader=True,
-    # host='0.0.0.0'
+    host='0.0.0.0'
     )
 )
 
 
 @manager.command
+def run():
+    """Runs development server.  Replaces run.py"""
+    app.run()
+
+
+@manager.command
 def create_admin():
-    """
-    Creates a default administrator.
-    """
+    """Creates a default administrator."""
     name = prompt("What be your full name?")
     email = prompt("What be your email?")
     pwd = prompt_pass("Please enter a password")
@@ -39,25 +43,19 @@ def create_admin():
 
 @manager.command
 def migrate_db():
-    """
-    Runs script to migrate db from version to version.
-    """
+    """Runs script to migrate db from version to version."""
     pass
 
 
 @manager.command
 def backup_db():
-    """
-    Backups db locally and remotely.
-    """
+    """Backups db locally and remotely."""
     pass
 
 
 @manager.command
 def populate_db():
-    """
-    Populates db with dummy data for testing purposes.
-    """
+    """Populates db with dummy data for testing purposes."""
     pass
 
 if __name__ == "__main__":

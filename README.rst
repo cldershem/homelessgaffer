@@ -29,6 +29,15 @@ INSTALLATION
 
   cp secrets.py.example secrets.py
 
+- run dev server
+
+.. code:: sh
+
+  sudo apt-get install virtualenv
+  virtualenv venv
+  source venv/bin/actiate
+  python manage run
+
 TODO
 ====
 
@@ -73,7 +82,6 @@ SERVER
   - create db, add admin@hg.com with admin privileges
   - database copy
   - database migrate (see below)
-  - remove `run.py` in favor of `python manage runserver`
   - check out quokka's manage.py
 
 FEATURE REQUESTS
@@ -187,10 +195,13 @@ MISC
 - add tests/logging
 - find word for create or edit if exists for unity new/edit/draft page
 - tags need to be slugified
+- remove any facebook/google
 
 CHANGELOG
 =========
 
+- replace `run.py` with `python manage.py run`
+- begin work on manage.py
 - change `app.models.Unity.get_unique()` to `app.models.Unity.get()`
 - bug fix: title 'page' when reloading page from submission error
 - remove <strong> from page numbers
