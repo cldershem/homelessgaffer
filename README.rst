@@ -6,6 +6,9 @@ README
 
 INSTALLATION
 ============
+
+- prereqs on `git`, `python-pip`
+
 .. code:: sh
 
   git clone /var/www/homelessgaffer.com
@@ -29,13 +32,21 @@ INSTALLATION
 
   cp secrets.py.example secrets.py
 
-- run dev server
+- setup virtualenv
 
 .. code:: sh
 
   sudo apt-get install virtualenv
-  virtualenv venv
-  source venv/bin/actiate
+  sudo pip install virtualenvwrapper
+  mkvirtualenv hg
+  workon hg
+  pip install -r requirements.txt
+
+- run dev server
+
+.. code:: sh
+
+  workon hg
   python manage run
 
 TODO
@@ -177,9 +188,9 @@ BUG FIXES
 MISC
 ----
 
+- is the config debug necessary with manage.py?
 - get some content
 - rename unity
-- replace `#!/venv/bin/python` with `!/usr/bin/env python`
 - merge battleship repos
 - flake8 should only check .py files
 - make it so you can import MAIL and not each individual MAIL_USERNAME
@@ -200,6 +211,8 @@ MISC
 CHANGELOG
 =========
 
+- updated githooks to work with virtualenvwrapper
+- using virtualenvwrapper
 - replace `run.py` with `python manage.py run`
 - begin work on manage.py
 - change `app.models.Unity.get_unique()` to `app.models.Unity.get()`

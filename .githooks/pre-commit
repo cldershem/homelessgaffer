@@ -1,28 +1,30 @@
 #!/usr/bin/env python
+"""
+    .githooks.pre-commit
+
+    Updates `requirements.txt` and checks commit against PEP8/pyflakes.
+"""
+
 import sys
 import subprocess
-import os
+# import os
 from flake8.hooks import git_hook
 
-# BASE_DIR = os.path.abspath(os.path.join(
-# os.path.abspath(os.path.dirname(__file__)), os.pardir))
 BASE_DIR = "/home/cldershem/hg-Python"
+PYTHON_DIR = "$WORKON_HOME/hg/bin/"
 
 
 def gitFlake8():
-    """checks everything against Pep8"""
-
+    """Checks everything against Pep8."""
     sys.exit(git_hook(complexity=10, strict=False,
                       ignore=['E501', 'E123']))
     print('finished flake8 tests')
 
 
 def updateRequirements():
-    """updates requirements.txt"""
-
+    """Updates requirements.txt."""
     with open(BASE_DIR + "/requirements.txt", "w") as f:
-        subprocess.call([os.path.join(BASE_DIR, "venv/bin", "pip"), "freeze"],
-                        stdout=f)
+        subprocess.call([PYTHON_DIR + "pip freeze"], stdout=f, shell=True)
     print('updated requirements.txt')
 
 

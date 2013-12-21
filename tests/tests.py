@@ -1,4 +1,5 @@
-#!venv/bin/python
+#!/usr/bin/env python
+
 # import os
 import unittest
 # import tempfile

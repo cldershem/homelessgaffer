@@ -1,45 +1,55 @@
 #!/usr/bin/env python
-import os
+"""
+    .githooks.post-receive
+
+    Updates `requirements.txt`, restarts services, downloads untracked files,
+    checks out repo to correct directory.
+"""
+
+# import os
 import subprocess
 import filecmp
 import urllib
 import zipfile
 
-baseDir = "/var/www/homelessgaffer.com/"
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+BASE_DIR = "/var/www/homelessgaffer.com/"
+PYTHON_DIR = "$WORKON_HOME/hg/bin/"
 
 
 def gitCheckout():
-    subprocess.call(["git", "--work-tree=" + baseDir, "checkout", "-f"],
+    """Checks out repo to the proper directory."""
+    subprocess.call(["git", "--work-tree=" + BASE_DIR, "checkout", "-f"],
                     cwd="/home/cldershem/homelessgaffer.git")
 
 
 def updateRequirements():
-    oldRequirements = baseDir + "tmp/requirements.txt.old"
-    newRequirements = baseDir + "requirements.txt"
+    """
+    Checks to see if any new modules needs to be installed, installing
+    as needed.
+    """
+    oldRequirements = BASE_DIR + "tmp/requirements.txt.old"
+    newRequirements = BASE_DIR + "requirements.txt"
 
     with open(oldRequirements, "w") as f:
-        subprocess.call([os.path.join(baseDir, 'venv/bin', "pip"),
-                        "freeze"], stdout=f)
+        subprocess.call([PYTHON_DIR + "pip freeze"], stdout=f, shell=True)
     if filecmp.cmp(oldRequirements, newRequirements) is True:
         print("No changes to requirements.txt, skipping update.")
     else:
-        subprocess.call([os.path.join(baseDir, 'venv/bin', "pip"),
-                        "install", "-r", newRequirements])
+        subprocess.call([PYTHON_DIR + "pip install -r " + newRequirements],
+                        shell=True)
+    if filecmp.cmp(oldRequirements, newRequirements) is True:
         print('updated requirements.txt')
     subprocess.call(["rm", oldRequirements])
-    #print("removed tmp/requirements.txt.old")
 
 
 def restartServices():
+    """Restarts nginx and uwsgi services."""
     subprocess.call(["sudo", "service", "nginx", "restart"])
-    #print "restarted nginx"
-
     subprocess.call(["sudo", "service", "uwsgi", "restart"])
-    #print "restarted uwsgi"
 
 
 def getNonTrackedFiles():
+    """Downloads and installs any necessary libraries not in git."""
     jsDir = "app/static/js/"
     kineticJS = {
         "name": "kinetic-v4.6.0.min.js",
@@ -51,31 +61,26 @@ def getNonTrackedFiles():
 
     for item in neededLibs:
         try:
-            with open(baseDir + jsDir + item['name']):
+            with open(BASE_DIR + jsDir + item['name']):
                 print "skipping %s" % (item['name'])
         except IOError:
             if item['zip'] is False:
                 urllib.urlretrieve(item['url'],
-                                   filename=baseDir + jsDir + item['name'])
+                                   filename=BASE_DIR + jsDir + item['name'])
                 print "downloading %s" % (item['name'])
             elif item['zip'] is not False:
                 filename = item['zip']
                 urllib.urlretrieve(item['url'],
                                    filename=filename)
                 with zipfile.ZipFile(filename, "r") as z:
-                    z.extractall(path=baseDir + jsDir)
+                    z.extractall(path=BASE_DIR + jsDir)
                     print "extrated %s" % (item['name'])
                 subprocess.call(["rm", item['zip']])
             print "%s -- ready." % (item['name'])
 
-    #secrets.py
-    #print copied "secrets.py shhh......"
-
 
 def fixPermissions():
-    # print("Fixing permissions of '{0}'".format(baseDir))
-    # subprocess.call(["sudo", "chown", "-R", baseDir, "homeless:homeless"])
-    # print("Permissions set.")
+    """Fix any permissions issues."""
     pass
 
 if __name__ == '__main__':
@@ -83,8 +88,9 @@ if __name__ == '__main__':
     updateRequirements()
     getNonTrackedFiles()
     restartServices()
-    print """
-          ###############################
-          Do you need to copy secrets.py?
-          ###############################
-          """
+    print(
+        """
+        ###############################
+        Do you need to copy secrets.py?
+        ###############################
+        """)
