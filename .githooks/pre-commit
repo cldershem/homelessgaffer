@@ -11,7 +11,7 @@ import subprocess
 from flake8.hooks import git_hook
 
 BASE_DIR = "/home/cldershem/hg-Python"
-PYTHON_DIR = "$WORKON_HOME/hg/bin/"
+# PYTHON_DIR = "$WORKON_HOME/hg/bin/"
 
 
 def gitFlake8():
@@ -24,7 +24,8 @@ def gitFlake8():
 def updateRequirements():
     """Updates requirements.txt."""
     with open(BASE_DIR + "/requirements.txt", "w") as f:
-        subprocess.call([PYTHON_DIR + "pip freeze"], stdout=f, shell=True)
+        # subprocess.call([PYTHON_DIR + "pip freeze"], stdout=f, shell=True)
+        subprocess.call(["pip freeze"], stdout=f, shell=True)
     print('updated requirements.txt')
 
 
