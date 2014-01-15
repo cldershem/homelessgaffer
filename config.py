@@ -8,7 +8,7 @@ if gethostname() == 'cldershem-laptop':
 else:
     DEBUG = False
 
-TESTING = False
+# TESTING = False
 # LOGTO = '/var/www/homelessgaffer.com/tmp/log/'
 
 if DEBUG:
