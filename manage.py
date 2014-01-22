@@ -10,6 +10,7 @@ import os
 import sys
 from flask.ext.script import (Manager, Server, prompt_pass, prompt)
 from app import app
+# from app.emails import email_confirmation
 
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -31,8 +32,10 @@ def run():
     app.config.update(dict(
         DEBUG=True,
         TESTING=True,
-        testing=True
+        testing=True,
+        Testing=True,
         ))
+    app.testing = True
     app.run()
 
 
@@ -41,21 +44,22 @@ def create_admin():
     """Creates a default administrator."""
     from app.forms import RegisterUser
     from werkzeug.datastructures import MultiDict
-    # from app.models import User
+    from app.models import User
 
+    app.testing = True
     firstname = prompt("What be your first name?").title()
     lastname = prompt("What is your last name?").title()
     email = prompt("What be your email?").lower().strip()
     password = prompt_pass("Please enter a password")
     confirm = prompt_pass("Please confirm password")
-    # recaptcha = True
+    recaptcha = ''
     data = MultiDict(dict(
         firstname=firstname,
         lastname=lastname,
         email=email,
         password=password,
         confirm=confirm,
-        # recaptcha=recaptcha
+        recaptcha=recaptcha
         ))
 
     form = RegisterUser(data, csrf_enabled=False)
@@ -64,17 +68,23 @@ def create_admin():
         print form.errors
         return create_admin()
     else:
-        print(firstname, lastname, email, password, confirm)
-        print("success")
-        # newUser = User(firstname=form.firstname.data.title(),
-        #                lastname=form.lastname.data.title(),
-        #                email=form.email.data.lower().strip())
-        # newUser.set_password(form.password.data)
-        # newUser.save()
-        # payload = get_activation_link(newUser)
+        newUser = User(firstname=form.firstname.data.title(),
+                       lastname=form.lastname.data.title(),
+                       email=form.email.data.lower().strip())
+        newUser.set_password(form.password.data)
+        # payload = User.get_activation_link(newUser)
         # email_confirmation(newUser, payload)
-        # print("Please confirm your email address.")
-        # return redirect(url_for('index'))
+        # print("Please confirm your email address by checking your email.")
+        newUser.roles.is_admin = True
+        newUser.roles.can_login = True
+        newUser.save()
+        try:
+            user = User.get(email=form.email.data.lower().strip())
+            if user.is_admin() is True and user.roles.can_login is True:
+                pass
+        except:
+            print('There was an error adding your username to the db.')
+        print("{} has been added as an admin.".format(user.email))
 
 
 @manager.command
@@ -86,6 +96,12 @@ def migrate_db():
 @manager.command
 def backup_db():
     """Backups db locally and remotely."""
+    pass
+
+
+@manager.command
+def restore_db():
+    """Restores db from backup."""
     pass
 
 

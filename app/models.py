@@ -11,6 +11,8 @@
 from flask import url_for
 from app import db, bcrypt
 from app.constants import DATE_TIME_NOW
+from app.utils import get_serializer, get_timed_serializer
+from itsdangerous import (BadSignature, SignatureExpired)
 
 
 class User(db.Document):
@@ -88,6 +90,62 @@ class User(db.Document):
     def get(**kwargs):
         """returns `User` object."""
         return User.objects.get(**kwargs)
+
+    @staticmethod
+    def get_activation_link(user):
+        """
+        Takes a `user` object and returns their user_id as a url-safe,
+        serialized version as `payload`.
+        """
+        user_id = user.get_id()
+        s = get_serializer()
+        payload = s.dumps(user_id)
+        return payload
+
+    @staticmethod
+    def check_activation_link(payload):
+        """
+        Takes `payload`, checks if valid.  Returns false if invalid, or
+        `user_id` if valid.
+        """
+        s = get_serializer()
+        try:
+            user_id = s.loads(payload)
+        except BadSignature:
+            return False
+        return user_id
+
+    @staticmethod
+    def get_password_reset_link(user):
+        """
+        Takes a `user` object and using `get_timed_serializer()` returns a
+        url-safe, serialized, single-user, payload with a timestamp, which can
+        then be used to create a link to reset a users password.
+        """
+        user_id = user.get_id()
+        s = get_timed_serializer()
+
+        # disallows password reset link to be reused
+        oldhash = user.pwdhash[:10]
+        payload = s.dumps(user_id+oldhash)
+        return payload
+
+    @staticmethod
+    def check_password_reset_link(payload):
+        """
+        Takes payload and checks if valid.  Returns `user_id` and `oldhash` if
+        valid and False if invalid.
+        """
+        s = get_timed_serializer()
+        try:
+            # disallows password reset link to be reused
+            unhashed_payload = s.loads(payload, max_age=86400)
+            oldhash = unhashed_payload[
+                len(unhashed_payload)-10:len(unhashed_payload)]
+            user_id = unhashed_payload[:-10]
+        except SignatureExpired or BadSignature:
+            return False
+        return (user_id, oldhash)
 
 
 class Comment(db.EmbeddedDocument):

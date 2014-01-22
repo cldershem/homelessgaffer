@@ -6,8 +6,6 @@ from app.forms import (LoginForm, RegisterUser,
 from app.models import (User)
 from flask.ext.login import (login_user, logout_user,
                              current_user, login_required)
-from app.utils import (get_activation_link, check_activation_link,
-                       get_password_reset_link, check_password_reset_link)
 from app.constants import DATE_TIME_NOW
 from app.emails import email_confirmation, email_password_reset
 from app.decorators import anon_required
@@ -97,9 +95,9 @@ def register():
                            email=form.email.data.lower().strip())
             newUser.set_password(form.password.data)
             newUser.save()
-            payload = get_activation_link(newUser)
+            payload = User.get_activation_link(newUser)
             email_confirmation(newUser, payload)
-            flash("Please confirm your email address.")
+            flash("Please confirm your email address by cheking your email.")
             return redirect(url_for('index'))
 
     elif request.method == 'GET':
@@ -114,7 +112,7 @@ def register():
 @mod.route('/activate/<payload>')
 @anon_required
 def activateUser(payload):
-    user_email = check_activation_link(payload)
+    user_email = User.check_activation_link(payload)
     if not user_email:
         return abort(404)
     user = User.get(email=user_email)
@@ -152,9 +150,9 @@ def forgotPassword():
 
             # # disallows password reset link to be reused
             # oldhash = user.pwdhash[:10]
-            # payload = get_password_reset_link(user) + oldhash
+            # payload = User.get_password_reset_link(user) + oldhash
 
-            payload = get_password_reset_link(user)
+            payload = User.get_password_reset_link(user)
             email_password_reset(user, payload)
 
             flash("Password reset email has been sent. \
@@ -173,7 +171,7 @@ def reset_password(payload):
     pageTitle = "reset password"
 
     # disallows password reset link to be reused
-    unhashed_payload = check_password_reset_link(payload)
+    unhashed_payload = User.check_password_reset_link(payload)
     user_email = unhashed_payload[0]
     oldhash = unhashed_payload[1]
 
