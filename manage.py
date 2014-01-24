@@ -32,10 +32,7 @@ def run():
     app.config.update(dict(
         DEBUG=True,
         TESTING=True,
-        testing=True,
-        Testing=True,
         ))
-    app.testing = True
     app.run()
 
 
@@ -46,20 +43,23 @@ def create_admin():
     from werkzeug.datastructures import MultiDict
     from app.models import User
 
-    app.testing = True
+    # app.config['testing'] = True
+    # app.config['TESTING'] = True
+    app.config.update(
+        TESTING=True,
+        testing=True)
+
     firstname = prompt("What be your first name?").title()
     lastname = prompt("What is your last name?").title()
     email = prompt("What be your email?").lower().strip()
     password = prompt_pass("Please enter a password")
     confirm = prompt_pass("Please confirm password")
-    recaptcha = ''
     data = MultiDict(dict(
         firstname=firstname,
         lastname=lastname,
         email=email,
         password=password,
         confirm=confirm,
-        recaptcha=recaptcha
         ))
 
     form = RegisterUser(data, csrf_enabled=False)
@@ -115,6 +115,7 @@ def populate_db():
 def show_config():
     """Prints config variables"""
     from pprint import pprint
+
     print("Config:")
     pprint(dict(app.config))
 
