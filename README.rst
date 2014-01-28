@@ -207,10 +207,12 @@ MISC
 - find word for create or edit if exists for unity new/edit/draft page
 - tags need to be slugified
 - remove any facebook/google
+- change `get` and `set` in User to @properties?
 
 CHANGELOG
 =========
 
+- manage backup_db backs up and zips locally (not remotely)
 - create_admin works with recaptcha properly
 - create_admin works with recaptcha in `app.forms` commented out.
 - moved `get_activation_link` and the like to staticmethods under User

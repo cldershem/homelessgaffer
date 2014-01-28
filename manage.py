@@ -96,7 +96,23 @@ def migrate_db():
 @manager.command
 def backup_db():
     """Backups db locally and remotely."""
-    pass
+    import subprocess
+    import tarfile
+    import time
+
+    print('Beginning backup...')
+    bak_dir = './tmp/backups/'
+    command = 'mongodump --db homelessgaffer --out {}'.format(bak_dir)
+    subprocess.call(command.split())
+    print('Backup done.')
+
+    print('Zipping backup...')
+    source_dir = '{}{}'.format(bak_dir, 'homelessgaffer')
+    time_now = time.strftime('%m-%d-%y_%H:%M')
+    tarname = '{}_{}.tar.gz'.format(bak_dir + 'hg', time_now)
+    with tarfile.open(tarname, 'w:gz') as tar:
+        tar.add(source_dir)
+    print('Backup zipped: {}.'.format(tarname))
 
 
 @manager.command
