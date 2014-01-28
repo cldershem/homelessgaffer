@@ -43,11 +43,11 @@ def create_admin():
     from werkzeug.datastructures import MultiDict
     from app.models import User
 
-    # app.config['testing'] = True
     # app.config['TESTING'] = True
-    app.config.update(
-        TESTING=True,
-        testing=True)
+    # app.config.update(TESTING=True)
+    app.config.update(dict(
+        TESTING=True
+        ))
 
     firstname = prompt("What be your first name?").title()
     lastname = prompt("What is your last name?").title()

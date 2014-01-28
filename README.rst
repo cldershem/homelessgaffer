@@ -211,6 +211,7 @@ MISC
 CHANGELOG
 =========
 
+- create_admin works with recaptcha properly
 - create_admin works with recaptcha in `app.forms` commented out.
 - moved `get_activation_link` and the like to staticmethods under User
 - added google analytics
