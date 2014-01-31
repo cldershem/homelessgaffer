@@ -14,7 +14,7 @@ See TOPMATTER_.
 INSTALLATION
 ============
 
-- prereqs `git`, `python-pip`, `mongodb`
+- prereqs ``git``, ``python-pip``, ``mongodb``
 
 .. code:: sh
 
@@ -24,11 +24,11 @@ INSTALLATION
   mv homelessgaffer.git/hooks homelessgaffer.git/hooks.bak
   ln -s /var/www/homelessgaffer.com/.githooks ./homelessgaffer.git/hooks
 
-- `/var/www/homelessgaffer.com` must be owned by user, add write to group?
-- if needed set `baseDir` in `homelessgaffer.git/hooks/post-receive`
-- edit `/etc/sudoers` to add
+- ``/var/www/homelessgaffer.com`` must be owned by user, add write to group?
+- if needed set ``baseDir`` in ``homelessgaffer.git/hooks/post-receive``
+- edit ``/etc/sudoers`` to add
 
-.. code::
+.. code:: sh
 
   cldershem ALL= NOPASSWD: /usr/sbin/service nginx \*
   cldershem ALL= NOPASSWD: /usr/sbin/service uwsgi \*
@@ -81,23 +81,23 @@ CHANGELOG
 =========
 
 - moved all issues/requests/etc to github issue tracker
-- manage backup_db backs up and zips locally (not remotely)
-- create_admin works with recaptcha properly
-- create_admin works with recaptcha in ``app.forms`` commented out.
-- moved :code:`get_activation_link` and the like to staticmethods under User
+- ``manage backup_db`` backs up and zips locally (not remotely)
+- ``create_admin`` works with recaptcha properly
+- ``create_admin`` works with recaptcha in ``app.forms`` commented out.
+- moved ``get_activation_link`` and the like to staticmethods under User
 - added google analytics
 - updated githooks to work with virtualenvwrapper
 - using virtualenvwrapper
-- replace `run.py` with `python manage.py run`
-- begin work on manage.py
-- change `app.models.Unity.get_unique()` to `app.models.Unity.get()`
-- bug fix: title 'page' when reloading page from submission error
-- remove <strong> from page numbers
+- replace ``run.py`` with ``python manage.py run``
+- begin work on ``manage.py``
+- change ``app.models.Unity.get_unique()`` to ``app.models.Unity.get()``
+- bug fix: title ``page`` when reloading page from submission error
+- remove ``<strong>`` from page numbers
 - abstracted db calls out
 
-  - instead of `User.objects.get(tag='taco')` use `User.find()`
+  - instead of ``User.objects.get(tag='taco')`` use ``User.find()``
 
-- add secrets.py.example
+- add ``secrets.py.example``
 - add docstrings for a lot of things
 - draft mode for new pages and posts working
 
@@ -105,8 +105,8 @@ CHANGELOG
   - hg.com/page/newpagetitle/draft (uses new/edit template)
 
 - begin work on new navbar
-- disqus implemented..
-- add DEBUG back to config
+- disqus implemented.
+- add ``DEBUG`` back to config
 - add testing disqus db
 - hashed password reset link oldpwd has inside of payload
 - remove google and facebook login that was never finished
@@ -115,64 +115,64 @@ CHANGELOG
   - added oldpwdhash to payload
 
 - fix bug where login wouldn't work with extra whitespace (common on phones)
-- update flask-pagedown
+- update ``flask-pagedown``
 - commented out blog and page
-- add unity.summary
+- add ``unity.summary``
 - begin work on updated resume
 - githook fixed
-- fix bug where unity.tags and unity.sources show up when empty
+- fix bug where ``unity.tags`` and ``unity.sources`` show up when empty
 - fix admin pages not having authentication
 
   - only admin can login
 
 - fix static html file page
-- renamed "page" to "pageTitle"
-- add pageTitle to title bar
-- fix Sources as TagListField
+- renamed ``page`` to ``pageTitle``
+- add ``pageTitle`` to title bar
+- fix ``Sources`` as ``TagListField``
 - fixed unity/edit tags is populated with "[]"
 - fix edit post error where slug would be duplicate
-- add custom TagListField
+- add custom ``TagListField``
 - removed ckeditor
 - Unity working.
-- fixed "if server: debug=False"
+- fixed ``if server: debug=False``
 
-  - DEBUG flag now set in app/__init__.py
+  - ``DEBUG`` flag now set in ``app/__init__.py``
 
 - sidebar block added to base template
 - add markdown support
 
   - add pagedown editor with preview
   - remove ckeditor from templates
-  - add [[wikilink]] support
+  - add ``[[wikilink]]`` support
 
 - made forms into a macro
 - disabled user registration until needed
-- fixed BASE-DIR in pre hook
+- fixed ``BASE-DIR`` in pre hook
 - finished user blueprint
 - finished blog blueprint
 - finished Page Blueprint
 - fixed listpages
 - Page Blueprint add
-- currentPage navButton works again
-- added anon-required decorator
+- ``currentPage`` ``navButton`` works again
+- added ``anon-required`` decorator
 - added forgot password
 - user confirm email uses token
 - user can only login after confirmation
 - added confirmation email
-- flask-mail is async
-- flask-mail setup
-- added constants.py
-- dateTimeNow deprecated, DATE-TIME-NOW replaces (underscores not hyphens)
+- ``flask-mail`` is async
+- ``flask-mail`` setup
+- added ``constants.py``
+- dateTimeNow deprecated, ``DATE_TIME_NOW`` replaces
 - git hook downloads js libraries
 - git hook restarts nginx, uwsgi PROPERLY!!!!!!
 - rewrote git hooks in python, added flake8
 - added githooks to repo and created working symlinks
 - githook only runs pip when changes
-- added post-receive githook for pip install -r requirements.txt
+- added post-receive githook for ``pip install -r requirements.txt``
 - added pre-commit githook for pip freeze
-- added secrets.py
+- added ``secrets.py``
 - added recaptcha
-- set up bcrypt
+- set up ``bcrypt``
 - fixed vim on hg.com
 - changed all times to utc
 - no page number if only one page
