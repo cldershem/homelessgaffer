@@ -59,14 +59,16 @@ INSTALLATION
 TODO
 ====
 
-User issue tracker.
+User issue_tracker_.
+
+.. _issue_tracker: https://github.com/cldershem/homelessgaffer/issues
 
 ISSUES
 ======
 
-Tracked at issues_.
+Tracked at issue_tracker_.
 
-.. _issues: https://github.com/cldershem/homelessgaffer/issues
+.. _issue_tracker: https://github.com/cldershem/homelessgaffer/issues
 
 CHANGELOG
 =========
