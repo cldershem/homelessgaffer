@@ -14,7 +14,7 @@ See TOPMATTER_.
 INSTALLATION
 ============
 
-- prereqs on `git`, `python-pip`
+- prereqs `git`, `python-pip`, `mongodb`
 
 .. code:: sh
 
@@ -49,6 +49,13 @@ INSTALLATION
   workon hg
   pip install -r requirements.txt
 
+- create admin user
+
+.. code:: sh
+
+  cd /var/www/homelessgaffer.com
+  python manage.py create_admin
+
 - run dev server
 
 .. code:: sh
@@ -66,9 +73,9 @@ Use `issue tracker`_.
 ISSUES
 ======
 
-Tracked at issue_tracker_.
+Tracked at `issue tracker`_.
 
-.. _issue_tracker: https://github.com/cldershem/homelessgaffer/issues
+.. _issue tracker: https://github.com/cldershem/homelessgaffer/issues
 
 CHANGELOG
 =========
@@ -76,8 +83,8 @@ CHANGELOG
 - moved all issues/requests/etc to github issue tracker
 - manage backup_db backs up and zips locally (not remotely)
 - create_admin works with recaptcha properly
-- create_admin works with recaptcha in `app.forms` commented out.
-- moved `get_activation_link` and the like to staticmethods under User
+- create_admin works with recaptcha in ``app.forms`` commented out.
+- moved :code:`get_activation_link` and the like to staticmethods under User
 - added google analytics
 - updated githooks to work with virtualenvwrapper
 - using virtualenvwrapper
