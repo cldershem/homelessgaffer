@@ -59,9 +59,9 @@ INSTALLATION
 TODO
 ====
 
-Use issue_tracker_.
+Use `issue tracker`_.
 
-.. _issue_tracker: https://github.com/cldershem/homelessgaffer/issues
+.. _issue tracker: https://github.com/cldershem/homelessgaffer/issues
 
 ISSUES
 ======
