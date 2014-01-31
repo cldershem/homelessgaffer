@@ -114,6 +114,20 @@ def backup_db():
         tar.add(source_dir)
     print('Backup zipped: {}.'.format(tarname))
 
+    copy_db_backup(tarname)
+
+
+def copy_db_backup(tarname):
+    """Copies db backup to remote location."""
+    # import hashlib
+    # import tarfile
+
+    # hash(tarname)
+    # ssh
+    # check hash?
+    # return "success"
+    pass
+
 
 @manager.command
 def restore_db():
