@@ -59,7 +59,7 @@ INSTALLATION
 TODO
 ====
 
-User issue_tracker_.
+Use issue_tracker_.
 
 .. _issue_tracker: https://github.com/cldershem/homelessgaffer/issues
 
